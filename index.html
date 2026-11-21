@@ -1,0 +1,2587 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; script-src &#x27;sha256-XBLiO1v3vspzITOYf4pTLfmXquTOb2ZF5nBnpPi8LyI=&#x27;; style-src &#x27;sha256-Vj76xRdUmAhIst42A1b/LlAg9MN5+KFCaTkGvb5z/qg=&#x27;; img-src data:; connect-src &#x27;none&#x27;; font-src &#x27;none&#x27;; media-src &#x27;none&#x27;; object-src &#x27;none&#x27;; frame-src &#x27;none&#x27;; worker-src &#x27;none&#x27;; manifest-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;; require-trusted-types-for &#x27;script&#x27;">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="成大 EMBA 商業個案分析與寫作：AI 說故事工作坊的課堂平台。">
+<title>個案說故事實驗室</title>
+<style>/* Layout: a working desk — sticky phase stepper on top, one phase per view, panels stacked in reading order.
+   Palette follows the course deck (NCKU blue, seal red, canvas gold). System CJK fonts only: works offline. */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface-2: #eef2f7;
+  --ink: #14243a;
+  --muted: #566577;
+  --line: #d6dde6;
+  --blue: #004f91;
+  --blue-ink: #ffffff;
+  --blue-soft: #e5eef7;
+  --red: #b5222a;
+  --red-soft: #fbe8e9;
+  --gold: #8a6a1c;
+  --gold-line: #c9a54a;
+  --gold-soft: #f7efd6;
+  --ok: #1d7347;
+  --ok-soft: #e3f2ea;
+  --warn: #8a5d00;
+  --warn-soft: #fff3d1;
+  --focus: #2b7de9;
+  --shadow: 0 1px 2px rgba(20, 36, 58, .06), 0 6px 20px rgba(20, 36, 58, .05);
+  --font-ui: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Heiti TC", "Source Han Sans TC", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-num: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  --radius: 12px;
+  --on-gold: #2a2006;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1520; --surface: #142030; --surface-2: #1a2a3d; --ink: #e5ebf2; --muted: #9babbd; --line: #2a3b50;
+    --blue: #79b0e3; --blue-ink: #0d1520; --blue-soft: #18304a; --red: #f08a8f; --red-soft: #3a1d22;
+    --gold: #dcbc6a; --gold-line: #b8963f; --gold-soft: #2b2516; --ok: #67c995; --ok-soft: #14302a;
+    --warn: #e6b94d; --warn-soft: #32290f; --focus: #7fb4ff; --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1520; --surface: #142030; --surface-2: #1a2a3d; --ink: #e5ebf2; --muted: #9babbd; --line: #2a3b50;
+  --blue: #79b0e3; --blue-ink: #0d1520; --blue-soft: #18304a; --red: #f08a8f; --red-soft: #3a1d22;
+  --gold: #dcbc6a; --gold-line: #b8963f; --gold-soft: #2b2516; --ok: #67c995; --ok-soft: #14302a;
+  --warn: #e6b94d; --warn-soft: #32290f; --focus: #7fb4ff; --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-ui); font-size: 16px; line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); }
+a { color: var(--blue); text-underline-offset: .2em; }
+::selection { background: var(--blue-soft); color: var(--ink); }
+input, textarea, select { caret-color: var(--blue); }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--blue); }
+html { scrollbar-color: var(--line) transparent; }
+.ico { width: 1.05em; height: 1.05em; flex: none; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.15em; }
+h1, h2, h3 { line-height: 1.3; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem); font-weight: 800; letter-spacing: .01em; }
+h2 { font-size: 1.15rem; font-weight: 700; display: flex; align-items: baseline; gap: .55rem; flex-wrap: wrap; }
+h2 small { font-size: .8rem; font-weight: 500; color: var(--muted); }
+h3 { font-size: 1rem; }
+p { margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--blue); color: var(--blue-ink); padding: .5rem 1rem; z-index: 50; }
+.skip:focus { left: 16px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding-block: .55rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.brand { display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.brand-mark {
+  display: inline-grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: 8px;
+  background: var(--blue); color: var(--blue-ink); font-weight: 800; font-size: .78rem; letter-spacing: .05em;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.brand-text strong { font-size: 1rem; }
+.brand-sub { font-size: .75rem; color: var(--muted); }
+.steps { display: flex; gap: .25rem; flex-wrap: wrap; flex: 1 1 auto; justify-content: center; }
+.step {
+  display: inline-flex; align-items: center; gap: .35rem; padding: .35rem .7rem; border-radius: 999px;
+  color: var(--ink); text-decoration: none; font-size: .9rem; border: 1px solid transparent;
+}
+.step:hover { background: var(--surface-2); }
+.step.active { background: var(--blue); color: var(--blue-ink); }
+.step .ico { display: none; color: var(--ok); }
+.step.done .ico { display: inline-block; }
+.step.active.done .ico { color: var(--blue-ink); }
+.step-no { font-weight: 700; }
+.topbar-side { display: flex; align-items: center; gap: .6rem; font-size: .85rem; }
+.who-chip { background: var(--gold-soft); color: var(--gold); border: 1px solid var(--gold-line); border-radius: 999px; padding: .15rem .6rem; font-size: .8rem; white-space: nowrap; max-width: 18rem; overflow: hidden; text-overflow: ellipsis; }
+.side-link { color: var(--muted); text-decoration: none; }
+.side-link:hover, .side-link.active { color: var(--blue); text-decoration: underline; }
+
+/* ---------- page ---------- */
+.wrap {
+  max-width: 1180px; margin: 0 auto; padding-block: 1.5rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.view { display: flex; flex-direction: column; gap: 1.1rem; }
+.hero, .phase-head { display: flex; flex-direction: column; gap: .5rem; padding-block: .5rem .25rem; max-width: 46rem; }
+.phase-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.meta-chip { border: 1px solid var(--line); border-radius: 999px; padding: .05rem .6rem; color: var(--ink); background: var(--surface); font-size: .85rem; }
+.meta-time { font-weight: 600; color: var(--blue); }
+.lede { color: var(--muted); font-size: 1.02rem; }
+.panel {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .8rem; min-width: 0;
+}
+.panel > p, .panel .hint, .panel > .form-row > .hint { max-width: 46em; }
+.num {
+  display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; border-radius: 6px;
+  background: var(--blue-soft); color: var(--blue); font-size: .85rem; font-weight: 800;
+}
+.hint { color: var(--muted); font-size: .88rem; }
+.prose { max-width: 46rem; gap: .9rem; }
+.privacy-strip { font-size: .85rem; color: var(--muted); }
+
+/* ---------- forms ---------- */
+label { font-weight: 600; font-size: .92rem; }
+.form-row { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.form-row.two { flex-direction: row; gap: 1rem; flex-wrap: wrap; }
+.form-row.two > div { flex: 1 1 12rem; display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: .8rem 1rem; }
+.form-grid > div { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+input[type="text"], select, textarea {
+  width: 100%; font: inherit; font-size: .95rem; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 8px; padding: .5rem .65rem; min-width: 0;
+}
+textarea { resize: vertical; line-height: 1.6; }
+textarea.prompt { background: var(--surface-2); font-size: .85rem; color: var(--muted); }
+.counter { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; align-self: flex-end; }
+.checks { display: flex; flex-direction: column; gap: .45rem; border: 0; padding: 0; margin: 0; }
+.checks label { font-weight: 500; display: flex; gap: .5rem; align-items: flex-start; }
+.checks input { margin-top: .35rem; flex: none; width: 1.05rem; height: 1.05rem; }
+.checks.inline { flex-direction: row; flex-wrap: wrap; gap: .4rem 1rem; }
+.checks.inline legend { font-weight: 600; font-size: .92rem; margin-bottom: .3rem; width: 100%; }
+.checks .ack { color: var(--warn); }
+
+/* ---------- buttons ---------- */
+.btn-row { display: flex; gap: .55rem; flex-wrap: wrap; align-items: center; }
+.btn {
+  font: inherit; font-size: .92rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center;
+  padding: .5rem .95rem; border-radius: 8px; border: 1px solid var(--blue); background: var(--surface);
+  color: var(--blue); cursor: pointer; text-decoration: none; min-height: 2.5rem;
+}
+.btn:hover { background: var(--blue-soft); }
+.btn.primary { background: var(--blue); color: var(--blue-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { border-color: var(--line); color: var(--ink); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; filter: none; }
+.danger { border-top: 1px dashed var(--line); padding-top: .8rem; display: flex; flex-direction: column; gap: .5rem; }
+.danger-btn { border-color: var(--red); color: var(--red); }
+.danger-btn.solid { background: var(--red); color: var(--surface); }
+
+/* ---------- flow & canvas ---------- */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .8rem; }
+.flow li { display: flex; gap: .7rem; border-top: 3px solid var(--line); padding: .8rem .2rem 0; min-width: 0; }
+.flow li:first-child { border-top-color: var(--blue); }
+.flow-no { font-size: 1.6rem; font-weight: 800; color: var(--blue); line-height: 1; }
+.flow li div { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.flow li span { font-size: .8rem; color: var(--gold); font-weight: 600; }
+.flow li p { font-size: .88rem; color: var(--muted); }
+.setup-panel { max-width: 46rem; }
+
+.canvas-grid {
+  display: grid; gap: .7rem;
+  grid-template-columns: 1fr 1.25fr 1fr;
+  grid-template-areas: "c1 c3 c4" "c2 c3 c4" "c2 c3 c5";
+}
+.cell { display: flex; flex-direction: column; gap: .3rem; border: 2px solid var(--ink); border-radius: 6px; padding: .6rem; min-width: 0; background: var(--surface); }
+.cell.c1 { grid-area: c1; } .cell.c2 { grid-area: c2; border-width: 1px; } .cell.c3 { grid-area: c3; }
+.cell.c4 { grid-area: c4; border-width: 1px; } .cell.c5 { grid-area: c5; background: var(--gold-soft); border: 1px solid var(--gold-line); }
+.cell label { color: var(--blue); font-size: 1rem; }
+.cell label b { display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; background: var(--blue); color: var(--blue-ink); border-radius: 3px; font-size: .8rem; margin-right: .3rem; }
+.cell .q { font-size: .8rem; color: var(--muted); }
+.cell.c5 .q { color: var(--gold); }
+.cell textarea { flex: 1; }
+@media (max-width: 760px) {
+  .canvas-grid { grid-template-columns: 1fr; grid-template-areas: "c1" "c2" "c3" "c4" "c5"; }
+}
+
+/* ---------- scan, chips, report ---------- */
+.scan { display: flex; flex-direction: column; gap: .4rem; }
+.flag { display: flex; gap: .5rem; align-items: flex-start; padding: .45rem .65rem; border-radius: 8px; font-size: .9rem; min-width: 0; overflow-wrap: anywhere; }
+.flag.bad { background: var(--red-soft); color: var(--red); }
+.flag.warn { background: var(--warn-soft); color: var(--warn); }
+.flag.ok { background: var(--ok-soft); color: var(--ok); }
+.flag.info { background: var(--blue-soft); color: var(--blue); }
+.flag b { flex: none; }
+.gate-status { font-weight: 700; }
+.gate-status.ok { color: var(--ok); }
+.gate-status.no { color: var(--red); }
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+.chip { font-size: .8rem; padding: .15rem .55rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); display: inline-flex; align-items: center; gap: .3rem; }
+.chip button { display: inline-flex; align-items: center; border-radius: 999px; }
+.chip button:hover { background: var(--line); }
+.chip.ok { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+.chip.no { border-color: var(--red); color: var(--red); background: var(--red-soft); }
+.chip button { font: inherit; border: 0; background: transparent; color: inherit; cursor: pointer; padding: 0 .1rem; }
+.msg { font-size: .9rem; color: var(--muted); }
+.msg.err { color: var(--red); }
+
+.report { display: flex; flex-direction: column; gap: .8rem; }
+.report.compact { gap: .5rem; }
+.verdict { display: flex; align-items: center; gap: .5rem; font-weight: 700; font-size: 1rem; }
+.verdict.ok { color: var(--ok); } .verdict.warn { color: var(--warn); } .verdict.bad { color: var(--red); }
+.checklist { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.checklist th, .checklist td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.checklist th { color: var(--muted); font-weight: 600; font-size: .8rem; }
+.checklist td.val { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+.checklist td.goal { color: var(--muted); }
+.pill { display: inline-flex; align-items: center; gap: .25rem; border-radius: 999px; padding: .05rem .5rem; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); } .pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--red-soft); color: var(--red); } .pill.info { background: var(--blue-soft); color: var(--blue); }
+@media (max-width: 560px) { .checklist td.goal { display: none; } .checklist th.goal { display: none; } }
+.ratio { display: flex; flex-direction: column; gap: .3rem; }
+.ratio-bar { position: relative; display: flex; height: 1.6rem; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
+.ratio-bar span { display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; color: var(--surface); white-space: nowrap; overflow: hidden; }
+.seg-setup { background: var(--blue); } .seg-problem { background: var(--red); } .ratio-bar span.seg-decision { background: var(--gold-line); color: var(--on-gold); }
+.ratio-target { position: relative; height: .9rem; }
+.ratio-target i { position: absolute; top: 0; width: 2px; height: .9rem; background: var(--ink); }
+.ratio-legend { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.numlist { max-height: 12rem; overflow: auto; border: 1px solid var(--line); border-radius: 8px; padding: .4rem .6rem; font-size: .85rem; display: flex; flex-direction: column; gap: .25rem; }
+.numlist div { overflow-wrap: anywhere; }
+.numlist mark { background: var(--red-soft); color: var(--red); padding: 0 .15rem; border-radius: 3px; }
+.note-box { background: var(--gold-soft); border-radius: 10px; padding: .6rem .8rem; font-size: .9rem; display: flex; flex-direction: column; gap: .2rem; overflow-wrap: anywhere; }
+
+/* ---------- lens card ---------- */
+.lens-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+@media (max-width: 860px) { .lens-layout { grid-template-columns: 1fr; } }
+.lens-card {
+  background: var(--surface); border: 2px solid var(--blue); border-radius: 14px; padding: 1.2rem 1.3rem;
+  display: flex; flex-direction: column; gap: .6rem; min-width: 0;
+}
+.lens-top { display: flex; align-items: center; gap: .8rem; }
+.lens-no { font-size: 2.6rem; font-weight: 800; color: var(--blue); line-height: 1; font-variant-numeric: tabular-nums; }
+.lens-name { display: flex; flex-direction: column; }
+.lens-name strong { font-size: 1.35rem; }
+.lens-name span { font-size: .8rem; color: var(--red); font-weight: 700; letter-spacing: .05em; }
+.lens-card dl { margin: 0; display: grid; grid-template-columns: 5.5rem 1fr; gap: .45rem .8rem; }
+.lens-card dt { font-weight: 700; color: var(--blue); font-size: .9rem; }
+.lens-card dd { margin: 0; font-size: .93rem; min-width: 0; }
+.lens-check { background: var(--gold-soft); color: var(--ink); padding: .6rem .85rem; border-radius: 8px; font-size: .9rem; }
+.lens-check b { color: var(--gold); }
+.lens-mini { font-size: .92rem; background: var(--blue-soft); border-radius: 8px; padding: .6rem .8rem; }
+@media (max-width: 480px) { .lens-card dl { grid-template-columns: 1fr; } }
+
+/* ---------- compare table ---------- */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+.compare { border-collapse: collapse; width: 100%; min-width: 40rem; font-size: .88rem; }
+.compare th, .compare td { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: .6rem; vertical-align: top; text-align: left; }
+.compare thead th { background: var(--surface-2); position: sticky; top: 0; }
+.compare th.rowh { width: 6.5rem; background: var(--surface-2); color: var(--blue); }
+.compare td { min-width: 14rem; max-width: 22rem; }
+.compare .pick { display: flex; gap: .35rem; align-items: center; margin-top: .4rem; font-weight: 600; color: var(--blue); font-size: .82rem; }
+.compare td.win { background: var(--ok-soft); }
+.compare .vhead { display: flex; flex-direction: column; gap: .1rem; }
+.compare .vhead span { color: var(--muted); font-weight: 500; font-size: .78rem; }
+.compare .excerpt { white-space: pre-wrap; overflow-wrap: anywhere; }
+.compare details summary { cursor: pointer; color: var(--blue); font-size: .82rem; }
+.compare details div { white-space: pre-wrap; max-height: 24rem; overflow: auto; margin-top: .4rem; overflow-wrap: anywhere; }
+
+.sheet #sheet-body { display: flex; flex-direction: column; gap: .5rem; font-size: .92rem; }
+.sheet #sheet-body dl { margin: 0; display: grid; grid-template-columns: 8rem 1fr; gap: .35rem .8rem; }
+.sheet #sheet-body dt { font-weight: 700; color: var(--blue); }
+.sheet #sheet-body dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+@media (max-width: 480px) { .sheet #sheet-body dl { grid-template-columns: 1fr; } }
+
+/* ---------- teacher clock ---------- */
+.clock-wrap { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 1.2rem; }
+@media (max-width: 900px) { .clock-wrap { grid-template-columns: 1fr; } }
+.clock-main { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; display: flex; flex-direction: column; gap: .7rem; min-width: 0; }
+.clock-phase { font-size: clamp(1.3rem, 1rem + 1.6vw, 2.2rem); font-weight: 800; color: var(--blue); }
+.clock-time { font-family: var(--font-ui); font-size: clamp(4rem, 2rem + 10vw, 10rem); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.clock-time.over { color: var(--red); }
+.clock-bar { height: .7rem; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.clock-bar span { display: block; height: 100%; width: 0; background: var(--blue); }
+.clock-screen { font-size: clamp(1rem, .9rem + .7vw, 1.5rem); }
+.clock-next { color: var(--muted); }
+.clock-side { display: flex; flex-direction: column; gap: .7rem; min-width: 0; }
+.qr { background: #ffffff; padding: .7rem; border-radius: 10px; width: min(100%, 15rem); border: 1px solid var(--line); }
+.qr svg { display: block; width: 100%; height: auto; }
+.qr-url { font-size: .9rem; font-weight: 600; overflow-wrap: anywhere; color: var(--blue); }
+.agenda { margin: 0; padding-left: 1.2rem; font-size: .88rem; display: flex; flex-direction: column; gap: .15rem; font-variant-numeric: tabular-nums; }
+.agenda li.now { color: var(--red); font-weight: 700; }
+.agenda li.done { color: var(--muted); text-decoration: line-through; }
+details summary { cursor: pointer; font-weight: 600; }
+details ol { font-size: .88rem; padding-left: 1.2rem; }
+.teacher:fullscreen { background: var(--bg); padding: 2rem; overflow: auto; }
+
+/* ---------- toast & modal ---------- */
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px)); z-index: 40;
+  background: var(--ink); color: var(--bg); padding: .6rem 1rem; border-radius: 8px; font-size: .92rem; box-shadow: var(--shadow); max-width: calc(100vw - 32px);
+}
+.modal { position: fixed; inset: 0; z-index: 45; background: rgba(10, 18, 28, .55); display: grid; place-items: center; padding: 16px; }
+.modal-box { background: var(--surface); border-radius: 12px; padding: 1.2rem; width: min(40rem, 100%); display: flex; flex-direction: column; gap: .7rem; }
+kbd { font-family: var(--font-num); font-size: .8rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 .3rem; background: var(--surface-2); }
+
+@media (max-width: 640px) {
+  .steps { order: 3; flex-basis: 100%; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+  .step { flex: none; }
+  .topbar-side { margin-left: auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .clock-bar span { transition: width .9s linear; }
+  .step, .btn { transition: background-color .15s ease; }
+}
+@media print {
+  body * { visibility: hidden; }
+  #print-sheet, #print-sheet * { visibility: visible; }
+  #print-sheet { position: absolute; left: 0; top: 0; width: 100%; border: 0; box-shadow: none; }
+  .no-print { display: none !important; }
+  .topbar, body::before { display: none; }
+}
+
+/* ---------- alias rows ---------- */
+.alias-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 4.2rem; gap: .45rem; font-size: .8rem; font-weight: 600; color: var(--muted); }
+.alias-rows { display: flex; flex-direction: column; gap: .45rem; }
+.alias-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 4.2rem; gap: .45rem; align-items: center; }
+@media (max-width: 520px) {
+  .alias-row, .alias-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .alias-head span:nth-child(3) { display: none; }
+  .alias-row .btn { grid-column: 1 / -1; min-height: 2.2rem; }
+}
+
+.next-row { justify-content: flex-end; }
+.table-scroll.plain { border: 0; border-radius: 0; }
+.checklist { max-width: 56rem; }
+.checklist td:first-child { white-space: nowrap; }
+@media (max-width: 560px) { .checklist td.val { white-space: normal; } .checklist th, .checklist td { padding: .4rem .35rem; } }
+
+/* ---------- fallbacks ---------- */
+.js-fallback { margin: 0; padding: .7rem max(16px, env(safe-area-inset-left, 0px)); background: var(--red-soft); color: var(--red); font-weight: 700; text-align: center; }
+.flag, .note-box, .compare td, .numlist div, .sheet dd, .qr-url { word-break: break-word; }
+@media (max-width: 400px) { .who-chip { max-width: 52vw; } .topbar-side { gap: .4rem; } }
+
+.form-grid > .wide { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<p class="js-fallback" id="js-fallback">如果這行字一直沒有消失，代表這個瀏覽器無法執行平台。請改用 Chrome 或 Edge 開啟同一個網址，或下載 Moodle 上的離線版。</p>
+<noscript><p class="js-fallback">這個平台需要 JavaScript。請改用 Chrome 或 Edge 開啟。</p></noscript>
+<a class="skip" href="#main">跳到主要內容</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">五格</span>
+      <div class="brand-text">
+        <strong>個案說故事實驗室</strong>
+        <span class="brand-sub" id="session-line"></span>
+      </div>
+    </div>
+    <nav class="steps" aria-label="課堂流程">
+      <a href="#setup" data-view="setup" class="step"><span class="step-no">0</span><span class="step-name">準備</span></a>
+      <a href="#p1" data-view="p1" class="step"><span class="step-no">①</span><span class="step-name">素材卡</span></a>
+      <a href="#p2" data-view="p2" class="step"><span class="step-no">②</span><span class="step-name">鏡頭寫作</span></a>
+      <a href="#p3" data-view="p3" class="step"><span class="step-no">③</span><span class="step-name">交叉審查</span></a>
+      <a href="#p4" data-view="p4" class="step"><span class="step-no">④</span><span class="step-name">比稿收斂</span></a>
+    </nav>
+    <div class="topbar-side">
+      <span class="who-chip" id="who-chip">尚未設定小組</span>
+      <a href="#teacher" data-view="teacher" class="side-link">教師</a>
+      <a href="#about" data-view="about" class="side-link">隱私</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+<!-- ================= 0 準備 ================= -->
+<section class="view" id="view-setup" data-title="準備">
+  <div class="hero">
+    <h1 id="hero-title">把畫布變成有情節的故事</h1>
+    <p class="phase-meta" id="hero-week"></p>
+    <p class="lede">同一組事實，換一個鏡頭，就是另一個故事、另一種理論。今天每組用自己的論文個案當原料：先收斂成一張素材卡，再由每位組員用不同鏡頭各寫一版，交叉審查後比稿，找出本文最該補強的地方。</p>
+  </div>
+
+  <ol class="flow" aria-label="四段流程">
+    <li><span class="flow-no">①</span><div><strong>素材卡</strong><span>全組一台 · 40 分</span><p>五格畫布＋本文片段 → AI 檢核與追問 → 全組共用的素材卡。</p></div></li>
+    <li><span class="flow-no">②</span><div><strong>鏡頭寫作</strong><span>每人一台 · 40 分</span><p>每人一張不同的鏡頭卡，各寫一版約 5,000 字短個案。</p></div></li>
+    <li><span class="flow-no">③</span><div><strong>交叉審查</strong><span>每人一台 · 30 分</span><p>審下一號組員的版本，不審自己的。八項標準＋最值得借用的一段。</p></div></li>
+    <li><span class="flow-no">④</span><div><strong>比稿收斂</strong><span>全組一台 · 35 分</span><p>比開場、轉折、結尾，再寫理論一句話草稿 → 本文修訂清單＋教學指引大綱 v0。</p></div></li>
+  </ol>
+
+  <div class="panel setup-panel">
+    <h2>設定你的小組</h2>
+    <div class="form-row">
+      <label for="in-group">組別</label>
+      <input id="in-group" type="text" maxlength="40" placeholder="例如：第 3 組" autocomplete="off">
+    </div>
+    <div class="form-row two">
+      <div>
+        <label for="in-size">組員人數</label>
+        <select id="in-size"></select>
+      </div>
+      <div>
+        <label for="in-me">我是第幾號組員</label>
+        <select id="in-me"></select>
+      </div>
+    </div>
+    <p class="hint">組內先約定編號（例如照座位）。編號決定你在 ② 拿到哪一張鏡頭卡、在 ③ 審誰的版本。1 號建議由 ① 的主控者擔任。</p>
+    <div id="setup-lens-preview" class="lens-mini" aria-live="polite"></div>
+    <div class="btn-row">
+      <a class="btn primary" href="#p1">開始 ① 素材卡</a>
+      <button type="button" class="btn ghost" id="btn-demo">載入示範個案（LINE）</button>
+    </div>
+    <p class="hint" id="demo-note" hidden></p>
+  </div>
+
+  <p class="privacy-strip">這個網頁沒有伺服器，也不連網上傳任何東西。你輸入的內容只存在這台電腦的瀏覽器裡。<a href="#about">隱私說明與清除資料</a></p>
+</section>
+
+<!-- ================= ① 素材卡 ================= -->
+<section class="view" id="view-p1" data-title="① 素材卡" hidden>
+  <div class="phase-head">
+    <h1>畫布 → 素材卡</h1>
+    <p class="phase-meta"><span class="meta-chip">全組一台</span><span class="meta-chip">40 分鐘</span><span class="meta-time">14:45–15:25</span></p>
+    <p class="flag info" id="public-note" hidden>目前載入的是公開示範個案（LINE），prompt 會告訴 AI 真名可以保留。換成你們自己的個案時，修改「這件事」欄位就會自動取消這個設定。</p>
+    <p class="lede">1 號（組長、個案主人）主控這台電腦。其他人的分工，對準自己下一段要用的鏡頭：2 號從理論張力清單選定鏡頭 6 要用的一組（避開素材卡原有的張力）；3 號寫下反對者最強的一句理由，並兼任化名糾察，1 號每次送出前先給他看一眼；4 號寫下期限與再拖下去的代價；5 號把候選轉折事件排序。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">1</span>化名對照表 <small>只存在這台電腦，永遠不會放進 prompt</small></h2>
+    <p class="hint">左欄填真名，右欄填化名。平台會用它檢查畫布、片段與之後每一次複製的內容有沒有漏改的真名，也可以一鍵替換。對照表只保留到關閉這個分頁為止，不會存進瀏覽器的長期儲存。</p>
+    <div class="alias-head" aria-hidden="true"><span>真名</span><span>化名</span></div>
+    <div id="alias-rows" class="alias-rows"></div>
+    <div class="btn-row">
+      <button type="button" class="btn ghost" id="btn-alias-add">新增一列</button>
+      <button type="button" class="btn" id="btn-alias-apply">把畫布與片段中的真名換成化名</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">2</span>五格畫布＋本文片段</h2>
+    <div class="form-row">
+      <label for="cv-oneliner">這件事（一句話：誰，遇到了什麼事。寫角色，不寫真名）</label>
+      <textarea id="cv-oneliner" rows="2" maxlength="8000"></textarea>
+    </div>
+    <div class="form-row two">
+      <div><label for="cv-group">組別</label><input id="cv-group" type="text" maxlength="200" autocomplete="off"></div>
+      <div><label for="cv-industry">產業</label><input id="cv-industry" type="text" maxlength="200" autocomplete="off"></div>
+    </div>
+    <div class="canvas-grid">
+      <div class="cell c1"><label for="cv-g1"><b>1</b> 誰要做決定</label><span class="q">這個決定，最後是誰要負責？</span><textarea id="cv-g1" rows="4" maxlength="8000"></textarea></div>
+      <div class="cell c2"><label for="cv-g2"><b>2</b> 為什麼是現在</label><span class="q">期限或轉折事件。再拖下去會怎樣？</span><textarea id="cv-g2" rows="4" maxlength="8000"></textarea></div>
+      <div class="cell c3"><label for="cv-g3"><b>3</b> 難在哪裡</label><span class="q">他要決定什麼？為什麼沒有標準答案？</span><textarea id="cv-g3" rows="10" maxlength="8000"></textarea></div>
+      <div class="cell c4"><label for="cv-g4"><b>4</b> 誰有意見</label><span class="q">寫 2 到 3 個人：他是誰、要什麼、真正在意什麼</span><textarea id="cv-g4" rows="5" maxlength="8000"></textarea></div>
+      <div class="cell c5"><label for="cv-g5"><b>5</b> 別人能學到什麼</label><span class="q">三年後的新人讀到這件事，能學到什麼？</span><textarea id="cv-g5" rows="3" maxlength="8000"></textarea></div>
+    </div>
+    <div class="form-row">
+      <label for="cv-excerpts">本文片段（2–3 段，已匿名化，合計約 1,500–3,000 字）</label>
+      <textarea id="cv-excerpts" rows="8" maxlength="12000" placeholder="主角的關鍵場景、一場重要的會議或對話、一組關鍵數據（改為區間或相對比例）。"></textarea>
+      <span class="counter" id="cnt-excerpts"></span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">3</span>貼上 AI 前三問</h2>
+    <div id="scan-results" class="scan" aria-live="polite"></div>
+    <fieldset class="checks">
+      <legend class="sr-only">三問自我檢核</legend>
+      <label><input type="checkbox" id="gate-q1"> 報紙測試：這段文字若原封不動登上報紙，公司不會受損或提告。</label>
+      <label><input type="checkbox" id="gate-q2"> 內行人測試：就算同業內行人來讀，也認不出是哪家公司或哪位當事人。</label>
+      <label><input type="checkbox" id="gate-q3"> 機密測試：沒有未公開的財務數字、營業秘密或個人資料。</label>
+      <label class="ack" id="gate-ack-row" hidden><input type="checkbox" id="gate-ack"> 黃色提醒我們都看過了，確認可以保留。</label>
+    </fieldset>
+    <p class="gate-status" id="gate-status"></p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">4</span>Stage A′ prompt</h2>
+    <p class="hint">在 AI 桌面版開一個<strong>新對話</strong>（ChatGPT 建議用「暫時對話」），貼上，然後全組一起一題一題回答。時間不夠時回覆「直接出卡」。</p>
+    <div class="prompt-box">
+      <textarea id="pr-a" class="prompt" rows="8" readonly aria-label="Stage A′ prompt"></textarea>
+      <div class="btn-row"><button type="button" class="btn primary" id="btn-copy-a">複製 Stage A′ prompt</button></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">5</span>貼回 AI 給的素材卡</h2>
+    <textarea id="card-paste" rows="10" maxlength="60000" placeholder="把 AI 輸出的「個案素材卡」整張貼在這裡。"></textarea>
+    <div id="card-check" class="chips" aria-live="polite"></div>
+    <div class="btn-row">
+      <button type="button" class="btn primary" id="btn-share-card">複製素材卡，分享給全組</button>
+      <a class="btn ghost" href="#p2">前往 ② 鏡頭寫作</a>
+    </div>
+    <p class="hint">複製後貼到小組 LINE 群組。其他組員在自己的電腦打開 ②，把它貼進「全組共用的素材卡」欄位。</p>
+  </div>
+</section>
+
+<!-- ================= ② 鏡頭寫作 ================= -->
+<section class="view" id="view-p2" data-title="② 鏡頭寫作" hidden>
+  <div class="phase-head">
+    <h1>同一張素材卡，你的鏡頭</h1>
+    <p class="phase-meta"><span class="meta-chip">每人一台</span><span class="meta-chip">40 分鐘</span><span class="meta-time">15:25–16:05</span></p>
+    <p class="lede">先讀懂你的鏡頭卡，再產生 prompt。生成約 3 分鐘，細讀 10 分鐘，依平台體檢修一輪，最後匯出版本包傳給 1 號組員。</p>
+  </div>
+
+  <div class="lens-layout">
+    <article class="lens-card" id="lens-card" aria-live="polite"></article>
+    <div class="panel lens-controls">
+      <h2>鏡頭設定</h2>
+      <div class="form-row">
+        <label for="in-lens">鏡頭卡</label>
+        <select id="in-lens"></select>
+        <p class="hint" id="lens-assigned"></p>
+      </div>
+      <div class="form-row" id="tension-row">
+        <label for="in-tension">理論張力（鏡頭 6 使用）</label>
+        <select id="in-tension"></select>
+        <p class="hint" id="tension-info"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">1</span>全組共用的素材卡</h2>
+    <textarea id="card-in" rows="7" placeholder="貼上 1 號組員分享的素材卡（整段，包含 ===CSL-PACK 開頭與結尾的兩行也沒關係）。"></textarea>
+    <div id="card-in-check" class="chips" aria-live="polite"></div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">2</span>Stage B prompt</h2>
+    <p class="hint">開一個新對話貼上。若中途被截斷，按下方「複製接續指令」。</p>
+    <div class="prompt-box">
+      <textarea id="pr-b" class="prompt" rows="8" readonly aria-label="Stage B prompt"></textarea>
+      <div class="btn-row">
+        <button type="button" class="btn primary" id="btn-copy-b">複製 Stage B prompt</button>
+        <button type="button" class="btn ghost" id="btn-copy-continue">複製接續指令</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">3</span>貼回你的版本，看體檢</h2>
+    <textarea id="story" rows="12" maxlength="60000" placeholder="把 AI 寫好的全文（含【鏡頭註記】）貼在這裡。"></textarea>
+    <div id="story-report" class="report" aria-live="polite"></div>
+  </div>
+
+  <div class="panel" id="revise-panel">
+    <h2><span class="num">4</span>修一輪</h2>
+    <p class="hint">勾選要請 AI 修改的問題，也可以自己補一句。修改指令要貼在同一個對話裡。</p>
+    <div id="revise-list" class="checks"></div>
+    <div class="form-row">
+      <label for="revise-extra">我自己想改的地方（選填）</label>
+      <input id="revise-extra" type="text" maxlength="400" autocomplete="off" placeholder="例如：第三幕反對者的理由太弱，請補上他的真正顧慮。">
+    </div>
+    <div class="btn-row"><button type="button" class="btn" id="btn-copy-revise">複製修改指令</button></div>
+    <div class="form-row">
+      <label for="revise-in">貼回 AI 修改後的那一幕（含「起」「承」「轉」「合」小標）</label>
+      <textarea id="revise-in" rows="5" placeholder="AI 只會重寫被點名的那一幕。貼在這裡，平台會替換全文中對應的段落，其餘不動。"></textarea>
+    </div>
+    <div class="btn-row"><button type="button" class="btn" id="btn-splice">合併進全文</button></div>
+    <p class="msg" id="splice-msg" aria-live="polite"></p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">5</span>匯出版本包，傳給 1 號組員</h2>
+    <p class="hint">版本包是一段文字，包含你的鏡頭與全文。貼到小組 LINE 即可。LINE 單則訊息上限約 1 萬字，太長時平台會自動拆成兩段，請依序都傳。</p>
+    <div id="pack-buttons" class="btn-row"></div>
+    <div class="btn-row next-row"><a class="btn ghost" href="#p3">前往 ③ 交叉審查</a></div>
+  </div>
+</section>
+
+<!-- ================= ③ 交叉審查 ================= -->
+<section class="view" id="view-p3" data-title="③ 交叉審查" hidden>
+  <div class="phase-head">
+    <h1>審下一號組員的版本</h1>
+    <p class="phase-meta"><span class="meta-chip">每人一台</span><span class="meta-chip">30 分鐘</span><span class="meta-time">16:20–16:50</span></p>
+    <p class="lede" id="review-who"></p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">1</span>貼上要審的版本</h2>
+    <textarea id="rv-target" rows="8" placeholder="貼上組員傳來的版本包（或純文字全文）。"></textarea>
+    <div id="rv-target-info" class="report compact" aria-live="polite"></div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">2</span>先讀全文，寫下你自己的三句話</h2>
+    <p class="hint">先寫再看 AI，才不會被 AI 的判定帶著走。這三句話會跟著審查包進入 ④ 的 Stage D。</p>
+    <div class="form-row">
+      <label for="rv-three">我給作者的三句話</label>
+      <textarea id="rv-three" rows="5" maxlength="1500" placeholder="① 這版最值得留下的一個手法：……&#10;② 這張鏡頭卡測出我們本文哪一格或哪一章不夠：……&#10;③ 我讀到的兩股力量是＿＿ vs. ＿＿，在哪一場戲最清楚（或讀不出來）：……"></textarea>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">3</span>Stage C′ prompt</h2>
+    <p class="hint">平台已經把實測字數、比例與全組素材卡放進 prompt，AI 不必自己數字。開新對話貼上。</p>
+    <div class="prompt-box">
+      <textarea id="pr-c" class="prompt" rows="8" readonly aria-label="Stage C′ prompt"></textarea>
+      <div class="btn-row"><button type="button" class="btn primary" id="btn-copy-c">複製 Stage C′ prompt</button></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">4</span>審查工作單</h2>
+    <div class="form-row">
+      <label for="rv-ai">AI 的審查結果（選填，貼上存檔）</label>
+      <textarea id="rv-ai" rows="5" maxlength="60000"></textarea>
+    </div>
+    <fieldset class="checks inline" id="rv-failed">
+      <legend>未通過的項目</legend>
+    </fieldset>
+    <div class="form-row">
+      <label for="rv-borrow">最值得借用的一段（貼上原文或描述位置）</label>
+      <textarea id="rv-borrow" rows="3" maxlength="1500"></textarea>
+    </div>
+    <div class="btn-row"><button type="button" class="btn primary" id="btn-copy-review">複製審查包，傳給 1 號組員</button><a class="btn ghost" href="#p4">前往 ④ 比稿收斂</a></div>
+  </div>
+</section>
+
+<!-- ================= ④ 比稿收斂 ================= -->
+<section class="view" id="view-p4" data-title="④ 比稿收斂" hidden>
+  <div class="phase-head">
+    <h1>比三段，再寫理論一句話</h1>
+    <p class="phase-meta"><span class="meta-chip">全組一台</span><span class="meta-chip">35 分鐘</span><span class="meta-time">16:50–17:25</span></p>
+    <p class="lede">把組員的版本包與審查包都貼進來。開場、轉折、結尾每列由一人主持：先各自默選，數一二三同時比出版本號，再討論，個案主人最後發言。接著由 2 號主持，全組先寫出理論一句話草稿，再用 Stage D 收斂成本文修訂清單、理論句評析與教學指引大綱 v0。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">1</span>匯入版本包與審查包</h2>
+    <textarea id="cmp-import" rows="5" placeholder="可以一次貼上多份。"></textarea>
+    <div class="btn-row">
+      <button type="button" class="btn primary" id="btn-import">匯入版本包與審查包</button>
+      <button type="button" class="btn ghost" id="btn-import-mine">加入我自己的版本</button>
+      <button type="button" class="btn ghost" id="btn-import-myreview">加入我自己的審查</button>
+    </div>
+    <div id="import-msg" class="msg" aria-live="polite"></div>
+    <div id="version-chips" class="chips"></div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">2</span>並排比稿</h2>
+    <div class="table-scroll">
+      <table class="compare" id="compare-table"></table>
+    </div>
+    <p class="hint" id="compare-empty">還沒有版本。至少匯入兩份，才能比稿。</p>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">3</span>比稿結論</h2>
+    <div class="form-grid">
+      <div><label for="rs-open">開場選這版的理由</label><textarea id="rs-open" rows="2" maxlength="1000"></textarea></div>
+      <div><label for="rs-turn">轉折選這版的理由</label><textarea id="rs-turn" rows="2" maxlength="1000"></textarea></div>
+      <div><label for="rs-end">結尾選這版的理由</label><textarea id="rs-end" rows="2" maxlength="1000"></textarea></div>
+      <div class="wide"><label for="rs-tension">我們的理論一句話草稿（自己寫，不用 AI）</label><textarea id="rs-tension" rows="3" maxlength="1000" placeholder="本案透過〔主角〕在〔A〕與〔B〕之間的抉擇，讓學員體會〔理論張力〕。"></textarea></div>
+    </div>
+    <div class="form-row">
+      <label for="cmp-outline">論文個案本文目前的章節架構（請事先準備目錄）</label>
+      <textarea id="cmp-outline" rows="4" maxlength="4000" placeholder="例如：一、前言　二、公司背景　三、產業概況　四、關鍵事件　五、決策兩難……"></textarea>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">4</span>Stage D prompt</h2>
+    <div class="prompt-box">
+      <textarea id="pr-d" class="prompt" rows="8" readonly aria-label="Stage D prompt"></textarea>
+      <div class="btn-row"><button type="button" class="btn primary" id="btn-copy-d">複製 Stage D prompt</button></div>
+    </div>
+    <div class="form-row">
+      <label for="sd-out">貼回 Stage D 的輸出（會一併列入成果單）</label>
+      <textarea id="sd-out" rows="6" maxlength="60000"></textarea>
+    </div>
+  </div>
+
+  <div class="panel sheet" id="print-sheet">
+    <h2><span class="num">5</span>成果單</h2>
+    <div id="sheet-body"></div>
+    <div class="btn-row no-print">
+      <button type="button" class="btn" id="btn-copy-sheet">複製成果單文字</button>
+      <button type="button" class="btn ghost" id="btn-print" data-print-only>列印／存成 PDF</button>
+    </div>
+    <p class="hint no-print">11/29（日）23:59 前，1 號把成果單存成 PDF（已含 Stage D 輸出）上傳 Moodle，並把成果單文字貼到小組 LINE。確認有人收到之後，才清除本機資料。</p>
+  </div>
+</section>
+
+<!-- ================= 教師模式 ================= -->
+<section class="view teacher" id="view-teacher" data-title="教師" hidden>
+  <div class="clock-wrap">
+    <div class="clock-main">
+      <p class="clock-phase" id="t-phase"></p>
+      <p class="clock-time" id="t-time" aria-live="off">00:00</p>
+      <div class="clock-bar"><span id="t-bar"></span></div>
+      <p class="clock-screen" id="t-screen"></p>
+      <p class="clock-next" id="t-next"></p>
+      <div class="btn-row clock-controls">
+        <button type="button" class="btn" id="t-prev" aria-label="上一段">上一段</button>
+        <button type="button" class="btn primary" id="t-toggle">開始</button>
+        <button type="button" class="btn" id="t-next-btn" aria-label="下一段">下一段</button>
+        <button type="button" class="btn ghost" id="t-minus">−1 分</button>
+        <button type="button" class="btn ghost" id="t-plus">＋1 分</button>
+        <button type="button" class="btn ghost" id="t-sync">依現在時刻對齊</button>
+        <button type="button" class="btn ghost" id="t-full">全螢幕</button>
+      </div>
+      <p class="hint">鍵盤：空白鍵 開始／暫停 · → 下一段 · ← 上一段 · F 全螢幕</p>
+    </div>
+    <aside class="clock-side">
+      <div class="qr" id="t-qr"></div>
+      <p class="qr-url" id="t-url"></p>
+      <h3>今日流程</h3>
+      <ol class="agenda" id="t-agenda"></ol>
+      <details>
+        <summary>時間不夠時的刪減順序</summary>
+        <ol id="t-cuts"></ol>
+      </details>
+      <div class="btn-row">
+        <button type="button" class="btn ghost" id="t-demo">載入示範比稿（LINE）</button>
+      </div>
+      <p class="hint" id="t-demo-msg"></p>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= 隱私 ================= -->
+<section class="view" id="view-about" data-title="隱私" hidden>
+  <div class="phase-head">
+    <h1>你的資料只在這台電腦</h1>
+  </div>
+  <div class="panel prose">
+    <p>這個平台是一個純靜態網頁。它沒有伺服器、沒有帳號，也被設定為完全不能對外連線（瀏覽器的內容安全政策會擋下任何上傳）。你輸入的畫布、片段、素材卡與版本，只存在這台電腦的瀏覽器儲存空間裡。</p>
+    <p>真正會看到你內容的，是你自己貼進去的 AI 工具。所以「貼上 AI 前三問」和化名對照表才是保護公司的關鍵。化名對照表永遠不會被放進任何 prompt 或版本包。</p>
+    <p>組員之間傳遞的「版本包」只是一段文字，由你自己決定貼到哪裡（例如小組 LINE）。每一次複製前，平台都會檢查內容裡有沒有化名對照表中的真名，有的話就不讓你複製。</p>
+    <p>網址版與下載的離線版，各自有自己的儲存空間。換用另一個版本時看到空白是正常的，內容沒有遺失；需要搬移時請用下方的備份與還原。</p>
+  </div>
+  <div class="panel">
+    <h2>備份與清除</h2>
+    <div class="btn-row">
+      <button type="button" class="btn" id="btn-export-all">複製我的全部資料（含化名對照表，請勿貼到 LINE）</button>
+    </div>
+    <div class="form-row">
+      <label for="restore-in">還原備份（貼上先前複製的備份）</label>
+      <textarea id="restore-in" rows="3"></textarea>
+      <div class="btn-row"><button type="button" class="btn ghost" id="btn-restore">還原備份</button></div>
+    </div>
+    <div class="danger">
+      <p>1 號請先把成果單存成 PDF、文字貼到小組 LINE，確認有人收到之後再清除。借用的電腦離開前一定要清除；自己的筆電可以等 11/29 交件後再清。</p>
+      <div class="btn-row">
+        <button type="button" class="btn danger-btn" id="btn-clear">清除本機資料</button>
+        <button type="button" class="btn danger-btn solid" id="btn-clear-confirm" hidden>確定清除（無法復原）</button>
+        <button type="button" class="btn ghost" id="btn-clear-cancel" hidden>取消</button>
+      </div>
+    </div>
+    <p class="msg" id="about-msg" aria-live="polite"></p>
+  </div>
+</section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<div class="modal" id="copy-modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="copy-modal-title">
+    <h2 id="copy-modal-title">請手動複製</h2>
+    <p>這台電腦不允許自動複製。文字已經全選，請按 <kbd>Ctrl</kbd>＋<kbd>C</kbd>（Mac：<kbd>⌘</kbd>＋<kbd>C</kbd>；iPad：長按文字後選「拷貝」）。</p>
+    <textarea id="copy-modal-text" rows="10" readonly></textarea>
+    <div class="btn-row"><button type="button" class="btn primary" id="copy-modal-close">完成</button></div>
+  </div>
+</div>
+
+<script type="application/json" id="csl-content">{"version":"2.0","build":{"target":"pages"},"session":{"course":"商業個案分析與寫作（成大 EMBA，115-1）","date":"2026-11-22（日）14:00–18:00","week":"第 5 週：如何說一個好故事／如何讓故事成為理論的載體","title":"AI 說故事工作坊：把畫布變成有情節的故事","instructor":"張佑宇 教授","site_url":"https://yycncku.github.io/story-lab/"},"prompts":{"A":"你是一位資深的《哈佛商業評論》(HBR) 個案開發編輯。我們是成大 EMBA「商業個案分析與寫作」的一個小組，手上已有論文個案的「個案採集畫布」（五格）與幾段本文片段。請協助我們把它升級成一張可以直接用來寫短個案的「個案素材卡」。全程使用繁體中文，語氣專業、友善、精準。\n\n【基本規則】\n1. 一次只問一個問題，等我們回答後再問下一題。\n2. 你只能使用我們提供的資訊。不得自行補上任何公司、人物、數字或事件；缺的就問，問不到就標記〔待補〕。\n3. 我們貼上的內容應已完成去識別化。若你發現任何疑似真實的公司名、人名、可辨識的產品或地點，或看似未公開的精確財務數字，請先逐一列出，請我們改為化名或區間，處理完才往下走。若畫布第一行註明「公開個案」，真名與公開數字可以保留，你提醒一次後就直接繼續。\n\n【第一步：五格檢核】\n依下列五項，逐項判定我們的畫布「通過／待補／不通過」，每項附一句理由：\n1. 誰要做決定：說得出是哪「一個人」要負責嗎？（主角若是「公司」或「某部門」＝不通過）\n2. 為什麼是現在：有期限或轉折事件，逼他現在就得決定嗎？\n3. 難在哪裡：把這件事交給十位同事，做法會不一樣嗎？（結果很好、過程沒掙扎＝不通過）\n4. 誰有意見：至少有兩個人立場不同，而且各有道理嗎？\n5. 別人能學到什麼：這種事以後還會有人遇到嗎？\n判定原則：第 1 或第 3 項不通過，請直接告訴我們「這還不是個案」，並提出兩個能在 10 分鐘內改好的切入角度（換主角或換決策點）供我們選，然後停下來等我們決定；其他情況（包括全部通過，或第 2、4、5 項待補、不通過）都進入第二步。\n\n【第二步：追問補洞（最多 4 題）】\n依重要性排序，一次一題，補齊下列素材中最缺的部分：組織背景（產業、規模、地區）、兩個選項各自的吸引力與風險、各角色的立場與真正在意的事、決策期限與再拖下去的代價、可以寫成場景的關鍵時刻（會議、對話、衝突畫面）、候選轉折事件。每題答完，用一兩句覆述你聽到的重點再問下一題。若我們回覆「直接出卡」，請立即以現有資訊進入第三步，缺漏處標記〔待補〕。\n\n【第三步：輸出「個案素材卡」】\n依下列固定標題輸出。標題文字請勿更改，也不要新增或刪除標題；每個標題獨立一行、以「■」開頭（不加井號、粗體或編號），內容從下一行開始（平台會依此辨識）：\n■ 這件事（一句話：誰、在什麼期限前、要決定什麼）\n■ 組織背景\n■ 主角（化名、職稱、責任、內在動機）\n■ 情境導火線\n■ 時間壓力（期限與再拖下去的代價）\n■ 決策點\n■ 選項 A（吸引力／風險）\n■ 選項 B（吸引力／風險）\n■ 涉及角色（6 位以內：化名、職位、立場、真正在意的事）\n■ 管理議題與理論張力（這個兩難背後，是哪兩股力量在拉扯）\n■ 可用場景與細節（來自本文片段的場景、對話、數據區間）\n■ 候選轉折事件（2–3 個，依戲劇張力排序）\n■ 待查證／待補清單\n若畫布有三個以上選項或兩條決策軸，請收斂成最具張力的 A／B 兩端，並在「■ 決策點」用一兩句交代其餘選項如何處理。「■ 管理議題與理論張力」只用白話寫兩股力量，不寫理論或學者名稱。缺漏的資訊一律標記〔待補〕。\n輸出後提醒我們：把整張素材卡複製保存，並分享給全組每一位組員——它是下一階段每個人寫作的共同素材。\n\n以下是我們的資料。\n【個案採集畫布】\n{{CANVAS}}\n\n【本文片段（已匿名化）】\n{{EXCERPTS}}\n\n現在，請從第一步「五格檢核」開始。","B":"你是一位專業的《哈佛商業評論》(HBR) 個案作者，擅長把真實商業情境轉化為結構緊湊、具張力的短個案，採用商業與經濟紀實小說筆法，專為高階管理者的決策討論而寫。全程使用繁體中文。\n\n【唯一素材來源】\n下方的「個案素材卡」是你唯一可用的事實來源。\n- 不得加入素材卡沒有的具體數字、事件、人物立場，也不得加入你自己知道的外部事實（產品或角色名稱、地名、人名寫法、公司沿革、競爭者動態）。\n- 需要素材卡沒有的數字時，不要寫出任何猜測值（包括「約」「近」「逾」等概數），直接寫「[待查證：所需數據]」，例如「該事業的營收占比[待查證：營收占比]」；能用質性描述帶過，就不要放數字。素材卡標記〔待補〕的內容，同樣不得自行補上。\n- 場景氛圍、動作、對話的措辭可以依素材合理鋪陳，但不得替角色發明素材中沒有的立場或事實。\n- 若本版鏡頭需要的配角不在素材卡中，只能使用泛稱角色（例如「一位資深店長」），在首次出現處標記「[虛構配角]」，之後用固定簡稱指稱；可以描寫他的處境與情緒，但立場只能取自素材卡。\n\n【本版鏡頭（每位組員不同，請嚴格遵守）】\n{{LENS_BLOCK}}\n\n【寫作任務：四幕結構，一次連續生成全文】\n以起、承、轉、合四幕連續寫完全文（約 4,800–5,000 字；字數＝中文字加標點，不含空白）。寧可因長度限制被截斷，也不要為了一次寫完而壓縮篇幅。四幕各以單獨一行、只有一個字的小標開頭：起、承、轉、合（不加引號、井號、粗體、冒號或字數說明）。中途不要停下等我確認：\n- 起（約 900–1,000 字）：前 300 字內就讓讀者知道誰、在什麼期限前、要決定什麼，再鋪陳組織背景與主角的世界觀。\n- 承（約 500–600 字）：導火線浮現，張力開始累積。（起＋承約佔全文 30%）\n- 轉（約 2,400–2,500 字，全文最重）：問題全面爆發，關鍵轉折事件在此發生，資料密度與衝突最高。（約佔 50%）\n- 合（約 900–1,000 字）：收束於決策臨界點，兩個選項清楚攤開，但不給答案。（約佔 20%）\n\n【理論載體】\n本版的兩難，必須讓兩個選項各自代表「本版鏡頭」所指定理論張力的一端，讓讀者從情節中親身感受這股拉扯。正文中不得出現理論名稱、學者名或學術術語（例如：雙元、動態能力、利害關係人理論、核心僵固、交易成本、現金牛、網路效應、先行者優勢、機會成本），角色只說日常商業語言——理論留給教學指引；故事的任務，是讓理論「非出場不可」。\n\n【筆法要求】\n- 紀實小說風格：善用場景、對話、角色心境與決策壓力，讓讀者彷彿置身現場。\n- 角色形象鮮明，立場與動機前後一致；主角的內在掙扎刻劃細膩。\n- 結尾停在臨界決策點，兩個選項皆有吸引力，也皆暗藏風險。\n\n【禁止條款（違反請自我修正）】\n1. 禁純技術議題：不寫沒有管理決策張力的技術實作。\n2. 禁無衝突敘事：不寫沒有利害衝突或兩難的平鋪直敘。\n3. 禁教條式結局：不以「正確答案」或說教口吻收尾。\n4. 禁可識別敏感資訊：不還原、不臆測任何真實公司名、人名或未公開數據。\n5. 禁瑣碎情境：不寫格局過小、不足以支撐高階討論的日常瑣事。\n\n【風格錨點（僅供語氣參考：不得套用其情節、意象與角色，例如落地窗、城市燈火、財務長、董事會；也不要拿它當開場）】\n會議室的落地窗外，城市的燈火像一張攤開的財報，明亮卻看不出盈虧。林維萱把平板推到桌子中央，螢幕上的曲線在過去四個月裡第一次拐了頭向下。「這不是季節性，」她說，聲音比她想像的更平靜，「這是我們自己造成的。」桌子另一端，行銷長沒有抬頭，財務長的筆停在半空。她知道，接下來她說的每一句話，都會在明天早上的董事會裡被逐字回放。\n\n【輸出格式】\n先輸出四幕全文。全文結束後空一行，輸出以下固定格式的「鏡頭註記」（平台會辨識）：\n【鏡頭註記】\n鏡頭：（編號＋名稱，例如「鏡頭 1 決策者之眼」）\n觀點人物：……\n轉折事件：……\n本版兩難所承載的張力：A 端（選項 A）＝……；B 端（選項 B）＝……\n若因單次輸出長度限制而被截斷，請在斷點自然停下；我會回覆「請接續」，你再從斷點往下寫完，不要重頭來過。\n\n以下是我們全組共用的「個案素材卡」：\n{{MATERIAL_CARD}}","B_CONTINUE":"請接續。從你剛才被截斷的地方直接往下寫，維持相同的鏡頭、角色設定、筆法與字數配比，一路寫到四幕全文完成，最後附上【鏡頭註記】。若需要素材卡以外的數字，一律寫「[待查證：所需數據]」，不寫猜測值。","B_REVISE":"請只修改下列問題，其餘段落保持原樣。只輸出被修改的那一幕（以單獨一行的小標「起」「承」「轉」或「合」開頭）；若改了不只一幕，就依序輸出那幾幕。若張力或轉折有變，再附上更新後的【鏡頭註記】：\n{{ISSUES}}","C":"你現在是一位嚴格的《哈佛商業評論》(HBR) 個案審稿人。下方是一篇情境式短個案全文，作者是我的組員，由我負責審查。請逐項依下列八項標準審查，每一項都給出：\n(1) 判定：通過／未通過；\n(2) 一句理由：具體指出文中依據（可引用關鍵句）；\n(3) 一項具體修訂建議：明確、可執行，直接說改哪裡、怎麼改。\n全程使用繁體中文。\n\n【平台實測數據（有數據時以此為準；若為「未提供」，第 5 項請依四幕篇幅概估，判定後加註「（概估）」）】\n{{STATS}}\n\n【全組共用素材卡（判定第 7 項時以此為準：素材卡裡有的名稱與數字不算捏造）】\n{{MATERIAL_CARD}}\n\n【八項審查標準】\n1. 情境真實且具代表性：情境可信、貼近真實商業場景，議題具一般性討論價值，不是孤例。\n2. 決策兩難成立：兩個選項皆有吸引力、也皆有風險，不存在明顯的「正確答案」。\n3. 角色立體且立場清楚：主角心理刻劃細膩，配角立場與動機清晰，且彼此有張力。\n4. 敘事張力與節奏：具紀實小說臨場感，第二或第三幕有明確的關鍵轉折，讀來有推進感。\n5. 結構比例得當：情境（起＋承）約 30%、問題（轉）約 50%、決策（合）約 20%。有實測數據時直接引用判定，沒有時概估並加註；容許 ±5 個百分點。\n6. 開放式結尾：收在臨界決策點，不給標準答案、不說教。\n7. 資料誠信：素材卡以外沒有捏造的數字、事件或外部事實；需要的數據都寫成 [待查證：…] 而非猜測值；虛構配角皆標記 [虛構配角]；無可識別的敏感資訊。\n8. 理論載體：兩難的兩個選項，是否分別體現一組可辨識的理論張力？讀者不靠理論名稱，能否從情節中感受到兩端的拉扯？請說出你判斷的張力，以及最可能對應的 1–2 個管理理論。\n\n【最後請輸出】\nA. 整體回饋（一段），並用一句話判定是否已達「可用於教學討論的合格草稿」水準。\nB. 最值得借用的一段：挑出全文中最精彩、最值得被組內其他版本借用的段落（引用開頭與結尾各十餘字定位即可），並說明好在哪裡。\nC. 鏡頭檢驗：依文末【鏡頭註記】的鏡頭名稱，本版是否做到該鏡頭的要求？若為鏡頭 1（基準版），改答：它是否足以當其他版本的對照組？一句話。\n\n以下是個案全文：\n{{CASE_TEXT}}","D":"你是一位資深的個案教學專家，熟悉哈佛個案與教學指引（Teaching Note）的寫作。我們小組剛用同一張素材卡、不同的敘事鏡頭寫出 {{N}} 個短個案版本，並完成交叉審查與比稿。請根據下方資料，協助我們收斂成三項產出。全程使用繁體中文；只能使用我們提供的資訊，不得自行補充事實。\n\n【比稿結果】\n{{COMPARE_RESULT}}\n\n【各版本審查重點（摘錄）】\n{{REVIEW_NOTES}}\n\n【我們論文個案本文目前的章節架構】\n{{OUTLINE}}\n\n請輸出：\n一、本文修訂清單（5–8 項）：每項包含「位置（章節）」「目前問題」「借用哪一版的什麼手法」「具體怎麼改」，依影響力排序。\n二、本案承載的理論（一句話）：先引用我們在【比稿結果】「理論一句話草稿」中寫的草稿，指出它的 A、B 與張力是否對得上、哪裡像貼標籤，再給一個更精確的改寫，格式為「本案透過〔主角〕在〔A〕與〔B〕之間的抉擇，讓學員體會〔理論張力〕；可對應的理論為〔1–2 個〕。」若我們沒有寫草稿，請提出兩個候選句並說明差異，不要直接定案。\n三、教學指引大綱 v0：依下列八個標題列出——個案摘要、教學目標（2–3 項）、適用課程與對象、課前作業題、理論連結（引用第二項）、討論問題與時間分配（診斷題、分析題、決策題各一，附建議分鐘數）、板書計畫、後續發展。凡本次資料撐不起的標題，標「〔待我們完成〕」，不要代寫。\n最後提醒我們：以上皆為草案；理論對應須回到文獻查證，教學指引須由我們自己完成。全程使用我們提供的化名。"},"lenses":[{"id":1,"name":"決策者之眼","tag":"基準版","pov":"以主角（決策者）為敘事視角，第三人稱、緊貼他的所見、所思、所感。","structure":"標準起承轉合，依時間順序推進。","tension":"採用素材卡「管理議題與理論張力」所寫的那一組拉扯。","turning":"採用素材卡「候選轉折事件」中排序第一者。","rule":"","check":"這是全組的對照組。其他版本好不好，都拿來跟它比。"},{"id":2,"name":"反對者之眼","tag":"衝突測試","pov":"決策者仍是主角，但第三幕「轉」大量從「涉及角色」中立場最強的反對者角度呈現：他看到什麼、擔心什麼、為什麼他的反對完全合理。","structure":"起、承照常；「轉」的前半段以反對者的一場關鍵發言或行動開場。","tension":"利害關係人之間各有正當性的訴求衝突：反對者的訴求和主角的考量都站得住腳。","turning":"採用素材卡排序第一的轉折事件，但從反對者的立場重新詮釋它。","rule":"","check":"你們的第 4 格「誰有意見」夠不夠強？反對者是真的有道理，還是只是稻草人？"},{"id":3,"name":"倒數計時","tag":"時間壓力測試","pov":"以主角為敘事視角。","structure":"「起」直接從決策期限前 48 小時的一個場景切入，再以倒敘補足背景與導火線；全篇不斷回到倒數的時間點。","tension":"短期績效 vs. 長期能力：時間壓力下，眼前的安全與未來的布局如何取捨。若素材卡的選項 A／B 無法自然對應這組張力，改用素材卡的張力，並在【鏡頭註記】說明原因。","turning":"採用素材卡排序第一的轉折事件，但讓它發生在倒數期間。","rule":"","check":"你們的第 2 格「為什麼是現在」撐得起倒數嗎？如果時鐘一點都不急，這版會寫得很勉強——那正是本文的缺口。"},{"id":4,"name":"轉折換位","tag":"轉折測試","pov":"以主角為敘事視角。","structure":"標準起承轉合。","tension":"延續核心 vs. 破舊立新：過去成功的做法，是資產還是包袱？若素材卡的選項 A／B 無法自然對應這組張力，改用素材卡的張力，並在【鏡頭註記】說明原因。","turning":"改用素材卡「候選轉折事件」中排序第二者。若排序第二者是一種壓力而不是具體事件，就從「可用場景與細節」中挑一個已存在的場景當載體；不得捏造新事件。","rule":"","check":"你們選的轉折真的是最強的嗎？如果這版的轉折更好看，本文就該換。"},{"id":5,"name":"第一線之眼","tag":"質感測試","pov":"開場與第三幕穿插一位受此決策影響最深的第一線人物（員工、店長、工程師、客戶代表）的視角；決策仍由主角做。","structure":"「起」以第一線人物的一個工作場景開場，再切到主角。","tension":"效率 vs. 人：組織要的效率，與第一線執行者承擔的代價。若素材卡的選項 A／B 無法自然對應這組張力，改用素材卡的張力，並在【鏡頭註記】說明原因。","turning":"採用素材卡排序第一的轉折事件，呈現它在第一線造成的衝擊。","rule":"第一線人物必須來自素材卡；若素材卡沒有，就用泛稱角色，並在首次出現處標記 [虛構配角]。","check":"你們的個案有沒有「地面上的質感」？高階讀者會不會覺得這只是會議室裡的抽象爭論？"},{"id":6,"name":"理論先行","tag":"理論載體練習","pov":"以主角為敘事視角。","structure":"標準起承轉合。","tension":"本版指定的理論張力：{{TENSION}}。讓選項 A 與選項 B 分別成為這組張力的兩端，並讓每一位配角都明確站在其中一端；素材卡中立場居中的角色可以省略，或改由主角的內心掙扎承擔，不得替他改立場。","turning":"挑選最能把這組張力推到極致的候選轉折事件。","rule":"","check":"這版最直接練習「讓故事成為理論的載體」。比稿時問：讀完這版，教學指引的理論段是不是幾乎自己寫好了？"}],"lensOrder":[1,6,2,3,4,5],"tensions":[{"id":"T1","name":"探索 vs. 利用","a":"押注新機會、新能力","b":"深耕現有優勢、收割確定的報酬","theory":"探索與利用（March, 1991）／組織雙元性（Tushman & O'Reilly, 1996；O'Reilly & Tushman, 2004）"},{"id":"T2","name":"效率 vs. 正當性","a":"做最划算、最有效率的事","b":"做外界（法規、社會、同業）認為『對』的事","theory":"制度理論（Meyer & Rowan, 1977；DiMaggio & Powell, 1983）"},{"id":"T3","name":"短期績效 vs. 長期能力","a":"守住眼前的數字","b":"投資未來的能力，忍受短期陣痛","theory":"短期主義（Laverty, 1996）／動態能力（Teece, Pisano & Shuen, 1997）"},{"id":"T4","name":"控制 vs. 授權","a":"集中決策、統一標準","b":"放權給現場、容許差異","theory":"組織設計：集權與分權（Mintzberg, 1979）／代理理論（Jensen & Meckling, 1976）"},{"id":"T5","name":"股東 vs. 其他利害關係人","a":"以股東報酬為優先","b":"兼顧員工、客戶、社區等其他利害關係人","theory":"利害關係人理論（Freeman, 1984）"},{"id":"T6","name":"全球整合 vs. 在地回應","a":"全球一致、規模經濟","b":"因地制宜、貼近在地市場","theory":"整合—回應架構（Prahalad & Doz, 1987；Bartlett & Ghoshal, 1989）"},{"id":"T7","name":"自己做 vs. 找夥伴","a":"內部自建、掌握核心","b":"外包、結盟或併購，借力使力","theory":"交易成本理論（Williamson, 1985）／資源基礎觀（Barney, 1991）"},{"id":"T8","name":"延續核心 vs. 破舊立新","a":"延續讓我們成功的做法","b":"承認過去的優勢已成包袱，大幅轉向","theory":"核心能耐與核心僵固（Leonard-Barton, 1992）"},{"id":"T9","name":"聚焦 vs. 分散","a":"集中押注少數事業","b":"分散配置、平衡各事業","theory":"多角化策略（Rumelt, 1974）／資源配置過程（Bower, 1970）"}],"tensionNote":"請避開與素材卡原有張力相同或近義的一組（T1、T3、T8 彼此近義），鏡頭 6 才會寫出不一樣的故事。","demo":{"group":"示範","industry":"數位平台","oneliner":"LINE 首席戰略暨行銷長 Jun Masuda，要在 50 多個事業單位、亞洲與北美兩個市場之間，決定 2023 年的行銷預算怎麼分。","g1":"首席戰略暨行銷長 Jun Masuda。預算與投資怎麼配，由他提案定案；但要向高層團隊交代，也得對得起使命與願景。","g2":"2023 年度預算要定案；2021 年剛轉虧為盈、市值升到 126 億美元，終於有資源可分；北美反饋樂觀但基礎薄（美國僅 315 萬用戶）；NFT 與手遊的窗口不等人。","g3":"預算押在哪裡？① 押最會賺的 LINE FRIENDS → 可愛還賣得動，但實體零售被疫情重創；② 四大事業平均分 → 誰都不得罪，也誰都做不大；③ 押 NEXT（NFT）、PLAY（手遊）→ 有先機，但市占不確定。亞洲深耕（主場但有微信），還是北美進攻（份額低但授權市場最大）？沒有標準答案：聚焦的代價是錯失，分散的代價是平庸。","g4":"個案沒點名，只寫了立場：押 FRIENDS——最會賺；縮減 FRIENDS——該投未來；平均分——誰都不能漏。","g5":"多事業組合的資源配置：聚焦或分散、成熟市場或新市場、決策要對齊使命願景。任何多角化的公司都會再遇到。","excerpts":"","note":"這是公開個案，示範時保留真名；你們自己的個案務必先匿名化。"},"demoVersions":[{"lens":1,"tension":"T1","text":"起\n\n預算定案前的那幾個晚上，整層辦公室只剩 Masuda 座位上方那一排燈還亮著。螢幕上是一張他已經看了不下二十遍的試算表：五十多個事業單位，一列一列往下排，每一列最右邊都是一個等著被填上的空格。\n\n他是 LINE 的首席戰略暨行銷長。這個頭銜印在名片上很體面，落到這張表上，意思只有一個：2023 年的行銷預算怎麼分，由他提案，也由他定案。提案的人還可以把一部分責任交給討論，定案的人不行。\n\n他很清楚這張表會被怎麼讀。每一列背後都有一個團隊、一位主管、一群等著看結果的同仁；數字填下去的那一刻，它就不再只是預算，而是公司對每一個事業說的一句話：我們相信你，或者，我們沒那麼相信你。\n\n公司還在虧損的時候，這張表的難處只有一個：錢不夠。2021 年，公司轉虧為盈，市值一路升到 126 億美元。那是許多同仁等了很久的消息，也讓今年這張表第一次有了不一樣的意義——終於，有資源可以分了。\n\nMasuda 比誰都清楚，「有資源可分」從來不只是好消息。錢不夠的時候，大家的目標一致；錢夠了，每個人心裡那本帳才會真正攤開。\n\n他把試算表拉回最上方。五十多個單位，背後是四大事業的版圖。最會賺的是 LINE FRIENDS：那些角色可愛，到現在都還賣得動。另一端，是兩個還站在起跑線上的新事業：NEXT 做 NFT，PLAY 做手遊。它們還沒證明自己能撐起多大的市占，卻代表這家公司下一個階段可能長出的樣子。\n\n地圖也一樣難畫。亞洲是主場，但主場不等於無人之境，微信就在旁邊，一步也沒有退。北美是另一種處境：反饋樂觀，美國卻只有 315 萬用戶，基礎薄得像一層冰；然而那裡同時是全球最大的授權市場，誰先站穩，誰就多一個成長的支點。\n\n兩條軸線疊在一起，這張表就不再是平面的。押哪個事業，和押哪個市場，彼此牽動；任何一格多填一點，別的格子就得少一點。\n\nMasuda 往椅背一靠，閉上眼睛。他想起公司的使命與願景。那幾句話他早就背得出來，平常像是理所當然的背景音，這幾天卻一直在他腦中響著。\n\n他要交代的對象不只一個。高層團隊會問：為什麼這樣分？數字背後的邏輯是什麼？使命與願景問的則是一個更難回答的問題：這樣分，對得起我們說要成為的那家公司嗎？\n\n試算表右下角的游標還在閃。他知道，這一次無論怎麼填，都會有人覺得自己被辜負。\n\n承\n\n真正的壓力，是從預算申請一份一份湧進來開始的。\n\n各事業單位提出的需求加總，遠遠超過可以分配的額度[待查證]。Masuda 並不意外，讓他在意的是申請書裡的語氣：過去寫的是「維持必要運作」，今年寫的是「關鍵投資」「不可錯過」。\n\n三種聲音很快就成形了。Masuda 後來把三封信並排印出來，一讀再讀。\n\n第一種來自 FRIENDS。主掌 FRIENDS 事業的資深主管[虛構配角]在一封長信裡寫得很直白：公司最會賺的就是 FRIENDS，把錢放在最會賺的地方，是對公司最負責任的選擇。\n\n第二種完全相反。負責 NEXT 與 PLAY 的主管[虛構配角]主張縮減 FRIENDS，把資源挪去投資未來。他的理由只有一句，卻在 Masuda 腦中反覆迴盪：「NFT 和手遊的窗口，不會等我們。」\n\n第三種最溫和，也最難反駁。一位資深事業群主管[虛構配角]建議四大事業平均分配：「五十多個單位都在看這次怎麼分。誰都不能漏。」\n\n三種主張的出發點都不壞：一個想守住公司最確定的收入，一個想替公司搶下未來的位置，一個想保住組織的團結。正因為每一種都說得通，他才更難下筆。\n\n同一週，北美傳回的反饋一片樂觀。Masuda 讀完，在頁邊寫下一個數字和一個問號：315 萬？北美的反饋，讓第二道題目也浮上檯面：錢要押哪個事業，還要押哪個市場。\n\n預算定案的日期在行事曆上越來越近。他意識到，這不是一張表的問題，而是三種對公司未來的想像，正在爭同一筆錢。\n\n轉\n\n預算協調會排在一個陰沉的下午。長桌兩側坐滿了人，Masuda 坐在主位，面前沒有投影片，只有那張試算表的列印本，邊角已經被他翻得起毛。\n\nFRIENDS 的主管第一個發言。他沒有開投影片，而是把一個角色玩偶輕輕放在桌上。「我知道大家今天想談未來，」他說，「但我想先提醒一件事：今天讓這家公司站得住的，是誰。」\n\n他讓那個玩偶在桌上多待了幾秒。「可愛，到現在都還賣得動。這不是情懷，是事實。在任何新事業證明自己之前，FRIENDS 是我們最確定會回本的地方。把錢從最會賺的地方挪走，去押一個市占還說不準的東西，這叫冒險，不叫策略。」\n\n負責 NEXT 與 PLAY 的主管沒有立刻回應。他等會議室安靜下來，才把筆電轉向眾人。「我同意，FRIENDS 今天最會賺。」他說，「但我們今天決定的不只是明年，而是之後好幾年。NFT 和手遊現在還沒有人真正站穩，先進場的人才有先機。等到市占確定了，就輪不到我們了。」\n\n「市占不確定，」FRIENDS 的主管說，「這是你自己簡報上寫的。」\n\n「沒錯，不確定。」對方回答，「所以才叫窗口。如果什麼都確定了，那就不是窗口，是一扇已經關上的門。」\n\nMasuda 終於開口：「如果明年這個時候，NFT 和手遊的市占還沒有起來，我們要怎麼判斷該不該繼續？」\n\n負責 NEXT 與 PLAY 的主管頓了一下。「市占本來就不確定，」他說，「但如果我們連試都不試，就連判斷的機會都沒有。」\n\n「這不是答案。」FRIENDS 的主管說。\n\n「這就是窗口的本質。」對方回答。\n\n那位資深事業群主管這時清了清喉嚨。「兩位說的都有道理，」他說，「所以我才主張平均分。四大事業各拿一份，誰都不得罪，每個團隊都有機會證明自己。這家公司有五十多個單位，每個人都在看這次怎麼分。誰都不能漏。」\n\nMasuda 注意到，這句話一出口，桌邊好幾個人輕輕點了頭。在會議室裡，平均分是最安全的提案。可是他腦中浮現的，是自己在試算表上寫過的一行備註：誰都不得罪，也誰都做不大。\n\n「北美呢？」有人問。\n\n北美團隊的負責人[虛構配角]把報告結論又唸了一次：反饋樂觀，授權市場全球最大，現在進場正是時候。\n\nFRIENDS 的主管笑了一下。「美國 315 萬用戶。拿主場的資源，去打一個基礎這麼薄的市場？」\n\n「主場也不是沒有對手。」北美負責人回答，「微信就在旁邊。守主場一樣要花錢，而且未必守得住。」\n\n兩個人的聲音都不大，會議室裡的空氣卻明顯繃緊了。Masuda 沒有打斷。他在列印本的邊緣寫下三個詞：最會賺、窗口、誰都不能漏。三個詞，三種對公司未來的想像。\n\n會議在沒有結論中結束。這並不出乎他的意料。出乎意料的，是當天深夜出現在他信箱裡的那份報告。\n\n報告來自負責實體零售的團隊[虛構配角]，標題平淡，內容卻像一盆冷水：疫情對實體門市的衝擊，比先前的判斷更深。來客與營收的下滑幅度[待查證]，一頁一頁攤在他眼前。\n\nMasuda 盯著那幾頁看了很久。他突然意識到，下午會議室裡每一個人的論點，都建立在一個沒有人說出口的假設上：FRIENDS 是安全的。\n\n他曾以為，有了資源，選擇就會變得容易。如今資源真的來了，選擇卻比任何時候都沉重：錢少的時候，取捨是被迫的；錢夠的時候，取捨是自找的，而自找的取捨，沒有人能替你背。\n\n角色依然可愛，商品依然賣得動，這一點沒有錯。但讓這些角色走進消費者生活的實體零售，正在被疫情重創。最會賺的引擎沒有熄火，卻露出了一道裂縫。如果他照 FRIENDS 主管的主張重押，等於把最多的錢放在一個正在受傷的地方；如果他照 NEXT 與 PLAY 主管的主張縮減 FRIENDS，等於在最會賺的事業最需要支撐的時候抽走資源。\n\n他拿起電話，撥給 FRIENDS 的主管。\n\n「報告你看了嗎？」\n\n「看了。」對方的聲音很疲憊，「我不否認門市很辛苦。但正因為辛苦，現在更不能減。可愛還賣得動，只是要換個地方賣。這個時候抽錢，等於告訴所有人：連公司自己都不相信 FRIENDS 了。」\n\n「如果加碼，錢會花在哪裡？撐門市，還是換通路？」\n\n電話那頭停了幾秒。「我明天給你完整的方案。」\n\nMasuda 掛上電話。那幾秒的停頓裡沒有任何數字，卻比報告裡的每一頁都更讓他不安。\n\n他接著打開 NEXT 與 PLAY 的提案。「窗口不等人」，這句話他已經聽過很多遍。可是這一晚，他第一次認真問自己：如果把錢押在這裡，而市占遲遲沒有起來，明年這個時候，他要怎麼向高層團隊交代？這扇窗口究竟有多大[待查證]，他手上沒有任何數字能回答，只有「先機」兩個字。\n\n那平均分呢？他在試算表上把四大事業的數字拉成一樣。畫面很整齊，整齊得令人不安。每個事業都拿到一點，每個事業也都只能做一點：FRIENDS 拿不到足以重整通路的錢，NEXT 與 PLAY 拿不到足以搶下先機的錢，北美拿不到足以真正進攻的錢。誰都不得罪，也誰都做不大。\n\n隔天一早，他在電梯口遇到那位資深事業群主管。對方像是早就在等他。\n\n「我聽說零售那邊的報告了。」他壓低聲音，「你如果在這個時候重押任何一邊，其他幾十個單位會怎麼想？大家剛熬過虧損，好不容易看到一點資源。這次分配傳出去的訊號，可能比金額本身更重要。」\n\nMasuda 點點頭，沒有回答。他知道對方說的是真的，也聽得出這句話背後的意思：平均分不只是一個預算方案，也是一種保護，保護組織的和氣，也保護做決定的人。\n\n回到座位，他翻開筆記本的第一頁。那裡有一句話，是這次預算工作開始時他寫給自己的：聚焦的代價是錯失，分散的代價是平庸。\n\n當時他以為這句話是在提醒自己別落入平庸。現在他才明白，它同時也在提醒他：無論往哪一邊聚焦，都一定會錯失另一邊。\n\n那天晚上，他在白板上畫了兩個圓。左邊寫著「FRIENDS：最會賺，但實體零售正在受傷」，右邊寫著「NEXT／PLAY：有先機，但市占不確定」。兩個圓的下方，他又畫了一條橫線，一端寫「亞洲：主場，但有微信」，另一端寫「北美：份額低，但授權市場最大」。\n\n他退後一步看著白板。這不是一道選擇題，而是兩道纏在一起的選擇題；每一個答案背後，都有一群人等著看他怎麼說。\n\n合\n\n距離向高層團隊提案，只剩最後一天[待查證]。\n\nMasuda 把簡報的第一頁做了兩個版本。\n\n第一個版本寫著：「押注 NEXT 與 PLAY，把握 NFT 與手遊的窗口。」它的吸引力很清楚：先機。窗口不等人，如果現在不進場，等到市占塵埃落定，公司只能當旁觀者。這也是主張「該投未來」的那一派最想聽到的答案。但風險同樣清楚：市占不確定。這些錢投下去，可能換來公司下一個階段的成長，也可能換來一場昂貴的教訓；而在 FRIENDS 最需要支撐的時候縮減它，代價可能比試算表上看起來更大。\n\n第二個版本寫著：「押注 LINE FRIENDS，守住最會賺的引擎。」它的吸引力同樣具體：最會賺，角色可愛，商品還賣得動，每一分錢都看得到回收的路徑。高層團隊會安心，FRIENDS 的團隊會士氣大振，那些在門市撐了好幾個月的人，會知道公司沒有放棄他們。但它的風險就寫在那份深夜送來的報告裡：實體零售被疫情重創。重押一個正在受傷的通路，可能是雪中送炭，也可能是把錢倒進一個還在擴大的缺口；更要緊的是，等到 NFT 與手遊的窗口關上，公司可能已經沒有入場的位置。\n\n他也想過，兩個版本各自會讓誰失望。交出第一個，FRIENDS 的團隊會覺得自己替公司賺了錢，卻在最難的時候被犧牲；交出第二個，NEXT 與 PLAY 的團隊會覺得自己被要求衝鋒，卻在起跑線上被拉住。兩種失望都有道理，也都會被帶進明年的每一場會議。\n\n他沒有做第三個版本。平均分的方案收在他的抽屜裡：誰都不得罪，也誰都做不大。他知道那是最容易在會議上通過的版本，也是他最不想交出去的版本。\n\n無論選哪一個版本，市場的問題都還在。亞洲深耕，守住主場，就得正面迎上微信；北美進攻，趁授權市場最大的時候卡位，就得接受美國只有 315 萬用戶的基礎。\n\n他想起高層團隊一定會問的問題：為什麼這樣分？也想起那個更安靜、卻更難回答的問題：這樣分，對得起我們的使命與願景嗎？\n\n窗外的天色開始發白。Masuda 把兩個檔案並排放在桌面上。他打開第一個，又關上；打開第二個，又關上。最後，滑鼠游標停在兩者之間。再過幾個小時，他就必須帶著其中一個走進會議室。\n\n聚焦的代價是錯失，分散的代價是平庸。他已經不打算選擇平庸。現在他要決定的，是自己願意錯失什麼。\n\n【鏡頭註記】\n觀點人物：Jun Masuda（首席戰略暨行銷長），第三人稱，緊貼他的所見、所思、所感\n轉折事件：素材卡候選轉折事件第一名——實體零售遭疫情重創的衝擊浮上檯面，使「押最會賺的 FRIENDS」不再是安全牌\n本版兩難所承載的張力：A 端＝押注尚未證實、但窗口正在關上的新機會（NEXT／PLAY）；B 端＝收割現有、確定的賺錢引擎（LINE FRIENDS）"},{"lens":6,"tension":"T9","text":"起\n\n桌上那疊預算申請書，Masuda 數過兩次：五十多份，一個事業單位一份。他是 LINE 的首席戰略暨行銷長。2023 年度預算定案之前，他必須提出並拍板一件事：行銷預算要怎麼分給這五十多個事業單位，以及亞洲與北美兩個市場。說得更白一點，他要回答的只有一題——錢要集中押在少數幾個事業上，還是分給所有事業，讓每一個都有份？\n\n申請書有厚有薄。有的只有幾頁，有的附上整本企畫。可是不管厚薄，每一份的最後一頁都寫著同一種期待：今年，請算我一份。\n\n他把申請書推到桌角，在便條紙上寫下一句話：水只有一壺。\n\n這是他這幾週反覆想到的畫面。一壺水，可以把五十多盆花都澆一遍，每一盆都濕了，卻都只濕了表面；也可以把其中幾盆澆透，讓它們真正長起來，代價是其他盆子得自己撐過這一季。兩種澆法都說得通，也都會有東西枯掉，只是枯掉的方式不一樣。\n\n公司還在虧損的那幾年，根本沒有澆法的問題，因為水連一盆都不夠。2021 年，公司轉虧為盈，市值升到 126 億美元，終於有資源可以分了。從那時候起，Masuda 發現同事們看他的眼神不太一樣了：大家都知道，下一張預算表由他提案，也由他定案。\n\n五十多個單位背後，是四大事業的版圖。其中最常被拿出來爭的，是三個。LINE FRIENDS 是最會賺的那一個：角色可愛，商品到現在都還賣得動。NEXT 做 NFT，PLAY 做手遊，兩個都還站在起跑線上，市占會長成什麼樣子，沒有人說得準。\n\n市場的地圖也一樣難畫。亞洲是主場，可是主場旁邊有微信，一步也沒有讓。北美的回饋樂觀，美國卻只有 315 萬用戶，基礎很薄；但那裡被視為授權市場最大的地區。事業一條軸，市場一條軸，兩條軸一交叉，那壺水要澆的盆子就更多了，每一盆分到的也就更少。\n\nMasuda 不怕做決定，他怕的是交不出理由。高層團隊一定會問：為什麼這樣分？在那個問題底下，還有一個更安靜的問題：這樣分，對得起公司的使命與願景嗎？\n\n這幾週他越想越清楚，預算從來不只是數字，而是公司對每一個團隊說的一句話。押在少數幾個事業上，等於對其他人說「今年不是你」；平均分給每一個，等於對每個人說「你們都一樣重要」。可是，當每一個都一樣重要，是不是也代表沒有一個真的重要？\n\n便條紙上那句話底下，他又補了一行：澆遍，還是澆透？\n\n承\n\n導火線是在申請書全部到齊的那個早上點燃的。\n\n各單位的需求加總，遠遠超過可以分的額度[待查證：各單位申請總額與可分配額度]。Masuda 並不意外。讓他意外的是，三種聲音在同一個早上一起找上門。\n\n第一種來自主掌 FRIENDS 的資深主管[虛構配角]。他的信寫得很短：公司最會賺的是 FRIENDS，錢應該押在最會賺的地方。最後一句他特別加粗：「是押，不是分。」\n\n第二種來自負責 NEXT 與 PLAY 的主管[虛構配角]，主張正好相反：縮減 FRIENDS，把錢挪去投資未來。「NFT 和手遊的窗口不等人，」他在電話裡說，「這種時候，給一點點跟沒給一樣。」\n\n第三種來自一位資深事業群主管[虛構配角]。他沒有寫信，而是親自走進 Masuda 的辦公室，拍了拍那疊申請書：「四大事業平均分吧。五十多個單位都在看，誰都不能漏。」\n\n之後，Masuda 在筆記裡就叫他們 FRIENDS 主管、新事業主管、事業群主管。\n\n那天下午，他把三份意見並排擺在桌上，看了很久，才發現一件一開始被爭吵聲蓋過去的事。FRIENDS 主管和新事業主管看起來勢不兩立，一個要守、一個要砍，可是兩個人用的其實是同一個字：押。他們吵的是押誰；真正和他們站在對面的，是那個說「分」的人。\n\n他在便條紙上把題目改寫了一遍。原本寫的是「FRIENDS，還是 NEXT／PLAY」，他把它劃掉，改成四個字：少數，全部。\n\n轉\n\n預算協調會那天，Masuda 沒有照慣例請各事業輪流報告。他等所有人坐定，只說了一句話。\n\n「今天先不談該押誰，」他說，「先談要不要押。」\n\n會議室安靜了幾秒。\n\nFRIENDS 主管第一個開口。「要押，」他說得很快，「而且要押在最會賺的地方。角色可愛，商品到現在都還賣得動，這是全公司最確定的收入。把錢平均撒出去，等於讓最會賺的引擎，跟還在試車的東西站在同一條起跑線上。」\n\n新事業主管沒有反駁他的前半句。「我同意要押。」桌邊有人轉過頭看他，大概沒想到這兩個人會在同一件事上點頭。「只是押錯了地方。最會賺的是今天，NFT 和手遊是之後。窗口不等人，如果只拿到平均的一小份，我們連進場的門票都買不起。」\n\n「你那份市占，連你自己的簡報都寫著不確定。」FRIENDS 主管說。\n\n「所以才更不能撒。」新事業主管回答，「不確定的東西只給一點點，只會換來一個更不確定的結果。」\n\nMasuda 沒有插話。兩個人越吵，他越確定：在「押」這件事上，他們站在同一邊。\n\n事業群主管等兩人都說完，才把筆放下。「兩位都說要押，」他慢慢地說，「可是兩位要押的地方正好相反。這不就說明了一件事？連在座最懂自己事業的人，都沒辦法同意哪裡最值得押。既然沒有人能確定，就不要把公司壓在少數幾個判斷上。四大事業平均分，五十多個單位都有份。誰都不能漏。」\n\n這段話落下，桌邊有好幾個人跟著點頭。「都有份」，永遠是會議室裡最容易被接受的三個字。\n\n會議在沒有結論中散場。\n\n幾天後，Masuda 自己去了一趟 FRIENDS 的實體門市。出發前，他只傳了一則訊息給 FRIENDS 主管。\n\n門市的燈開得很亮，架上的角色商品排得整整齊齊，每一個角色都笑著。店裡卻很安靜，安靜到他聽得見空調的聲音。他在貨架之間走了一圈，看見的店員比客人還多。\n\nFRIENDS 主管晚了幾分鐘才到，手裡拿著一個資料夾。兩個人在倉庫旁的小辦公室坐下，他把資料夾推過來，沒有先開口。\n\n裡面是實體零售最新的數字。疫情把實體零售傷到什麼程度，資料夾裡寫得很清楚；來客與營收的下滑幅度[待查證：疫情對實體零售的衝擊幅度]，一頁一頁攤在 Masuda 眼前。\n\nMasuda 翻到最後一頁，抬起頭。「這個，協調會上你沒有講。」\n\n「我知道。」FRIENDS 主管說，「我怕一講，大家就只聽得見這一句。」他停了一下，「可是我今天還是要說同一句話：要押。正因為受傷了，才更不能只給一點。傷口要好，要的是一次給足，不是每個月滴幾滴。平均分給我的那一份，只夠讓門市再撐一陣子。撐完之後呢？」\n\nMasuda 沒有回答。他想起便條紙上那壺水。如果最會賺的那一盆，根部已經開始乾裂，把水澆遍五十多盆，它分到的那一點，救得了它嗎？可是反過來想，連最會賺的那一盆都會裂，他又憑什麼相信，自己挑出來澆透的那幾盆，就不會裂？\n\n門市的數字隔天就在公司裡傳開了。Masuda 沒有想到，同一份數字會在一天之內被兩邊拿去當證據。\n\n事業群主管先在走廊上攔住他，語氣比協調會上更篤定。「你看到了吧？連最會賺的都會出事。今天是 FRIENDS，明天可能是任何一個。你把錢集中押在少數幾個事業上，押中了是英雄；押到一個正在裂開的地方，整年就沒了。分開放，至少不會一次全倒。誰都不能漏，不只是為了公平，也是為了不讓一道裂縫拖垮全部。」\n\n下午，新事業主管傳來一封很短的信：「FRIENDS 的數字出來了。如果連最會賺的事業都撐得這麼辛苦，公司更需要下一個賺錢的地方，而且要現在就給足。窗口不等人。平均分的話，NFT 和手遊各拿一小份，等於站在門口看別人進場。」\n\nFRIENDS 主管則沒有再多說什麼。當天晚上，他把一份加碼方案寄進 Masuda 的信箱，附件檔名只有四個字：一次給足。方案需要的金額[待查證：FRIENDS 加碼方案所需預算]寫在第一頁，底下一行字：平均分的那一份，不夠。\n\n那天夜裡，Masuda 把三樣東西排在桌上：他憑記憶寫下的走廊上那番話、新事業主管的信、「一次給足」的方案。\n\n他忽然明白，門市的那份數字並沒有替他回答「押 FRIENDS，還是押 NEXT／PLAY」。它做的事更殘酷：它把「押」與「分」兩條路，各自推到了最遠的地方。\n\n往「分」那一頭看，平均分從來沒有這麼像一份保險。沒有任何一個事業被放棄；萬一哪一個再出事，公司也不至於整個陷進去。五十多個單位都會收到同一句話：你們都有份。\n\n可是保險也有另一面。他把平均分的數字一格一格填進去：FRIENDS 那一份，照 FRIENDS 主管的說法，只夠止血，不夠翻身；NEXT 和 PLAY 各拿一份，照新事業主管的說法，買不起進場的門票。每一格都有數字，卻沒有一格寫得出「今年我們要贏什麼」。\n\n往「押」那一頭看，畫面完全不同。錢集中下去，每一筆都夠份量：FRIENDS 有機會一次把傷口處理好，或者 NEXT 和 PLAY 可以真正卡位。可是「押」有一個「分」沒有的代價：押錯了，預算和時機都回不來。而門市的數字剛剛提醒他，就連公司最有把握的事業，也會露出傷口。\n\n更難的是，「押」裡面還藏著第二道題。FRIENDS 主管和新事業主管都要押，要押的地方卻正好相反。選了「押」，他接下來還得決定押誰；而不論押誰，另一位主張「押」的人，都會變成最失望的那一個。\n\n他把那疊五十多份申請書搬回桌上，試著分成兩堆：一堆是「今年押」，一堆是「今年等」。分到一半，他停了手。「等」那一堆越疊越高，高到快要倒下來；每一份背後，都是一個團隊、一位主管，和一群剛熬過虧損的同仁。\n\n市場那一層，也沒有因此變得簡單。北美的回饋依舊樂觀，那裡被視為授權市場最大的地區；可是美國只有 315 萬用戶，基礎很薄。如果「分」，亞洲和北美各拿一份，兩邊可能都只夠試試看；如果「押」，他就得在主場與新戰場之間再選一次。至於這兩個市場該怎麼對上「押」與「分」，他還沒有答案，手上也沒有足夠的資料[待查證：北美授權市場規模]。\n\n凌晨，他在便條紙「水只有一壺」那行字底下，寫下一句這幾週一直在他腦中打轉的話：聚焦的代價是錯失，分散的代價是平庸。過去幾週，他一直把它當成一句提醒；今晚他才看清楚，那是一張帳單。不管選哪一邊，帳單都會寄來，只是寄給不同的人。\n\n合\n\n定案的日子[待查證：預算定案日期與審議場合]近在眼前。提案前的最後一個晚上，Masuda 把兩份簡報草稿並排打開。\n\n第一份的檔名是「押」。它把 2023 年的行銷預算集中在少數事業上，給到足以改變局面的份量；其餘單位今年只保留最低限度的行銷預算。它的吸引力很清楚：每一筆錢都夠份量。FRIENDS 主管會說，這是讓最會賺的事業真正療傷的唯一辦法；新事業主管會說，這是在窗口關上之前真正進場的唯一辦法。它的風險也一樣清楚：押錯了，預算和時機都回不來；門市的數字已經證明，再有把握的事業也會受傷。而且這份簡報的最後一頁還空著一格：押誰。不論填上哪個名字，另一位主張「押」的人都會在會議室裡沉默；五十多個單位裡的大多數，會收到「今年不是你」。他甚至想像得到 FRIENDS 主管和新事業主管看到這份草稿時的樣子：兩個人都會先鬆一口氣，然後同時翻到最後一頁。\n\n第二份的檔名是「分」。四大事業平均分，五十多個單位都有份。它的吸引力同樣具體：誰都不漏；萬一哪一個事業再出狀況，公司不會整個陷進去。事業群主管會說，這是剛熬過虧損的組織最需要聽到的一句話；在高層團隊面前，它也最容易解釋。它的風險則藏在每一格數字裡：每一份都薄。FRIENDS 不夠翻身，NEXT 與 PLAY 不夠進場，北美不夠進攻。一年之後，公司可能哪裡都沒有輸，也哪裡都沒有贏。\n\n他也想過折衷：大部分平均分，再挪出一小塊來押。可是這個念頭沒有撐過幾分鐘。挪出來的那一小塊，FRIENDS 主管會說不夠療傷，新事業主管會說不夠進場；剩下的平均分，事業群主管會說已經有人被漏掉。折衷不會讓任何一邊滿意，只會讓兩邊的代價同時出現。\n\n他想像自己帶著第一份走進去，高層團隊會問：為什麼是這幾個，不是其他幾十個？他又想像自己帶著第二份走進去，高層團隊會問：每個單位都拿到了，那我們今年到底要贏什麼？兩個問題他都答得出一部分，也都答不完整。\n\n還有那個更安靜的問題：哪一份，才對得起公司的使命與願景？\n\n便條紙還貼在螢幕邊緣，「水只有一壺」那幾個字已經被他描得很深。澆遍，五十多盆都會濕，卻可能沒有一盆長得起來；澆透，有幾盆會真正長大，其他的得自己撐過這一季，而他不能保證，自己挑中的那幾盆不會在下一季裂開。\n\n他把兩份檔名各看了一遍：押，分。再過幾個小時，他就得選一份，帶進高層團隊的會議室。\n\n【鏡頭註記】\n鏡頭：鏡頭 6 理論先行（T9 聚焦 vs. 分散）\n觀點人物：Jun Masuda（首席戰略暨行銷長），第三人稱，緊貼他的所見、所思、所感\n轉折事件：素材卡候選轉折事件第一名——實體零售遭疫情重創的衝擊浮上檯面（門市場景）。本版選它，是因為同一份數字同時把兩端推到極致：主張平均分的一方拿它證明「沒有任何事業是安全的，不能押在少數幾個」，主張重押的兩方則拿它證明「受傷的引擎與正在關上的窗口，都需要一次給足」\n本版兩難所承載的張力：A 端（選項 A）＝聚焦：把預算集中押在少數事業、給足到能改變局面，其餘事業今年等待（FRIENDS 主管、新事業主管站在此端，兩人只在「押誰」上分歧）；B 端（選項 B）＝分散：四大事業平均分、五十多個單位都有份，平衡各事業（事業群主管站在此端）"},{"lens":2,"tension":"T1","text":"起\n那封信寄到 Masuda 信箱時，已經過了晚上十一點。寄件人是主掌 FRIENDS 事業的資深主管[虛構配角]，主旨只有一行：「在您動筆之前，請先聽我說完。」\n\nMasuda 沒有立刻打開。他大概猜得到信裡會寫什麼，也知道自己遲早得面對它。身為 LINE 的首席戰略暨行銷長，2023 年度的行銷預算要怎麼分給 50 多個事業單位、要押在亞洲還是北美，由他提案，也由他定案。2021 年公司轉虧為盈，市值升到 126 億美元，終於有資源可分；而資源一旦可分，第一個站出來說話的，往往是最有理由的人。\n\nFRIENDS 有最充分的理由：它最會賺。角色可愛，商品到現在都還賣得動。可是公司裡也有另一種聲音，認為正因為 FRIENDS 最會賺，才更該把一部分資源挪出來，投給還在起跑線上的 NEXT 與 PLAY。兩種聲音都不是第一次出現，只是過去沒有錢，爭也是白爭；今年，爭的是真金白銀。\n\nMasuda 終於點開那封信。第一行就寫著：「FRIENDS 不是公司的過去，是公司現在的支柱。」\n（摘錄）\n\n承\n（摘錄版省略）\n\n轉\n預算協調會上，FRIENDS 的主管是第一個站起來的人。\n\n他看著長桌對面那些準備好投影片的同事，心裡很清楚他們會說什麼：窗口、先機、未來。這些詞他都同意，只是在他聽來，它們都少了一個前提——今天付得起「未來」的，是誰。\n\n「我先說一件大家都知道、卻沒有人想說的事。」他開口，「實體零售被疫情重創，FRIENDS 的門市現在很辛苦。有人把這件事當成縮減 FRIENDS 的理由，我把它當成相反的理由。」\n\n他停了一下。這段時間他讀過太多門市的報告，下滑的幅度[待查證]他倒背如流，也知道那些撐著門市的人在等什麼。「角色可愛，商品還賣得動。受傷的是通路，不是我們的角色。在最會賺的事業最需要支撐的時候抽走資源，省下來的是今年的預算，賠掉的是所有人對公司的信任。」\n\n會議室安靜下來。他看見負責 NEXT 與 PLAY 的主管低頭在筆記上寫了什麼，也看見 Masuda 沒有任何表情。他知道自己的話不會讓任何人當場改變立場，但他必須讓所有人聽見：反對縮減，不是守舊，而是替那些還在撐的人說話。\n（摘錄）\n\n合\n（摘錄）\nMasuda 想起那天深夜的信，也想起會議室裡那句「受傷的是通路，不是我們的角色」。他不得不承認，那不是一個稻草人的論點；如果他坐在 FRIENDS 主管的位置，他也會這麼說。\n\n可是負責 NEXT 與 PLAY 的主管同樣沒有說錯：NFT 和手遊的窗口不等人，市占不確定，但先機只在現在。\n\n他也想起 FRIENDS 主管在會議結束時說的最後一句話：「您可以不同意我，但請不要把我們當成過去。」這句話沒有任何數字，卻讓他把縮減 FRIENDS 的那份試算，又從頭看了一遍。\n\n兩份提案並排在桌上。一份押 NEXT 與 PLAY，一份押 LINE FRIENDS。每一份背後，都站著一位完全有道理的主管，正等著看他站在哪一邊。\n\n【鏡頭註記】\n觀點人物：Jun Masuda（主角，第三人稱）；第三幕「轉」大量切換至主掌 FRIENDS 事業的資深主管[虛構配角]的視角\n轉折事件：素材卡候選轉折事件第一名——實體零售遭疫情重創；從反對者立場重新詮釋為「這正是不能縮減 FRIENDS 的理由」\n本版兩難所承載的張力：A 端＝縮減 FRIENDS、把資源投向 NEXT／PLAY 的未來訴求；B 端＝守住最會賺、正在受傷的 FRIENDS 及其團隊的訴求"},{"lens":3,"tension":"T1","text":"起\n距離向高層團隊提案，還剩 48 小時。\n\nMasuda 把兩個檔案並排放在螢幕上。左邊那個檔名結尾是「A」，押 NEXT 與 PLAY；右邊那個結尾是「B」，押 LINE FRIENDS。兩個檔案他都改過很多次，卻都還沒改到可以交出去的程度。\n\n他是 LINE 的首席戰略暨行銷長。2023 年度的行銷預算怎麼分給 50 多個事業單位、要押在亞洲還是北美，由他提案，也由他定案。四十八小時後，他就得站在高層團隊面前，說出一個分法，並且替它負責。\n\n他看了一眼時鐘，又把視線移回螢幕。事情其實不是從這兩天開始的。要說起點，得回到 2021 年。那一年，公司轉虧為盈，市值升到 126 億美元，許多人第一次相信：終於，有資源可以分了。也是從那一刻起，每個事業都開始替自己的明年寫下理由。\n\n那些理由一份一份疊上他的桌子：押最會賺的、投未來的、平均分的。四十八小時，他要從這堆理由裡，挑出一個他願意站上台說出口的。\n（摘錄）\n\n承\n（摘錄版省略）\n\n轉\n倒數 30 小時。\n\n深夜，那份報告出現在 Masuda 的信箱裡。寄件人是負責實體零售的團隊[虛構配角]，內容只有一個重點：疫情對實體門市的衝擊，比先前的判斷更深，下滑幅度[待查證]。\n\n他讀完最後一頁，抬頭看時鐘。三十小時。三十小時前，他還以為 B 檔案是比較安全的那一個：最會賺，角色可愛，商品還賣得動，至少今年的數字守得住。現在，安全的那一個露出了一道裂縫。\n\n他打開 A 檔案。NFT 與手遊的窗口不等人，市占卻不確定。如果他今晚改押 A，等於在三十小時內推翻自己花了好幾週建立的判斷；如果他繼續押 B，就得在提案會上解釋，為什麼要把最多的錢放在一個正在受傷的地方。時鐘的秒針一格一格往前走，好像每一格都在問他：你還要等什麼？\n\n他打開行事曆。提案會的時間早已鎖定[待查證]，沒有延後的空間。他想過再開一次協調會，可是三十小時不夠讓任何人改變立場，只夠讓每個人把自己說過的話再說一次。\n（摘錄）\n\n合\n（摘錄）\n倒數 15 分鐘。\n\n會議室的門還關著，裡面的人已經到齊了。Masuda 站在走廊上，筆電裡仍然是兩個檔案。押 B，守住今年的數字，但可能眼看著 NFT 與手遊的窗口關上；押 A，替公司搶一個未來的位置，卻要讓最會賺的事業在最難的一年少一份支撐。\n\n聚焦的代價是錯失，分散的代價是平庸。四十八小時前，他以為時間會幫他做決定。現在他知道，時間只做了一件事：把所有能拖延的理由，一個一個拿走。\n\n這四十八小時裡，他聽完每一方的最後陳述，讀完每一份補充資料，卻沒有任何一份資料能替他回答：哪一種代價，是這家公司比較承受得起的。\n\n時鐘跳到倒數 14 分鐘。他深吸一口氣，伸手推門。\n\n【鏡頭註記】\n觀點人物：Jun Masuda，第三人稱；以提案前 48 小時的倒數為時間軸，穿插倒敘\n轉折事件：素材卡候選轉折事件第一名——實體零售遭疫情重創的報告，安排在倒數 30 小時送達\n本版兩難所承載的張力：A 端＝投資未來的能力、忍受短期陣痛（NEXT／PLAY）；B 端＝守住眼前的數字（LINE FRIENDS）"},{"lens":4,"tension":"T1","text":"起\n在 LINE，幾乎每個人都說得出 FRIENDS 為什麼成功：角色可愛，而且到現在都還賣得動。這句話在公司裡流傳得太久，久到它不太像一個判斷，而像一條常識。\n\nMasuda 也曾經這麼相信。身為首席戰略暨行銷長，2023 年度的行銷預算要怎麼分給 50 多個事業單位、要押在亞洲還是北美，由他提案，也由他定案。過去，這類問題幾乎有一個預設的起點：先照顧最會賺的，讓讓我們成功的做法，繼續讓我們成功。\n\n2021 年，公司轉虧為盈，市值升到 126 億美元。照理說，這是那套做法最好的證明。可是 Masuda 在試算表前坐得越久，越覺得那條常識裡藏著一個他不敢大聲問的問題：如果讓我們走到今天的東西，恰好也是讓我們走不到明天的東西呢？\n\n他翻開過去的預算表。FRIENDS 那一列總是排在最前面，像一種不需要解釋的秩序；NEXT 與 PLAY 排在後面，每一筆錢都得附上長長的說明。他第一次注意到，這份秩序本身，也許就是一個選擇。\n（摘錄）\n\n承\n（摘錄版省略）\n\n轉\n改變一切的，不是一份財報，而是負責 NEXT 與 PLAY 的主管[虛構配角]帶進來的一份窗口判斷。\n\n「這是我們對 NFT 與手遊窗口的看法。」他把文件推到 Masuda 面前。文件上沒有太多數字，關鍵的幾個時間點都標著[待查證]，但結論寫得很清楚：窗口不等人。如果這一輪預算不進場，先機就是別人的。\n\nMasuda 盯著那份文件。他知道市占不確定，也知道這份文件本身是一個判斷，而不是事實。讓他坐立難安的是另一件事：這是第一次，有人用時間而不是營收，來衡量公司該往哪裡走。\n\n過去，FRIENDS 的成功讓所有預算討論都有同一個起點。可是在這份文件裡，FRIENDS 一次也沒有被提到。不是因為它不重要，而是因為在窗口的邏輯裡，最會賺的事業，只是最不急的事業。\n\nMasuda 把文件翻到最後一頁，又翻回第一頁。他左手邊那疊 FRIENDS 的申請書，厚度是這份文件的好幾倍。一邊是厚厚的過去，一邊是薄薄的窗口。\n（摘錄）\n\n合\n（摘錄）\nMasuda 把兩份提案並排。一份延續讓公司成功的做法：押最會賺的 LINE FRIENDS，相信角色可愛、商品還賣得動的那條常識，即使實體零售正被疫情重創。另一份承認那條常識可能已經不夠：把資源押向 NEXT 與 PLAY，趕在窗口關上之前進場，即使市占不確定。\n\n他想起那份文件上一個個的[待查證]。延續，可能是守住根本，也可能是守住包袱；轉向，可能是遠見，也可能是一場昂貴的誤判。\n\n他也知道，不論選哪一份，都會有人說他背叛了什麼：選延續，有人會說他背叛了未來；選轉向，有人會說他背叛了讓公司轉虧為盈的那群人。\n\n提案會就在明天。他還沒有決定，要替哪一個可能負責。\n\n【鏡頭註記】\n觀點人物：Jun Masuda，第三人稱\n轉折事件：素材卡候選轉折事件第二名——NFT 與手遊的窗口逼近（「窗口不等人」），以一份窗口判斷文件呈現；具體時間點標記 [待查證]\n本版兩難所承載的張力：A 端＝承認過去的優勢可能已成包袱，大幅轉向 NEXT／PLAY；B 端＝延續讓公司成功的做法，續押 LINE FRIENDS"},{"lens":5,"tension":"T1","text":"起\n早上十點，門市的燈一盞一盞亮起來。\n\n一位在 FRIENDS 門市待了多年的店長[虛構配角]，照例先把架上的角色玩偶一隻一隻轉正，讓它們的臉朝向門口。這是她每天開店的第一個動作，好像只要角色們看著門口，客人就會走進來。\n\n可是這一陣子，門口很安靜。疫情重創實體零售，來客掉了多少[待查證]，她不必看報表也知道。角色還是一樣可愛，聽說角色商品整體也還賣得動；冷清的，是這間店。她把最後一隻玩偶轉正，退後一步看了看。架子很整齊，整齊得有點寂寞。\n\n她不知道，在總部，有一個人正為了明年的預算，反覆看著同一張試算表。那個人是 LINE 的首席戰略暨行銷長 Jun Masuda。2023 年度的行銷預算要怎麼分給 50 多個事業單位，由他提案，也由他定案。在他的試算表上，這間店只是 FRIENDS 那一列裡，一個看不見的小數點。他知道 FRIENDS 最會賺，也知道實體零售正被疫情重創；但從試算表上看過去，「重創」只是一個百分比[待查證]，不是一扇安靜的門。\n（摘錄）\n\n承\n（摘錄版省略）\n\n轉\n店長是在交班時聽說那份報告的。\n\n沒有人正式通知門市，消息是從區域的同事[虛構配角]那裡傳過來的：總部收到一份實體零售的報告，疫情的衝擊比先前的判斷更深[待查證]，明年的預算正在重新討論。「聽說有人主張縮減 FRIENDS，把錢拿去做 NFT 跟手遊。」同事說，「也有人說要加碼。現在誰也不知道。」\n\n那天關店前，店長站在空蕩的走道上，看著那排她每天早上轉正的角色玩偶。她想的不是預算，而是排班表：如果門市真的要收縮，第一個被調整的會是誰？是那位剛來不久、每天比她更早到的新人，還是她自己？\n\n同一時間，Masuda 也在讀那份報告。他看到的是曲線與比例，看不到那排被轉正的玩偶。報告裡有一張門市來客變化的圖[待查證]，他盯著那條線，想起負責 NEXT 與 PLAY 的主管[虛構配角]說過的話：窗口不等人。窗口不等人，可是門市裡的人，也在等。他們等的不是窗口，是一個答案。\n（摘錄）\n\n合\n（摘錄）\n提案前一晚，Masuda 請人把那份實體零售報告的附件再送來一次。他沒有看數字，只看了幾張門市的照片：整齊的貨架、安靜的走道、一排被轉正的玩偶。\n\nMasuda 想起那份報告的最後一頁，想起那些他從沒見過、卻每天替公司開門的人。押 NEXT 與 PLAY，是替公司搶一個未來的位置；但為這個位置付出代價的，可能是那些站在冷清門市裡、仍然相信角色可愛還賣得動的人。押 LINE FRIENDS，是對他們的承諾；但如果窗口關上，這份承諾可能讓整家公司錯過下一步。\n\n整體的帳，和第一線的代價。他知道，不論怎麼選，明天早上十點，那排角色玩偶都會照常被轉正，面向門口。\n\n【鏡頭註記】\n觀點人物：Jun Masuda（決策者，第三人稱）；開場與第三幕穿插 FRIENDS 門市店長[虛構配角]的視角\n轉折事件：素材卡候選轉折事件第一名——實體零售遭疫情重創，呈現它在門市第一線造成的衝擊\n本版兩難所承載的張力：A 端＝把資源移往新事業，追求公司整體的效率與未來（NEXT／PLAY）；B 端＝守住第一線執行者承擔的代價與公司對他們的承諾（LINE FRIENDS 門市與其人員）"}],"demoCard":"■ 這件事（一句話：誰、在什麼期限前、要決定什麼）\nLINE 首席戰略暨行銷長 Jun Masuda，必須在 2023 年度預算定案前，決定行銷預算要怎麼分配到 50 多個事業單位，以及亞洲與北美兩個市場。\n\n■ 組織背景\n- 產業：數位平台。\n- 規模：旗下 50 多個事業單位。畫布另提到「四大事業」，已知其中三個是 LINE FRIENDS、NEXT（NFT）、PLAY（手遊），第四個〔待補〕；50 多個事業單位和四大事業的對應關係〔待補〕。\n- 財務：2021 年剛轉虧為盈，市值升到 126 億美元。\n- 地區：亞洲是主場，但有微信競爭；北美用戶基礎薄（美國僅 315 萬用戶），但被視為授權市場最大的地區。\n- 員工數、營收規模、各事業營收占比 [待查證]。\n\n■ 主角（化名、職稱、責任、內在動機）\n- Jun Masuda（公開個案，保留真名）｜首席戰略暨行銷長。\n- 責任：預算與投資怎麼配，由他提案、由他定案。\n- 內在動機：要向高層團隊交代，也要讓決定對得起公司的使命與願景（使命與願景的具體內容〔待補〕）。\n- 個人背景、任期、過往經歷〔待補〕。\n\n■ 情境導火線\n2021 年轉虧為盈、市值升到 126 億美元，公司「終於有資源可分」。資源一旦可分，各事業的主張同時浮上檯面：押最會賺的、投未來的、平均分的；而 2023 年度預算必須定案。\n\n■ 時間壓力（期限與再拖下去的代價）\n- 期限：2023 年度預算定案（確切日期與審議場合〔待補〕）。\n- 再拖下去的代價：NFT 與手遊的窗口不等人，晚一步可能失去先機。其他代價〔待補〕。\n\n■ 決策點\nMasuda 必須提出並定案 2023 年行銷預算的分配：錢要集中押在哪裡，還是分散給所有事業？同時還有第二層問題：亞洲深耕，還是北美進攻？\n收斂說明：畫布原列三條路（①押 LINE FRIENDS、②四大事業平均分、③押 NEXT／PLAY）與一條市場軸。為寫成兩端的兩難，本卡把③列為選項 A、①列為選項 B；②「平均分」保留為折衷方案，由主張「誰都不能漏」的角色提出。市場軸與 A／B 的對應關係畫布沒有說明〔待補〕。此收斂方式請組內確認。\n\n■ 選項 A（吸引力／風險）\n押注 NEXT（NFT）與 PLAY（手遊）。\n- 吸引力：有先機；窗口不等人，現在投入才有機會卡位；回應「該投未來」的主張。\n- 風險：市占不確定；押錯了，預算和時機都回不來；同時要縮減最會賺的 FRIENDS。\n\n■ 選項 B（吸引力／風險）\n押注最會賺的 LINE FRIENDS。\n- 吸引力：最會賺；角色可愛，商品還賣得動，報酬相對確定。\n- 風險：實體零售被疫情重創；重押現有事業，可能錯過 NFT 與手遊的窗口。\n\n■ 涉及角色（6 位以內：化名、職位、立場、真正在意的事）\n畫布註明「個案沒點名，只寫了立場」，以下除主角外均缺姓名與職位：\n1. Jun Masuda｜首席戰略暨行銷長｜提案並定案｜真正在意：向高層團隊交代、對得起使命與願景。\n2. 〔待補：職位〕｜立場：押 FRIENDS——最會賺｜真正在意的事〔待補〕。\n3. 〔待補：職位〕｜立場：縮減 FRIENDS——該投未來｜真正在意的事〔待補〕。\n4. 〔待補：職位〕｜立場：平均分——誰都不能漏｜真正在意的事〔待補〕。\n5. 高層團隊｜Masuda 須向其交代｜立場〔待補〕。\n\n■ 管理議題與理論張力（這個兩難背後，是哪兩股力量在拉扯）\n- 管理議題：多事業組合的資源配置——聚焦或分散、成熟市場或新市場，而且決策要對齊使命願景。\n- 兩股力量：一端是「收割現有、確定的賺錢引擎」（選項 B），另一端是「押注尚未證實、但窗口正在關上的新機會」（選項 A）。畫布原話：「聚焦的代價是錯失，分散的代價是平庸。」\n\n■ 可用場景與細節（來自本文片段的場景、對話、數據區間）\n本次未提供本文片段（示範）。畫布中可轉成場景的線索：\n- 數據：2021 年轉虧為盈；市值 126 億美元；美國用戶 315 萬；50 多個事業單位。\n- 畫面線索：實體零售被疫情重創（門市畫面）；北美反饋樂觀（報告或簡報畫面）；向高層團隊交代（提案會議）。\n- 具體對話、會議、引述〔待補〕。\n\n■ 候選轉折事件（2–3 個，依戲劇張力排序）\n1. 實體零售遭疫情重創的衝擊浮上檯面：「最會賺」的 FRIENDS 也有傷口，選項 B 不再是安全牌。（衝擊幅度 [待查證]；浮現的時點與場合〔待補〕）\n2. NFT 與手遊的窗口逼近：「窗口不等人」，不投就可能錯失先機。（具體的窗口事件〔待補〕）\n3. 北美反饋樂觀，但美國僅 315 萬用戶、基礎薄：樂觀訊號逼出「要不要現在就進攻北美」。（反饋來源與內容〔待補〕）\n註：三者都取自畫布的既有描述；寫成情節時，需要補上具體時點與場合。\n\n■ 待查證／待補清單\n- 第四大事業的名稱；50 多個事業單位與四大事業的關係〔待補〕\n- 預算定案的確切日期與審議場合〔待補〕\n- 行銷預算總額與各事業目前的分配 [待查證]\n- 各事業的營收／獲利占比 [待查證]\n- 疫情對實體零售的衝擊幅度 [待查證]\n- NFT、手遊的市占與市場窗口 [待查證]\n- 北美反饋的來源與內容；北美授權市場規模 [待查證]\n- 亞洲市場範圍、與微信競爭的具體情況〔待補〕\n- 三種立場的持有者（職位或化名）〔待補〕\n- 使命與願景的具體內容〔待補〕\n- A／B 的收斂方式、市場軸與 A／B 的對應（請組內確認）\n\n請把整張素材卡複製保存，並分享給全組每一位組員——它是下一階段每個人寫作的共同素材。","runsheet":[{"id":"open","start":"14:00","min":30,"title":"開場短講：好故事 × 理論載體","who":"教師","screen":"從五格畫布到故事：一個人、一個期限、一個兩難——兩難就是理論張力的化身。"},{"id":"demo","start":"14:30","min":15,"title":"LINE 現場示範","who":"教師","screen":"現場只跑 Stage A′（畫布 → 素材卡）；鏡頭與比稿直接投影備援稿，看同一張卡、兩個鏡頭的差別。"},{"id":"p1","start":"14:45","min":40,"title":"① 素材卡（全組一台）","who":"各組","screen":"1 號（組長）主控 Stage A′；2 號選鏡頭 6 的張力、3 號化名糾察、4 號寫期限代價、5 號排轉折。15:10 還沒出卡就回覆 AI「直接出卡」；15:20 前分享素材卡。"},{"id":"p2","start":"15:25","min":40,"title":"② 鏡頭寫作（每人一台）","who":"個人","screen":"依組員編號領鏡頭卡 → 產生 Stage B → 貼回平台看體檢 → 修一輪 → 匯出版本包，貼到小組 LINE（1 號從這裡匯入，審你的人也從這裡拿）。"},{"id":"break","start":"16:05","min":15,"title":"中場休息","who":"—","screen":"還在生成的人：讓 AI 繼續跑，回來再看。"},{"id":"p3","start":"16:20","min":30,"title":"③ 交叉審查（審下一號組員）","who":"個人","screen":"第 k 號審第 k+1 號（最後一號審第 1 號）。先讀、先寫三句話，再跑 Stage C′：①最值得留下的手法 ②這張卡測出本文哪裡不夠 ③兩股力量在哪場戲最清楚。"},{"id":"p4","start":"16:50","min":35,"title":"④ 比稿收斂（全組一台）","who":"各組","screen":"比三段（開場、轉折、結尾，每列一人主持、先默選再討論），再由 2 號主持寫出理論一句話草稿 → Stage D → 修訂清單＋理論句評析＋教學指引大綱 v0。"},{"id":"share","start":"17:25","min":25,"title":"全班分享","who":"各組","screen":"每組 2 分鐘：①哪一版最難寫？它測出本文哪一格不夠？②你們的 A 與 B 各由誰代表？哪一場戲最能感受到拉扯？③今天哪一個判斷是你們推翻 AI 的？"},{"id":"close","start":"17:50","min":10,"title":"收束與帶回家","who":"教師","screen":"11/29（日）23:59 前上傳 Moodle。1 號先把成果單存成 PDF、文字貼到小組 LINE，確認有人收到後，借用電腦的人再清除本機資料。"}],"cutOrder":["14:35 短講還沒講完 → 投影片 7 只講一句，LINE 示範改放備援稿。","15:15 仍有組在追問 → 該組回覆 AI「直接出卡」；15:25 準時進入 ②。","16:00 一半以上的人還沒貼回全文 → 取消修一輪，直接匯出；休息照放 15 分鐘。","16:40 → 三句話先交；Stage C′ 的結果可以不貼。","17:15 理論一句話草稿還沒寫 → 先寫草稿；Stage D 改由 1 號課後執行（11/29 前）。","17:25 → 全班分享改抽 3 組（優先抽理論對應最有爭議的組），其餘組由教師在 12/6 前書面回饋。","不刪：④ 的比稿理由與理論一句話草稿——這是學生自己寫、也是今天真正被評量的部分。"],"placeholderHints":{"CANVAS":"（在此貼上你們的五格畫布：這件事、組別／產業、1–5 格內容）","EXCERPTS":"（在此貼上 2–3 段已匿名化的本文片段，合計約 1,500–3,000 字）","LENS_BLOCK":"（在此貼上你抽到的鏡頭卡全文）","MATERIAL_CARD":"（在此貼上全組共用的個案素材卡）","STATS":"（平台會自動填入實測字數；手動使用時寫「未提供」）","CASE_TEXT":"（在此貼上你負責審查的組員版本全文）","N":"（版本數）","COMPARE_RESULT":"（在此貼上比稿結果：開場、轉折、結尾、理論張力各選哪一版、理由）","REVIEW_NOTES":"（在此貼上各版審查的重點摘錄）","OUTLINE":"（在此貼上你們論文個案本文目前的章節架構）","TENSION":"（在此填入你選的理論張力，例如：探索 vs. 利用（A 端：…；B 端：…））","ISSUES":"（在此列出要修改的問題，一行一項）"},"moodle":{"title":"【11/22 AI 說故事工作坊】課前準備（請各組於週日上課前完成）","body":"各位同學好：\n\n本週日（11/22）14:00 的課程是 9/27 預告過的「AI 說故事工作坊：把畫布變成有情節的故事」。我們會用各組自己的論文個案當原料，借助生成式 AI，把五格畫布寫成一篇約 5,000 字的情境式短個案，並用多個敘事鏡頭比較出本文可以強化的地方。為了讓現場時間用在寫作與討論，請完成以下準備：\n\n一、每位同學\n1. 攜帶筆電（請充飽電並帶充電器）。平板也可以，但要能分割畫面，同時開網頁與 AI。\n2. 確認已安裝並登入主流生成式 AI（ChatGPT、Gemini、Claude 或 Copilot 皆可，以有訂閱的帳號為優先；網頁版也可以）。\n3. 隱私設定：請在 AI 的設定中關閉「使用我的對話來訓練／改善模型」之類的選項；ChatGPT 也可在當天直接使用「暫時對話」。\n4. 在筆電登入 LINE 電腦版：當天的素材卡與版本包都靠小組 LINE 傳遞。不方便的話，請準備 Email 或 AirDrop。\n\n二、各組（請 1 號組長統籌）\n1. 五格畫布電子檔：即 9/27 工作坊的「個案採集畫布」（這件事＋五格）。若之後內容已有調整，請更新為最新版本。\n2. 本文片段 2–3 段：從已完成的個案本文中，挑出最有畫面的片段——主角的關鍵場景、一場重要的會議或對話、一組關鍵數據，合計約 1,500–3,000 字。\n3. 匿名化：公司、人物、產品、地點一律換成化名（例如「甲科技」「陳總」），數據改為區間或相對比例。請另外做一張「化名對照表」，存在自己的電腦裡，不要貼進任何 AI。\n4. 貼上 AI 前三問，三題都安心才算完成：\n   (1) 報紙測試：這段文字若原封不動登上報紙，公司會不會受損或提告？\n   (2) 內行人測試：就算換掉名字，同業內行人是否仍能一眼認出是哪家公司或哪位當事人？\n   (3) 機密測試：其中是否含有未公開的財務數字、營業秘密或個人資料？\n5. 本文目前的章節架構（目錄即可），比稿收斂時要用。\n6. 組內先排好編號，並決定今天用誰的個案：1 號＝個案主人或組長，手上要有畫布與片段的電子檔；2 號＝之後負責教學指引理論段的人。\n\n三、提醒\n- 課程平台網址：https://yycncku.github.io/story-lab/平台不需要登入、不連網上傳任何資料，所有內容只存在你自己的電腦。請在筆電上開啟。\n- 沒有完成準備的組，補救會占用 ① 素材卡的時間；若個案素材不足，將改用課堂示範個案練習。\n\n週日見！\n張佑宇"},"qr":{"d":"M2 2h7v1h-7zM10 2h4v1h-4zM15 2h4v1h-4zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h2v1h-2zM13 3h4v1h-4zM18 3h2v1h-2zM21 3h2v1h-2zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h1v1h-1zM12 4h4v1h-4zM20 4h1v1h-1zM24 4h1v1h-1zM26 4h3v1h-3zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM11 5h2v1h-2zM16 5h4v1h-4zM22 5h1v1h-1zM24 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM14 6h3v1h-3zM20 6h2v1h-2zM24 6h1v1h-1zM26 6h3v1h-3zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM13 7h4v1h-4zM18 7h3v1h-3zM22 7h1v1h-1zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h7v1h-7zM14 9h1v1h-1zM16 9h2v1h-2zM21 9h1v1h-1zM2 10h1v1h-1zM5 10h7v1h-7zM14 10h6v1h-6zM21 10h3v1h-3zM26 10h1v1h-1zM28 10h3v1h-3zM3 11h1v1h-1zM12 11h1v1h-1zM14 11h1v1h-1zM16 11h2v1h-2zM19 11h3v1h-3zM25 11h2v1h-2zM28 11h2v1h-2zM2 12h2v1h-2zM5 12h2v1h-2zM8 12h1v1h-1zM12 12h2v1h-2zM16 12h3v1h-3zM22 12h2v1h-2zM25 12h1v1h-1zM28 12h1v1h-1zM4 13h1v1h-1zM6 13h2v1h-2zM10 13h2v1h-2zM13 13h2v1h-2zM16 13h1v1h-1zM18 13h2v1h-2zM23 13h1v1h-1zM27 13h1v1h-1zM30 13h1v1h-1zM2 14h2v1h-2zM7 14h4v1h-4zM12 14h7v1h-7zM20 14h1v1h-1zM22 14h1v1h-1zM24 14h2v1h-2zM30 14h1v1h-1zM2 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM9 15h1v1h-1zM11 15h1v1h-1zM13 15h2v1h-2zM17 15h4v1h-4zM24 15h7v1h-7zM2 16h1v1h-1zM4 16h6v1h-6zM11 16h1v1h-1zM13 16h2v1h-2zM16 16h4v1h-4zM21 16h1v1h-1zM23 16h1v1h-1zM25 16h1v1h-1zM28 16h1v1h-1zM30 16h1v1h-1zM2 17h1v1h-1zM4 17h1v1h-1zM6 17h1v1h-1zM9 17h1v1h-1zM12 17h5v1h-5zM23 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM30 17h1v1h-1zM3 18h3v1h-3zM7 18h2v1h-2zM10 18h3v1h-3zM25 18h1v1h-1zM27 18h1v1h-1zM2 19h3v1h-3zM6 19h1v1h-1zM10 19h1v1h-1zM13 19h1v1h-1zM17 19h1v1h-1zM19 19h1v1h-1zM21 19h3v1h-3zM26 19h1v1h-1zM28 19h2v1h-2zM2 20h2v1h-2zM6 20h1v1h-1zM8 20h1v1h-1zM11 20h1v1h-1zM15 20h3v1h-3zM20 20h2v1h-2zM24 20h1v1h-1zM26 20h2v1h-2zM30 20h1v1h-1zM2 21h3v1h-3zM9 21h3v1h-3zM13 21h1v1h-1zM15 21h1v1h-1zM18 21h1v1h-1zM21 21h3v1h-3zM27 21h2v1h-2zM2 22h2v1h-2zM5 22h2v1h-2zM8 22h3v1h-3zM14 22h2v1h-2zM18 22h2v1h-2zM22 22h8v1h-8zM10 23h1v1h-1zM12 23h2v1h-2zM15 23h1v1h-1zM17 23h2v1h-2zM22 23h1v1h-1zM26 23h2v1h-2zM2 24h7v1h-7zM10 24h1v1h-1zM13 24h3v1h-3zM17 24h3v1h-3zM21 24h2v1h-2zM24 24h1v1h-1zM26 24h2v1h-2zM2 25h1v1h-1zM8 25h1v1h-1zM10 25h4v1h-4zM15 25h1v1h-1zM18 25h5v1h-5zM26 25h1v1h-1zM30 25h1v1h-1zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM10 26h4v1h-4zM15 26h1v1h-1zM21 26h7v1h-7zM30 26h1v1h-1zM2 27h1v1h-1zM4 27h3v1h-3zM8 27h1v1h-1zM10 27h2v1h-2zM15 27h6v1h-6zM25 27h1v1h-1zM30 27h1v1h-1zM2 28h1v1h-1zM4 28h3v1h-3zM8 28h1v1h-1zM11 28h4v1h-4zM16 28h4v1h-4zM23 28h1v1h-1zM25 28h2v1h-2zM28 28h3v1h-3zM2 29h1v1h-1zM8 29h1v1h-1zM12 29h2v1h-2zM17 29h2v1h-2zM23 29h1v1h-1zM25 29h4v1h-4zM30 29h1v1h-1zM2 30h7v1h-7zM10 30h4v1h-4zM16 30h3v1h-3zM21 30h5v1h-5zM27 30h1v1h-1z","size":33}}</script>
+<script>/* case-story-lab core — pure functions only (no DOM). Loaded in the browser and in Node tests. */
+(function (root) {
+  'use strict';
+  var CSL = root.CSL || (root.CSL = {});
+
+  var LIMITS = {
+    text: 60000,       // max characters accepted for one version / card / review
+    field: 8000,       // max characters for one canvas field
+    excerpts: 12000,   // max characters for excerpts
+    packs: 16,         // max packs imported at once
+    aliasRows: 60,     // max alias rows
+    importMax: 500000, // max characters accepted in one paste of packs
+    packChunk: 8500,   // chunk size so each chunk stays under LINE's ~10,000-char limit
+    lineLimit: 9500
+  };
+  CSL.LIMITS = LIMITS;
+
+  function str(v) { return v == null ? '' : String(v); }
+  function clip(v, n) { v = str(v); return v.length > n ? v.slice(0, n) : v; }
+  function codePoints(s) { return Array.from(str(s)); }
+  function normNewlines(s) { return str(s).replace(/\r\n?/g, '\n'); }
+  function normDigits(s) {
+    return str(s).replace(/[０-９]/g, function (ch) { return String.fromCharCode(ch.charCodeAt(0) - 0xFEE0); });
+  }
+  CSL.clip = clip;
+
+  /* ---------- character counting ---------- */
+  // Count non-whitespace code points, ignoring markdown markers.
+  function countChars(s) {
+    return codePoints(str(s).replace(/[\s#*>`]/g, '')).length;
+  }
+  CSL.countChars = countChars;
+
+  /* ---------- template filling (single pass, function replacer: no $-pattern surprises,
+     no re-substitution of user text that happens to contain {{KEY}}) ---------- */
+  function fill(template, values) {
+    return str(template).replace(/\{\{([A-Z_]+)\}\}/g, function (m, key) {
+      return Object.prototype.hasOwnProperty.call(values, key) ? str(values[key]) : m;
+    });
+  }
+  CSL.fill = fill;
+
+  /* ---------- canvas & prompts ---------- */
+  function canvasText(c) {
+    c = c || {};
+    var lines = [];
+    if (c.publicCase === true) lines.push('【公開個案：課堂示範用，真名與公開數字可保留】');
+    lines.push('這件事：' + (str(c.oneliner).trim() || '（未填）'));
+    lines.push('組別：' + (str(c.group).trim() || '（未填）') + '／產業：' + (str(c.industry).trim() || '（未填）'));
+    var names = ['誰要做決定', '為什麼是現在', '難在哪裡', '誰有意見', '別人能學到什麼'];
+    for (var i = 0; i < 5; i++) {
+      lines.push((i + 1) + '｜' + names[i] + '：' + (str(c['g' + (i + 1)]).trim() || '（未填）'));
+    }
+    return lines.join('\n');
+  }
+  CSL.canvasText = canvasText;
+
+  function findTension(content, id) {
+    var list = (content && content.tensions) || [];
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return list[0] || null;
+  }
+  CSL.findTension = findTension;
+
+  function findLens(content, id) {
+    var list = (content && content.lenses) || [];
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return list[0] || null;
+  }
+  CSL.findLens = findLens;
+
+  // Which lens a member gets. Members beyond the deck size get lens 6 with a rotated tension.
+  function lensForMember(content, memberNo) {
+    var order = (content && content.lensOrder) || [1, 6, 2, 3, 4, 5];
+    var n = Math.max(1, parseInt(memberNo, 10) || 1);
+    var tensions = (content && content.tensions) || [];
+    if (n <= order.length) return { lensId: order[n - 1], tensionId: tensions.length ? tensions[0].id : 'T1' };
+    // 第 7 號起：再拿鏡頭 6，換一組張力（第 7 號 T2、第 8 號 T3……），與列印版鏡頭卡一致
+    var tIdx = tensions.length ? (n - order.length) % tensions.length : 0;
+    return { lensId: 6, tensionId: tensions.length ? tensions[tIdx].id : 'T1' };
+  }
+  CSL.lensForMember = lensForMember;
+
+  function lensBlock(content, lensId, tensionId) {
+    var L = findLens(content, lensId);
+    if (!L) return '';
+    var T = findTension(content, tensionId);
+    var tensionText = T ? (T.name + '（A 端：' + T.a + '；B 端：' + T.b + '）') : '';
+    var lines = [];
+    lines.push('鏡頭 ' + L.id + '｜' + L.name + '（' + L.tag + '）');
+    lines.push('・觀點：' + L.pov);
+    lines.push('・結構：' + L.structure);
+    lines.push('・理論張力：' + fill(L.tension, { TENSION: tensionText }));
+    lines.push('・轉折事件：' + L.turning);
+    if (L.rule) lines.push('・規則：' + L.rule);
+    return lines.join('\n');
+  }
+  CSL.lensBlock = lensBlock;
+
+  function buildStageA(content, canvas, excerpts) {
+    return fill(content.prompts.A, {
+      CANVAS: canvasText(canvas),
+      EXCERPTS: str(excerpts).trim() || '（本組未提供本文片段）'
+    });
+  }
+  function buildStageB(content, card, lensId, tensionId) {
+    return fill(content.prompts.B, {
+      LENS_BLOCK: lensBlock(content, lensId, tensionId),
+      MATERIAL_CARD: str(card).trim() || '（尚未貼上素材卡）'
+    });
+  }
+  function buildRevise(content, issues) {
+    var list = (issues || []).map(function (s, i) { return (i + 1) + '. ' + s; }).join('\n');
+    return fill(content.prompts.B_REVISE, { ISSUES: list || '（未勾選問題）' });
+  }
+  function buildStageC(content, stats, caseText, card) {
+    return fill(content.prompts.C, {
+      STATS: stats ? statsText(stats) : '未提供',
+      MATERIAL_CARD: str(card).trim() || '（審查者沒有素材卡：第 7 項請只判斷明顯的捏造）',
+      CASE_TEXT: str(caseText).trim() || '（尚未貼上組員版本）'
+    });
+  }
+  function buildStageD(content, n, compareResult, reviewNotes, outline) {
+    return fill(content.prompts.D, {
+      N: String(n || 0),
+      COMPARE_RESULT: str(compareResult).trim() || '（未填）',
+      REVIEW_NOTES: str(reviewNotes).trim() || '（無）',
+      OUTLINE: str(outline).trim() || '（未提供）'
+    });
+  }
+  CSL.buildStageA = buildStageA;
+  CSL.buildStageB = buildStageB;
+  CSL.buildRevise = buildRevise;
+  CSL.buildStageC = buildStageC;
+  CSL.buildStageD = buildStageD;
+
+  /* ---------- story analysis ---------- */
+  var ACTS = ['起', '承', '轉', '合'];
+  CSL.ACTS = ACTS;
+  // Applied only to trimmed lines of <= 50 characters (headings are short). The length guard also
+  // caps regex backtracking: an untrimmed 5,000-space line used to take minutes (ReDoS).
+  var HEADING_RE = new RegExp(
+    '^(?:[>\\-•・] ?)?(?:#{1,6} ?)?(?:[*_]{1,3})?' +
+    '(?:[【\\[(（]?第 ?[一二三四1-4１-４] ?幕[】\\])）]? ?[｜|:：\\-—–、.．]? ?)?' +
+    '(?:[一二三四1-4１-４] ?[、.．] ?)?' +
+    '[「【〔\\[(（《]? ?(起|承|轉|转|合) ?' +
+    '(?:[」】〕\\])）》](?:[*_]{1,3})?[^\\n]{0,30}|(?:[*_]{1,3})?(?:(?: ?[｜|:：\\-—–―─、.．／/·・(（]| )[^\\n]{0,30})?)$'
+  );
+  function isHeading(line, act) {
+    var t = line.replace(/\u3000/g, ' ').trim();
+    if (!t || t.length > 50) return false;
+    if (t.normalize) t = t.normalize('NFKC');
+    var m = HEADING_RE.exec(t);
+    return !!(m && (m[1] === '转' ? '轉' : m[1]) === act);
+  }
+  var NOTE_RE = /^[\s#*>【\[〔(（]*(?:鏡頭註記|镜头注记)[】\]〕)）\s*:：]*$/;
+  function findNote(lines) {
+    for (var i = lines.length - 1; i >= 0; i--) { if (NOTE_RE.test(lines[i].trim())) return i; }
+    return -1;
+  }
+  var TAG_VERIFY_RE = /[\[［〔【]\s*待查證[^\]］〕】\n]{0,40}[\]］〕】]/g;
+  var TAG_FICTION_RE = /[\[［〔【]\s*虛構配角\s*[\]］〕】]/g;
+  var NUM_RE = /\d+(?:[.,，]\d+)*\s*(?:%|％|萬|億|千|百|元|美元|台幣|倍|人|家|個|年|月|日|名|件|位|成|小時|分鐘|天|週|季)?/g;
+
+  function splitActs(text) {
+    var lines = normNewlines(text).split('\n');
+    var noteAt = findNote(lines);
+    var bodyLines = noteAt >= 0 ? lines.slice(0, noteAt) : lines;
+    var note = noteAt >= 0 ? lines.slice(noteAt + 1).join('\n').trim() : '';
+    var marks = [];
+    var k = 0;
+    for (var j = 0; j < bodyLines.length && k < 4; j++) {
+      if (isHeading(bodyLines[j], ACTS[k])) { marks.push(j); k++; }
+    }
+    var acts = { '起': '', '承': '', '轉': '', '合': '' };
+    var pre = '';
+    if (marks.length) {
+      pre = bodyLines.slice(0, marks[0]).join('\n');
+      for (var a = 0; a < marks.length; a++) {
+        var end = a + 1 < marks.length ? marks[a + 1] : bodyLines.length;
+        acts[ACTS[a]] = bodyLines.slice(marks[a] + 1, end).join('\n');
+      }
+    }
+    return { found: marks.length, acts: acts, pre: pre, body: bodyLines.join('\n'), note: note, hasNote: noteAt >= 0 };
+  }
+  CSL.splitActs = splitActs;
+
+  function parseNote(note) {
+    var out = { lens: '', pov: '', turning: '', tension: '' };
+    normNewlines(note).split('\n').forEach(function (ln) {
+      var t = ln.replace(/^[\s*\-・•#]+/, '');
+      var m;
+      if ((m = /^鏡頭\s*[:：]\s*(.*)$/.exec(t))) out.lens = clip(m[1].trim(), 120);
+      else if ((m = /^觀點人物\s*[:：]\s*(.*)$/.exec(t))) out.pov = clip(m[1].trim(), 300);
+      else if ((m = /^轉折事件\s*[:：]\s*(.*)$/.exec(t))) out.turning = clip(m[1].trim(), 300);
+      else if ((m = /^本版兩難所承載的張力\s*[:：]\s*(.*)$/.exec(t))) out.tension = clip(m[1].trim(), 400);
+    });
+    return out;
+  }
+  CSL.parseNote = parseNote;
+
+  function digitsKey(s) { return normDigits(s).replace(/[^0-9.]/g, ''); }
+
+  function checkNumbers(body, allowedSources) {
+    var text = normDigits(body);
+    var allowed = normDigits((allowedSources || []).join('\n'));
+    var allowedKeys = {};
+    (allowed.match(/\d+(?:[.,，]\d+)*/g) || []).forEach(function (n) { allowedKeys[digitsKey(n)] = true; });
+    var results = [];
+    var m;
+    NUM_RE.lastIndex = 0;
+    while ((m = NUM_RE.exec(text)) !== null) {
+      if (m[0] === '') { NUM_RE.lastIndex++; continue; }
+      var token = m[0].trim();
+      var key = digitsKey(token.match(/\d+(?:[.,，]\d+)*/)[0]);
+      var after = text.slice(m.index + m[0].length, m.index + m[0].length + 18);
+      var cut = after.search(/[0-9，。；！？\n]/);   // a tag belongs to this number only if no other number or sentence break intervenes
+      if (cut >= 0) after = after.slice(0, cut);
+      TAG_VERIFY_RE.lastIndex = 0;
+      var tagged = TAG_VERIFY_RE.test(after);
+      TAG_VERIFY_RE.lastIndex = 0;
+      var status = tagged ? 'tagged' : (allowedKeys[key] ? 'card' : 'flag');
+      var ctxStart = Math.max(0, m.index - 12);
+      results.push({
+        token: token,
+        status: status,
+        context: text.slice(ctxStart, m.index + m[0].length + 12).replace(/\n/g, ' ')
+      });
+      if (results.length >= 400) break;
+    }
+    return results;
+  }
+  CSL.checkNumbers = checkNumbers;
+
+  function nfkc(t) { t = str(t); return t.normalize ? t.normalize('NFKC') : t; }
+  function escRe(t) { return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function isLatin(t) { return /^[\x00-\x7F]+$/.test(t); }
+  function latinRe(real, flags) { return new RegExp('(^|[^A-Za-z0-9])(' + escRe(real) + ')(?=[^A-Za-z0-9]|$)', flags); }
+  function aliasHits(text, aliasRows) {
+    var hits = [];
+    var t = nfkc(text);
+    (aliasRows || []).forEach(function (row) {
+      var real = nfkc(row && row.real).trim();
+      if (!real) return;
+      var latin = isLatin(real);
+      if (latin ? real.length < 2 : codePoints(real).length < 2) return;
+      var count = 0;
+      if (latin) {
+        var re = latinRe(real, 'gi'), m;
+        while ((m = re.exec(t)) !== null && count < 999) { count++; re.lastIndex = m.index + m[0].length; }
+      } else {
+        var idx = t.indexOf(real);
+        while (idx !== -1 && count < 999) { count++; idx = t.indexOf(real, idx + real.length); }
+      }
+      if (count) hits.push({ real: str(row.real).trim(), alias: str(row.alias).trim(), count: count });
+    });
+    return hits;
+  }
+  CSL.aliasHits = aliasHits;
+
+  function replaceAliases(text, aliasRows) {
+    var t = nfkc(text);
+    var rows = (aliasRows || []).filter(function (r) { return r && str(r.real).trim() && str(r.alias).trim(); })
+      .slice().sort(function (a, b) { return str(b.real).trim().length - str(a.real).trim().length; });
+    rows.forEach(function (r) {
+      var real = nfkc(r.real).trim(), alias = str(r.alias).trim();
+      if (isLatin(real)) {
+        if (real.length < 2) return;
+        t = t.replace(latinRe(real, 'gi'), function (m0, pre) { return pre + alias; });
+      } else {
+        t = t.split(real).join(alias);
+      }
+    });
+    return t;
+  }
+  CSL.replaceAliases = replaceAliases;
+
+  var SENSITIVE = [
+    { kind: 'email', label: 'Email 地址', re: /[A-Za-z0-9._%+\-]{1,64}@[A-Za-z0-9\-]{1,63}(?:\.[A-Za-z0-9\-]{1,63}){1,4}/g },
+    { kind: 'url', label: '網址', re: /https?:\/\/[^\s，。、「」]+/g },
+    { kind: 'mobile', label: '手機號碼', re: /(?:\+?886[\-\s]?|0)9\d{2}[\-\s]?\d{3}[\-\s]?\d{3}/g },
+    { kind: 'phone', label: '市話號碼', re: /\(?0\d{1,2}\)?[\-\s]?\d{3,4}[\-\s]?\d{4}(?!\d)/g },
+    { kind: 'idno', label: '身分證／居留證字號格式', re: /\b[A-Za-z][1289]\d{8}\b/g },
+    { kind: 'taxid', label: '8 位數字（可能是統一編號）', re: /(?:^|[^\d.])(\d{8})(?![\d.])/g, group: 1 },
+    { kind: 'company', label: '公司全名字尾', re: /[一-鿿A-Za-z0-9]{1,12}(?:股份有限公司|有限公司|Inc\.|Corp\.|Co\.,?\s?Ltd\.?|Ltd\.)/g },
+    { kind: 'money', label: '精確金額（建議改區間）', re: /\d{1,3}(?:,\d{3}){1,6}(?:\.\d{1,4})? ?(?:元|美元|台幣|日圓|人民幣)|\d{1,12}\.\d{2,6} ?(?:億|萬)/g }
+  ];
+  function scanSensitive(text) {
+    var t = normDigits(text);
+    var out = [];
+    SENSITIVE.forEach(function (p) {
+      p.re.lastIndex = 0;
+      var m, guard = 0;
+      while ((m = p.re.exec(t)) !== null && guard < 50) {
+        guard++;
+        if (m[0] === '') { p.re.lastIndex++; continue; }
+        out.push({ kind: p.kind, label: p.label, match: clip(m[p.group || 0], 80) });
+      }
+    });
+    return out;
+  }
+  CSL.scanSensitive = scanSensitive;
+
+  var THEORY_TERMS = ['組織雙元', '雙元性', '雙元', '動態能力', '利害關係人理論', '核心僵固', '核心能耐', '交易成本', '現金牛', '網路效應', '先行者優勢', '機會成本',
+    '制度理論', '代理理論', '代理成本', '資源基礎', '路徑依賴', '探索與利用', '整合—回應', '短期主義', 'ambidexterity', 'RBV'];
+  CSL.THEORY_TERMS = THEORY_TERMS;
+  function theoryHits(body) {
+    var lower = str(body).toLowerCase(), hits = [];
+    THEORY_TERMS.forEach(function (w) {
+      if (lower.indexOf(w.toLowerCase()) !== -1 && !hits.some(function (h) { return h.indexOf(w) !== -1; })) hits.push(w);
+    });
+    return hits;
+  }
+  CSL.theoryHits = theoryHits;
+
+  function analyzeStory(text, opts) {
+    opts = opts || {};
+    var s = splitActs(clip(text, LIMITS.text));
+    var counts = { '起': 0, '承': 0, '轉': 0, '合': 0 };
+    ACTS.forEach(function (a) { counts[a] = countChars(s.acts[a]); });
+    var total = s.found ? (counts['起'] + counts['承'] + counts['轉'] + counts['合'] + countChars(s.pre)) : countChars(s.body);
+    var actTotal = counts['起'] + counts['承'] + counts['轉'] + counts['合'];
+    var ratio = actTotal ? {
+      setup: (counts['起'] + counts['承']) / actTotal,
+      problem: counts['轉'] / actTotal,
+      decision: counts['合'] / actTotal
+    } : null;
+    TAG_VERIFY_RE.lastIndex = 0; TAG_FICTION_RE.lastIndex = 0;
+    var verifyTags = (s.body.match(TAG_VERIFY_RE) || []).length;
+    var fictionTags = (s.body.match(TAG_FICTION_RE) || []).length;
+    var numbers = checkNumbers(s.body, [opts.card || '', opts.lensText || '']);
+    var flagged = numbers.filter(function (n) { return n.status === 'flag'; });
+    var dialogues = (s.body.match(/「[^」\n]{2,400}」/g) || []).length;
+    var alias = aliasHits(s.body + '\n' + s.note, opts.alias || []);
+    var theory = theoryHits(s.body);
+    var issues = [];
+    if (s.found < 4) issues.push({ code: 'acts', level: 'warn', text: '只辨識到 ' + s.found + ' 個幕標（需要起、承、轉、合各一行）。若 AI 沒用單獨一行的幕標，請要求它補上。' });
+    if (s.found === 4 && !s.hasNote) issues.push({ code: 'note', level: 'warn', text: '找不到【鏡頭註記】：可能被截斷，或 AI 漏寫。' });
+    if (s.found > 0 && s.found < 4) issues.push({ code: 'trunc', level: 'bad', text: '全文可能被截斷（缺少後面的幕）。請對 AI 說「請接續」。' });
+    if (total && total < 3800) issues.push({ code: 'short', level: 'warn', text: '全文只有 ' + total + ' 字，目標約 4,800–5,000 字。' });
+    if (total > 6200) issues.push({ code: 'long', level: 'warn', text: '全文 ' + total + ' 字，明顯超過 5,000 字目標。' });
+    if (ratio) {
+      if (Math.abs(ratio.setup - 0.30) > 0.05) issues.push({ code: 'ratio-setup', level: 'warn', text: '起＋承佔 ' + pct(ratio.setup) + '（目標 30% ±5）。' });
+      if (Math.abs(ratio.problem - 0.50) > 0.05) issues.push({ code: 'ratio-problem', level: 'warn', text: '轉佔 ' + pct(ratio.problem) + '（目標 50% ±5）。' });
+      if (Math.abs(ratio.decision - 0.20) > 0.05) issues.push({ code: 'ratio-decision', level: 'warn', text: '合佔 ' + pct(ratio.decision) + '（目標 20% ±5）。' });
+    }
+    if (flagged.length) issues.push({ code: 'numbers', level: 'bad', text: flagged.length + ' 個數字不在素材卡裡、也沒有標 [待查證]，可能是 AI 捏造的。' });
+    if (alias.length) issues.push({ code: 'alias', level: 'bad', text: '文中出現化名對照表裡的真名：' + alias.map(function (h) { return h.real; }).join('、') + '。' });
+    if (theory.length) issues.push({ code: 'theory', level: 'warn', text: '正文出現理論或學術術語：' + theory.join('、') + '。理論要留給教學指引，故事裡請改用日常商業語言。' });
+    if (s.found === 4 && dialogues < 3) issues.push({ code: 'dialogue', level: 'info', text: '對話只有 ' + dialogues + ' 段，臨場感可能不足。' });
+    return {
+      total: total, counts: counts, ratio: ratio, actsFound: s.found, hasNote: s.hasNote,
+      note: parseNote(s.note), verifyTags: verifyTags, fictionTags: fictionTags,
+      numbers: numbers, flaggedNumbers: flagged.length, dialogues: dialogues, alias: alias, theory: theory,
+      issues: issues, acts: s.acts
+    };
+  }
+  CSL.analyzeStory = analyzeStory;
+
+  function pct(x) { return Math.round(x * 100) + '%'; }
+  CSL.pct = pct;
+
+  function statsText(a) {
+    if (!a) return '未提供';
+    var lines = [];
+    lines.push('全文 ' + a.total + ' 字；辨識到幕標 ' + a.actsFound + '/4。');
+    if (a.ratio) {
+      lines.push('起 ' + a.counts['起'] + ' 字、承 ' + a.counts['承'] + ' 字、轉 ' + a.counts['轉'] + ' 字、合 ' + a.counts['合'] + ' 字。');
+      lines.push('比例：起＋承 ' + pct(a.ratio.setup) + '、轉 ' + pct(a.ratio.problem) + '、合 ' + pct(a.ratio.decision) + '。');
+    }
+    if (a.theory && a.theory.length) lines.push('正文出現的理論術語：' + a.theory.join('、') + '。');
+    lines.push('[待查證] ' + a.verifyTags + ' 處；[虛構配角] ' + a.fictionTags + ' 處；素材卡以外且未標註的數字 ' + a.flaggedNumbers + ' 個；對話 ' + a.dialogues + ' 段。');
+    return lines.join('\n');
+  }
+  CSL.statsText = statsText;
+
+  // Merge a revised act (or several, each starting with its heading line) back into the full story.
+  function spliceActs(story, revised) {
+    var orig = splitActs(story);
+    var rev = splitActsLoose(revised);
+    if (rev.note && splitActsLoose(rev.note).list.length) return { ok: false, text: story, replaced: [], reason: 'note' };
+    if (!rev.list.length) return { ok: false, text: story, replaced: [], reason: rev.note ? 'noact' : 'empty' };
+    if (orig.found < 4) return { ok: false, text: story, replaced: [], reason: 'original' };
+    var acts = {}; ACTS.forEach(function (a) { acts[a] = orig.acts[a]; });
+    var replaced = [];
+    rev.list.forEach(function (r) { acts[r.act] = r.body; replaced.push(r.act); });
+    var out = (orig.pre.trim() ? orig.pre.replace(/\s+$/, '') + '\n\n' : '');
+    out += ACTS.map(function (a) { return a + '\n' + acts[a].replace(/^\n+|\s+$/g, ''); }).join('\n\n');
+    var note = rev.note || orig.note;
+    if (note) out += '\n\n【鏡頭註記】\n' + note.trim();
+    return { ok: true, text: out + '\n', replaced: replaced, noteUpdated: !!rev.note };
+  }
+  // Like splitActs but accepts any subset of acts in any order.
+  function splitActsLoose(text) {
+    var lines = normNewlines(text).split('\n');
+    var noteAt = findNote(lines);
+    var body = noteAt >= 0 ? lines.slice(0, noteAt) : lines;
+    var note = noteAt >= 0 ? lines.slice(noteAt + 1).join('\n').trim() : '';
+    var marks = [];
+    for (var j = 0; j < body.length; j++) {
+      for (var k = 0; k < ACTS.length; k++) if (isHeading(body[j], ACTS[k])) { marks.push({ i: j, act: ACTS[k] }); break; }
+    }
+    var list = marks.map(function (m, idx) {
+      var end = idx + 1 < marks.length ? marks[idx + 1].i : body.length;
+      return { act: m.act, body: body.slice(m.i + 1, end).join('\n') };
+    });
+    return { list: list, note: note };
+  }
+  CSL.spliceActs = spliceActs;
+
+  // Excerpts for side-by-side comparison
+  function excerpts(text) {
+    var s = splitActs(text);
+    var head = s.found ? s.acts['起'] : s.body;
+    var turn = s.found >= 3 ? s.acts['轉'] : '';
+    var end = s.found >= 4 ? s.acts['合'] : '';
+    function firstN(t, n) { var c = codePoints(str(t).trim()); return c.length > n ? c.slice(0, n).join('') + '……' : c.join(''); }
+    function lastN(t, n) { var c = codePoints(str(t).trim()); return c.length > n ? '……' + c.slice(c.length - n).join('') : c.join(''); }
+    return { open: firstN(head, 320), turn: firstN(turn, 420), end: lastN(end, 320), note: parseNote(s.note) };
+  }
+  CSL.excerpts = excerpts;
+
+  /* ---------- material card parsing ---------- */
+  var CARD_FIELDS = ['這件事', '組織背景', '主角', '情境導火線', '時間壓力', '決策點', '選項A', '選項B', '涉及角色', '管理議題與理論張力', '可用場景與細節', '候選轉折事件', '待查證'];
+  CSL.CARD_FIELDS = CARD_FIELDS;
+  function parseCard(text) {
+    var lines = normNewlines(text).split('\n');
+    var found = {};
+    var current = null;
+    lines.forEach(function (ln) {
+      var t = (ln.normalize ? ln.normalize('NFKC') : ln).replace(/^[\s#*>\-•・■□▪◆●▶►◼⬛▣0-9.、]+/, '').replace(/\*\*/g, '').replace(/\s+/g, '');
+      var hit = null;
+      for (var i = 0; i < CARD_FIELDS.length; i++) {
+        var f = CARD_FIELDS[i];
+        if (t.indexOf(f) === 0 && (/[■◼▪⬛▣]/.test(ln) || t.length <= f.length + 40)) { hit = f; break; }
+      }
+      if (hit && !(hit in found)) { found[hit] = ''; current = hit; return; }
+      if (current) found[current] += ln + '\n';
+      return;
+    });
+    var missing = CARD_FIELDS.filter(function (f) { return !(f in found); });
+    var empty = CARD_FIELDS.filter(function (f) { return (f in found) && !found[f].trim() ; });
+    return { fields: found, missing: missing, empty: empty, ok: missing.length === 0 };
+  }
+  CSL.parseCard = parseCard;
+
+  /* ---------- version packs (text blocks students pass around via LINE / email) ---------- */
+  var BEGIN = '===CSL-PACK v1 BEGIN===';
+  var END = '===CSL-PACK v1 END===';
+  CSL.PACK_BEGIN = BEGIN; CSL.PACK_END = END;
+  var TYPES = { version: 1, review: 1, card: 1 };
+
+  function randId() {
+    var s = '';
+    var chars = 'abcdefghijkmnpqrstuvwxyz23456789';
+    for (var i = 0; i < 8; i++) s += chars.charAt(Math.floor(Math.random() * chars.length));
+    return s;
+  }
+
+  function sanitizeHeader(h) {
+    if (!h || typeof h !== 'object' || Array.isArray(h)) return null;
+    if (typeof h.t !== 'string' || !Object.prototype.hasOwnProperty.call(TYPES, h.t)) return null;
+    var out = { t: h.t };
+    out.id = /^[a-z0-9]{4,16}$/.test(str(h.id)) ? str(h.id) : randId();
+    out.part = clampInt(h.part, 1, 20, 1);
+    out.of = clampInt(h.of, 1, 20, 1);
+    if (out.part > out.of) return null;
+    out.g = clip(h.g, 40);
+    out.m = clampInt(h.m, 1, 30, 1);
+    out.lens = clampInt(h.lens, 1, 6, 1);
+    out.tension = /^T[1-9]$/.test(str(h.tension)) ? str(h.tension) : 'T1';
+    out.target = clampInt(h.target, 1, 30, 1);
+    out.failed = Array.isArray(h.failed) ? h.failed.map(function (x) { return clampInt(x, 1, 8, 0); }).filter(function (x) { return x > 0; }).slice(0, 8) : [];
+    out.borrow = clip(h.borrow, 1500);
+    out.three = clip(h.three, 1500);
+    return out;
+  }
+  function clampInt(v, lo, hi, dflt) {
+    var n = parseInt(v, 10);
+    if (!isFinite(n)) return dflt;
+    return Math.min(hi, Math.max(lo, n));
+  }
+
+  // FNV-1a hash → 8 chars: the same content always gets the same id, so parts copied from
+  // different renders still merge, and re-sending the same version is idempotent.
+  function hashId(s0) {
+    var h = 0x811c9dc5, s1 = str(s0);
+    for (var i = 0; i < s1.length; i++) { h ^= s1.charCodeAt(i); h = Math.imul ? Math.imul(h, 0x01000193) : (h * 0x01000193) | 0; }
+    var chars = 'abcdefghijkmnpqrstuvwxyz23456789', out = '';
+    h = h >>> 0;
+    for (var j = 0; j < 8; j++) { out += chars.charAt(h % 32); h = Math.floor(h / 32) + (j * 7919); }
+    return out;
+  }
+  CSL.hashId = hashId;
+  function makePacks(header, text) {
+    var h = sanitizeHeader(header);
+    if (!h) throw new Error('bad header');
+    var body = clip(normNewlines(text), LIMITS.text);
+    h.id = hashId([h.t, h.g, h.m, h.lens, h.tension, h.target, h.failed.join(','), h.borrow, h.three, body].join('|'));
+    var first = {}, rest = {};
+    for (var k in h) if (Object.prototype.hasOwnProperty.call(h, k)) { first[k] = h[k]; if (k !== 'borrow' && k !== 'three') rest[k] = h[k]; }
+    var overhead = BEGIN.length + END.length + 12;
+    var cps = codePoints(body);
+    var chunks = [], pos = 0;
+    function budget(hdr) { hdr.part = 99; hdr.of = 99; return LIMITS.lineLimit - JSON.stringify(hdr).length - overhead - 40; }
+    var b1 = Math.max(1000, budget(first)), bN = Math.max(1000, budget(rest));
+    chunks.push(cps.slice(0, b1).join('')); pos = b1;
+    while (pos < cps.length) { chunks.push(cps.slice(pos, pos + bN).join('')); pos += bN; }
+    return chunks.map(function (c, idx) {
+      var hh = {}, src = idx === 0 ? first : rest;
+      for (var kk in src) if (Object.prototype.hasOwnProperty.call(src, kk)) hh[kk] = src[kk];
+      hh.part = idx + 1; hh.of = chunks.length;
+      return BEGIN + '\n' + JSON.stringify(hh) + '\n---\n' + c + '\n' + END;
+    });
+  }
+  CSL.makePacks = makePacks;
+
+  // Linear-time scan with indexOf (a lazy regex over a 180k-character paste with many unterminated
+  // BEGIN lines was quadratic).
+  function parsePacks(input) {
+    var rawLen = str(input).length;
+    var t = normNewlines(clip(input, LIMITS.importMax));
+    var parts = [], errors = [], count = 0, pos = 0, rest = '', b;
+    if (rawLen > LIMITS.importMax) errors.push('貼上的內容超過 ' + LIMITS.importMax.toLocaleString('en-US') + ' 字上限，只處理前面的部分；請分批匯入。');
+    var HEAD_RE = /^[ \t]*\n([\s\S]{0,6000}?)\n---\n([\s\S]*)$/;  // header may be wrapped by email clients
+    while ((b = t.indexOf(BEGIN, pos)) !== -1) {
+      rest += t.slice(pos, b);
+      var e = t.indexOf(END, b);
+      if (e === -1) { errors.push('有一份資料沒有結尾行（===CSL-PACK v1 END===），可能沒有複製完整。'); pos = t.length; break; }
+      var block = t.slice(b + BEGIN.length, e);
+      var inner = block.lastIndexOf(BEGIN);
+      if (inner !== -1) { errors.push('有一份資料沒有結尾行，可能沒有複製完整，已略過。'); block = block.slice(inner + BEGIN.length); }
+      pos = e + END.length;
+      count++;
+      if (count > LIMITS.packs * 4) { errors.push('一次貼上的區塊太多，只處理前 ' + (LIMITS.packs * 4) + ' 個。'); break; }
+      var m = HEAD_RE.exec(block);
+      var h = null;
+      if (m) { try { h = JSON.parse(m[1].replace(/\n/g, '')); } catch (err) { h = null; } }
+      var sh = m ? sanitizeHeader(h) : null;
+      if (!sh) { errors.push('第 ' + count + ' 個區塊的標頭無法辨識，已略過。'); continue; }
+      parts.push({ h: sh, text: m[2].replace(/\n$/, '') });
+    }
+    if (pos < t.length) rest += t.slice(pos);
+    var groups = {}, order = [];
+    parts.forEach(function (p) {
+      var key = p.h.id + '|' + p.h.of;
+      if (!Object.prototype.hasOwnProperty.call(groups, key)) { groups[key] = { h: p.h, chunks: {} }; order.push(key); }
+      if (p.h.part === 1) groups[key].h = p.h;   // part 1 carries borrow/three
+      groups[key].chunks[p.h.part] = p.text;
+    });
+    var packs = [];
+    order.forEach(function (key) {
+      var g = groups[key];
+      var missing = [];
+      for (var i = 1; i <= g.h.of; i++) if (!Object.prototype.hasOwnProperty.call(g.chunks, i)) missing.push(i);
+      if (missing.length) { errors.push('有一份資料缺少第 ' + missing.join('、') + '/' + g.h.of + ' 段，請對方補傳。'); return; }
+      var text = '';
+      for (var j = 1; j <= g.h.of; j++) text += g.chunks[j];
+      var h = {}; for (var k in g.h) if (Object.prototype.hasOwnProperty.call(g.h, k)) h[k] = g.h[k];
+      delete h.part;
+      packs.push({ h: h, text: clip(text, LIMITS.text) });
+    });
+    if (packs.length > LIMITS.packs) { errors.push('最多一次匯入 ' + LIMITS.packs + ' 份。'); packs = packs.slice(0, LIMITS.packs); }
+    return { packs: packs, errors: errors, rest: rest.trim() };
+  }
+  CSL.parsePacks = parsePacks;
+
+  function reviewTarget(me, size) {
+    var n = Math.max(2, parseInt(size, 10) || 2);
+    var k = Math.min(n, Math.max(1, parseInt(me, 10) || 1));
+    return (k % n) + 1;
+  }
+  CSL.reviewTarget = reviewTarget;
+
+  /* ---------- state sanitizing (used for import & storage) ---------- */
+  function sanitizeState(raw, base) {
+    var s = JSON.parse(JSON.stringify(base));
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return s;
+    function take(obj, key, max) { return clip(obj && typeof obj[key] === 'string' ? obj[key] : '', max); }
+    var su = raw.setup || {};
+    s.setup.group = take(su, 'group', 40);
+    s.setup.size = clampInt(su.size, 2, 8, s.setup.size);
+    s.setup.me = clampInt(su.me, 1, s.setup.size, 1);
+    s.setup.lensOverride = su.lensOverride == null ? null : clampInt(su.lensOverride, 1, 6, 1);
+    s.setup.tension = /^T[1-9]$/.test(str(su.tension)) ? str(su.tension) : null;
+    s.rev = clampInt(raw.rev, 0, 1e12, 0);
+    if (Array.isArray(raw.alias)) {
+      s.alias = raw.alias.slice(0, LIMITS.aliasRows).map(function (r) {
+        return { real: take(r, 'real', 80), alias: take(r, 'alias', 80) };
+      });
+      if (!s.alias.length) s.alias = JSON.parse(JSON.stringify(base.alias));
+    }
+    var c = raw.canvas || {};
+    ['oneliner', 'group', 'industry', 'g1', 'g2', 'g3', 'g4', 'g5'].forEach(function (k) { s.canvas[k] = take(c, k, LIMITS.field); });
+    s.canvas.publicCase = c.publicCase === true;
+    s.excerpts = take(raw, 'excerpts', LIMITS.excerpts);
+    var g = raw.gate || {};
+    s.gate = { q1: g.q1 === true, q2: g.q2 === true, q3: g.q3 === true, ack: g.ack === true, ackSig: take(g, 'ackSig', 4000) };
+    s.card = take(raw, 'card', LIMITS.text * 3);
+    s.story = take(raw, 'story', LIMITS.text);
+    var r = raw.review || {};
+    s.review = {
+      targetText: take(r, 'targetText', LIMITS.text * 3), aiText: take(r, 'aiText', LIMITS.text),
+      failed: Array.isArray(r.failed) ? r.failed.map(function (x) { return clampInt(x, 1, 8, 0); }).filter(Boolean).slice(0, 8) : [],
+      borrow: take(r, 'borrow', 1500), three: take(r, 'three', 1500)
+    };
+    var cp_ = raw.compare || {};
+    s.compare.versions = Array.isArray(cp_.versions) ? cp_.versions.slice(0, LIMITS.packs).map(function (v) {
+      return { key: /^[a-z0-9]{4,16}$/.test(str(v && v.key)) ? str(v.key) : randId(), m: clampInt(v && v.m, 1, 30, 1), lens: clampInt(v && v.lens, 1, 6, 1),
+        tension: /^T[1-9]$/.test(str(v && v.tension)) ? str(v.tension) : 'T1', text: take(v, 'text', LIMITS.text) };
+    }) : [];
+    s.compare.reviews = Array.isArray(cp_.reviews) ? cp_.reviews.slice(0, LIMITS.packs).map(function (v) {
+      return { m: clampInt(v && v.m, 1, 30, 1), target: clampInt(v && v.target, 1, 30, 1),
+        failed: Array.isArray(v && v.failed) ? v.failed.map(function (x) { return clampInt(x, 1, 8, 0); }).filter(Boolean).slice(0, 8) : [],
+        borrow: take(v, 'borrow', 1500), three: take(v, 'three', 1500) };
+    }) : [];
+    var votes = cp_.votes || {};
+    ['open', 'turn', 'end', 'tension'].forEach(function (k) {
+      s.compare.votes[k] = /^[a-z0-9]{4,16}$/.test(str(votes[k])) ? str(votes[k]) : null;
+      s.compare.reasons[k] = take(cp_.reasons || {}, k, 1000);
+    });
+    s.compare.outline = take(cp_, 'outline', 4000);
+    s.compare.isDemo = cp_.isDemo === true;
+    var tr = raw.teacher || {};
+    s.teacher = {
+      idx: clampInt(tr.idx, 0, 50, 0),
+      endsAt: typeof tr.endsAt === 'number' && isFinite(tr.endsAt) ? tr.endsAt : null,
+      remaining: typeof tr.remaining === 'number' && isFinite(tr.remaining) ? Math.max(0, Math.min(tr.remaining, 6 * 3600 * 1000)) : null
+    };
+    return s;
+  }
+  CSL.sanitizeState = sanitizeState;
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = CSL;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* case-story-lab UI. No innerHTML anywhere: all user text goes through textContent. */
+(function () {
+  'use strict';
+  var CSL = window.CSL;
+  var C = JSON.parse(document.getElementById('csl-content').textContent);
+  var KEY = 'csl.v1';
+
+  /* ---------------- helpers ---------------- */
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) for (var k in attrs) {
+      if (!Object.prototype.hasOwnProperty.call(attrs, k)) continue;
+      var v = attrs[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') n.textContent = v;
+      else if (k === 'cls') n.className = v;
+      else if (k === 'on') { for (var ev in v) n.addEventListener(ev, v[ev]); }
+      else if (v === true) n.setAttribute(k, '');
+      else n.setAttribute(k, String(v));
+    }
+    (kids || []).forEach(function (c) { if (c != null) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return n;
+  }
+  function clear(n) { while (n.firstChild) n.removeChild(n.firstChild); }
+  // One drawn icon set, one stroke weight (no glyphs or emoji as icons).
+  var ICONS = {
+    check: ['M5 12.5l4.2 4.2L19 7'],
+    x: ['M6 6l12 12', 'M18 6L6 18'],
+    alert: ['M12 3.5l9.5 16.5h-19z', 'M12 10v4.5', 'M12 17.6v.1'],
+    info: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M12 11v5.5', 'M12 7.6v.1']
+  };
+  function icon(name) {
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('class', 'ico'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
+    (ICONS[name] || []).forEach(function (d) { var p = document.createElementNS(ns, 'path'); p.setAttribute('d', d); svg.appendChild(p); });
+    return svg;
+  }
+  function debounce(fn, ms) { var t; return function () { var a = arguments, s = this; clearTimeout(t); t = setTimeout(function () { fn.apply(s, a); }, ms); }; }
+  function fmt(n) { return Number(n || 0).toLocaleString('en-US'); }
+
+  var toastTimer;
+  function toast(msg, ms) {
+    var t = $('toast');
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.hidden = true; }, ms || 2600);
+  }
+
+  function showCopyModal(text) {
+    var m = $('copy-modal'), ta = $('copy-modal-text');
+    ta.value = text; m.hidden = false;
+    selectAll(ta);
+  }
+  // iOS does not select text in a readonly textarea via select(); lift readonly while selecting.
+  function selectAll(ta) {
+    var ro = ta.hasAttribute('readonly');
+    if (ro) ta.removeAttribute('readonly');
+    ta.focus(); ta.select();
+    try { ta.setSelectionRange(0, ta.value.length); } catch (e) { /* ignore */ }
+    if (ro) ta.setAttribute('readonly', '');
+  }
+  $('copy-modal-close').addEventListener('click', function () { $('copy-modal').hidden = true; });
+  $('copy-modal').addEventListener('keydown', function (e) { if (e.key === 'Escape') $('copy-modal').hidden = true; });
+
+  function legacyCopy(text) {
+    var ta = el('textarea', { readonly: true, 'aria-hidden': 'true' });
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    selectAll(ta);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  var lastBtn = null;
+  document.addEventListener('click', function (e) { lastBtn = e.target && e.target.closest ? e.target.closest('button') : null; }, true);
+  function flashButton(btn) {
+    if (!btn || btn.dataset.flash) return;
+    btn.dataset.flash = btn.textContent;
+    btn.textContent = '已複製';
+    btn.appendChild(icon('check'));
+    setTimeout(function () { btn.textContent = btn.dataset.flash; delete btn.dataset.flash; }, 1600);
+  }
+  // Every copy path is checked against the local alias table: real names never leave the machine.
+  function guardedCopy(text, okMsg) {
+    var hits = CSL.aliasHits(text, state.alias);
+    if (hits.length) {
+      toast('已停止複製：內容含有化名對照表中的真名「' + hits.map(function (h) { return h.real; }).join('、') + '」。請先改成化名；若這不是真名，請到 ① 化名對照表刪除該列。', 7000);
+      return false;
+    }
+    copyText(text, okMsg);
+    return true;
+  }
+  // Must be called directly inside a click handler.
+  function copyText(text, okMsg) {
+    var btn = lastBtn;
+    var done = function () { toast(okMsg || '已複製'); flashButton(btn); };
+    var fallback = function () { if (legacyCopy(text)) done(); else showCopyModal(text); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+        return;
+      }
+    } catch (e) { /* fall through */ }
+    fallback();
+  }
+
+  // Two-step confirm built into the page (the artifact viewer refuses confirm()).
+  function confirmTwice(btn, question, run) {
+    if (btn.dataset.armed) { clearTimeout(Number(btn.dataset.armed)); btn.textContent = btn.dataset.label; delete btn.dataset.armed; delete btn.dataset.label; run(); return; }
+    btn.dataset.label = btn.textContent;
+    btn.textContent = question;
+    btn.dataset.armed = String(setTimeout(function () { if (btn.dataset.label) btn.textContent = btn.dataset.label; delete btn.dataset.armed; delete btn.dataset.label; }, 5000));
+  }
+
+  /* ---------------- state ---------------- */
+  var BASE = {
+    v: 1,
+    rev: 0,
+    setup: { group: '', size: 4, me: 1, lensOverride: null, tension: null },
+    alias: [{ real: '', alias: '' }, { real: '', alias: '' }, { real: '', alias: '' }],
+    canvas: { oneliner: '', group: '', industry: '', g1: '', g2: '', g3: '', g4: '', g5: '', publicCase: false },
+    excerpts: '',
+    gate: { q1: false, q2: false, q3: false, ack: false, ackSig: '' },
+    card: '',
+    story: '',
+    review: { targetText: '', aiText: '', failed: [], borrow: '', three: '' },
+    compare: { versions: [], reviews: [], votes: { open: null, turn: null, end: null, tension: null }, reasons: { open: '', turn: '', end: '', tension: '' }, outline: '', sd: '', isDemo: false },
+    teacher: { idx: 0, endsAt: null, remaining: null }
+  };
+  function fresh() { return CSL.sanitizeState(null, BASE); }
+  var state = fresh();
+  var storageOk = true, warnedQuota = false;
+
+  var ALIAS_KEY = 'csl.alias.v1';   // alias table lives in sessionStorage: gone when the tab closes
+  function parseStored(raw) {
+    var parsed = JSON.parse(raw);
+    var st = CSL.sanitizeState(parsed, BASE);
+    st.compare.sd = CSL.clip(parsed && parsed.compare && typeof parsed.compare.sd === 'string' ? parsed.compare.sd : '', 60000);
+    return st;
+  }
+  function loadAlias() {
+    try {
+      var a = window.sessionStorage.getItem(ALIAS_KEY);
+      if (a) { var rows = CSL.sanitizeState({ alias: JSON.parse(a) }, BASE).alias; if (rows.length) return rows; }
+    } catch (e) { /* ignore */ }
+    return JSON.parse(JSON.stringify(BASE.alias));
+  }
+  function load() {
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      if (raw) state = parseStored(raw);
+    } catch (e) { storageOk = false; }
+    state.alias = loadAlias();
+    state.teacher.idx = Math.min(state.teacher.idx, C.runsheet.length - 1);
+  }
+  function storedRev() {
+    try { var raw = window.localStorage.getItem(KEY); if (!raw) return -1; var r = JSON.parse(raw).rev; return typeof r === 'number' ? r : 0; } catch (e) { return -1; }
+  }
+  var saveTimer = null;
+  function saveNow() {
+    clearTimeout(saveTimer); saveTimer = null;
+    try { renderSteps(); } catch (e) { /* header not ready */ }
+    try { window.sessionStorage.setItem(ALIAS_KEY, JSON.stringify(state.alias)); } catch (e) { /* ignore */ }
+    try {
+      // Another tab saved newer data since this tab last loaded: adopt it instead of overwriting it.
+      if (storedRev() > state.rev) { adoptFromStorage('已載入另一個分頁的較新內容。請只用一個分頁。'); return; }
+      state.rev = state.rev + 1;
+      var copy = {}; for (var k in state) if (Object.prototype.hasOwnProperty.call(state, k) && k !== 'alias') copy[k] = state[k];
+      window.localStorage.setItem(KEY, JSON.stringify(copy));
+      storageOk = true;
+    } catch (e) {
+      storageOk = false;
+      if (!warnedQuota) { warnedQuota = true; toast('瀏覽器無法存檔（可能是私密視窗或空間不足）。請到「隱私」頁複製備份。'); }
+    }
+  }
+  function save() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 400); }
+  function adoptFromStorage(msg) {
+    clearTimeout(saveTimer); saveTimer = null;
+    var alias = state.alias;
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      state = raw ? parseStored(raw) : fresh();
+    } catch (e) { state = fresh(); }
+    state.alias = alias;
+    state.teacher.idx = Math.min(state.teacher.idx, C.runsheet.length - 1);
+    renderSetup(); route(true); renderSteps();
+    if (msg) toast(msg, 5000);
+  }
+  window.addEventListener('pagehide', function () { if (saveTimer) saveNow(); });
+  // Two tabs share one storage slot: when the other tab writes, adopt its data (never overwrite it).
+  window.addEventListener('storage', function (e) {
+    if (e.key !== KEY) return;
+    if (e.newValue == null) { clearTimeout(saveTimer); saveTimer = null; state = fresh(); state.alias = loadAlias(); renderSetup(); route(true); renderSteps(); toast('另一個分頁清除了本機資料。', 5000); return; }
+    adoptFromStorage('這個平台在另一個分頁也開著，已同步成最新內容。請只用一個分頁。');
+  });
+
+  /* ---------------- derived ---------------- */
+  function cardInfo() {
+    var raw = state.card || '';
+    if (raw.indexOf(CSL.PACK_BEGIN) !== -1) {
+      var r = CSL.parsePacks(raw);
+      for (var i = 0; i < r.packs.length; i++) if (r.packs[i].h.t === 'card') return { text: r.packs[i].text, errors: [] };
+      return { text: '', errors: r.errors.length ? r.errors : ['貼上的內容裡沒有素材卡。'] };
+    }
+    return { text: raw, errors: [] };
+  }
+  function cardText() { return cardInfo().text; }
+  function myLens() {
+    var auto = CSL.lensForMember(C, state.setup.me);
+    var lensId = state.setup.lensOverride || auto.lensId;
+    // an explicit choice always wins; lens 6 has no default for members 1–6 (avoid copying the card's own tension)
+    var tension = state.setup.tension || (state.setup.me > C.lensOrder.length ? auto.tensionId : (lensId === 6 ? null : auto.tensionId));
+    return { lensId: lensId, tensionId: tension, auto: auto };
+  }
+  function lensName(id) { var L = CSL.findLens(C, id); return L ? ('鏡頭 ' + L.id + '｜' + L.name) : ''; }
+
+  /* ---------------- routing ---------------- */
+  var VIEWS = ['setup', 'p1', 'p2', 'p3', 'p4', 'teacher', 'about'];
+  function route(keepScroll) {
+    var h = (location.hash || '').replace('#', '');
+    if (VIEWS.indexOf(h) === -1) h = 'setup';
+    VIEWS.forEach(function (v) { $('view-' + v).hidden = v !== h; });
+    document.querySelectorAll('[data-view]').forEach(function (a) {
+      var on = a.getAttribute('data-view') === h;
+      a.classList.toggle('active', on);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    if (h === 'p1') renderP1();
+    if (h === 'p2') renderP2();
+    if (h === 'p3') renderP3();
+    if (h === 'p4') renderP4();
+    if (h === 'teacher') renderTeacher();
+    if (keepScroll !== true) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', function () { route(); });
+  document.querySelector('.skip').addEventListener('click', function (e) {
+    e.preventDefault();
+    var m = $('main'); m.setAttribute('tabindex', '-1'); m.focus();
+  });
+
+  /* ---------------- header ---------------- */
+  function phaseDone() {
+    var card = cardText();
+    return {
+      p1: !!card.trim() && CSL.parseCard(card).missing.length === 0,
+      p2: !!state.story.trim() && (function () { var a = CSL.splitActs(state.story); return a.found === 4 && a.hasNote; })(),
+      p3: state.review.failed.length > 0 || !!state.review.borrow.trim() || !!state.review.three.trim(),
+      p4: state.compare.versions.length >= 2 && !!state.compare.sd.trim()
+    };
+  }
+  function renderSteps() {
+    var d = phaseDone();
+    document.querySelectorAll('.steps [data-view]').forEach(function (a) {
+      var v = a.getAttribute('data-view');
+      if (!a.querySelector('.ico')) a.appendChild(icon('check'));
+      var done = !!d[v];
+      a.classList.toggle('done', done);
+      var name = a.querySelector('.step-name');
+      if (name) a.setAttribute('aria-label', name.textContent + (done ? '（已完成）' : ''));
+    });
+  }
+  function renderWho() {
+    var s = state.setup;
+    var L = myLens();
+    var g = s.group.trim() || '未命名小組';
+    $('who-chip').textContent = g + '｜' + s.size + ' 人｜我是 ' + s.me + ' 號｜鏡頭 ' + L.lensId;
+  }
+
+  /* ---------------- setup ---------------- */
+  function fillSelect(sel, items, value) {
+    clear(sel);
+    items.forEach(function (it) { sel.appendChild(el('option', { value: it.value, text: it.label })); });
+    sel.value = String(value);
+  }
+  function renderSetup() {
+    $('session-line').textContent = C.session.course;
+    $('hero-week').textContent = C.session.date + '　' + C.session.week;
+    $('in-group').value = state.setup.group;
+    var sizes = []; for (var i = 2; i <= 8; i++) sizes.push({ value: i, label: i + ' 人' });
+    fillSelect($('in-size'), sizes, state.setup.size);
+    renderMeSelect();
+    renderSetupLens();
+    renderWho();
+  }
+  function renderMeSelect() {
+    var mes = []; for (var i = 1; i <= state.setup.size; i++) mes.push({ value: i, label: i + ' 號' });
+    fillSelect($('in-me'), mes, state.setup.me);
+  }
+  function renderSetupLens() {
+    var box = $('setup-lens-preview'); clear(box);
+    var L = CSL.findLens(C, myLens().lensId);
+    var target = CSL.reviewTarget(state.setup.me, state.setup.size);
+    box.appendChild(el('span', { text: '你在 ② 會拿到「' + lensName(L.id) + '」，在 ③ 會審第 ' + target + ' 號組員的版本。' }));
+  }
+  $('in-group').addEventListener('input', function (e) { state.setup.group = CSL.clip(e.target.value, 40); renderWho(); save(); });
+  $('in-size').addEventListener('change', function (e) {
+    state.setup.size = Math.min(8, Math.max(2, parseInt(e.target.value, 10) || 4));
+    if (state.setup.me > state.setup.size) state.setup.me = state.setup.size;
+    renderMeSelect(); renderSetupLens(); renderWho(); save();
+  });
+  $('in-me').addEventListener('change', function (e) {
+    state.setup.me = Math.min(state.setup.size, Math.max(1, parseInt(e.target.value, 10) || 1));
+    state.setup.lensOverride = null;
+    renderSetupLens(); renderWho(); save();
+  });
+  $('btn-demo').addEventListener('click', function () {
+    var c = state.canvas;
+    var hasWork = [c.oneliner, c.g1, c.g2, c.g3, c.g4, c.g5].some(function (v) { return v && v.trim(); }) || !!state.excerpts.trim();
+    if (hasWork && !c.publicCase) { confirmTwice(this, '會覆蓋你們的畫布與片段，再按一次確認', loadDemoCanvas); return; }
+    loadDemoCanvas();
+  });
+  function loadDemoCanvas() {
+    var d = C.demo;
+    state.canvas = { oneliner: d.oneliner, group: d.group, industry: d.industry, g1: d.g1, g2: d.g2, g3: d.g3, g4: d.g4, g5: d.g5, publicCase: true };
+    state.excerpts = d.excerpts || '';
+    if (!state.setup.group) state.setup.group = '示範組';
+    saveNow();
+    var note = $('demo-note'); note.hidden = false; note.textContent = '已載入 LINE 示範畫布。' + d.note;
+    renderSetup();
+    toast('已載入示範個案');
+  }
+
+  /* ---------------- ① 素材卡 ---------------- */
+  var CANVAS_IDS = { oneliner: 'cv-oneliner', group: 'cv-group', industry: 'cv-industry', g1: 'cv-g1', g2: 'cv-g2', g3: 'cv-g3', g4: 'cv-g4', g5: 'cv-g5' };
+  function renderAliasRows() {
+    var box = $('alias-rows'); clear(box);
+    state.alias.forEach(function (row, i) {
+      var real = el('input', { type: 'text', id: 'alias-real-' + i, maxlength: 80, autocomplete: 'off', 'aria-label': '第 ' + (i + 1) + ' 列真名', placeholder: '真名（例如公司或人名）' });
+      var alias = el('input', { type: 'text', id: 'alias-alias-' + i, maxlength: 80, autocomplete: 'off', 'aria-label': '第 ' + (i + 1) + ' 列化名', placeholder: '化名（例如甲科技、陳總）' });
+      real.value = row.real; alias.value = row.alias;
+      real.addEventListener('input', function () { state.alias[i].real = CSL.clip(real.value, 80); onCanvasChanged(); });
+      alias.addEventListener('input', function () { state.alias[i].alias = CSL.clip(alias.value, 80); onCanvasChanged(); });
+      var del = el('button', { type: 'button', cls: 'btn ghost', 'aria-label': '刪除第 ' + (i + 1) + ' 列', text: '刪除' });
+      del.addEventListener('click', function () {
+        state.alias.splice(i, 1);
+        if (!state.alias.length) state.alias.push({ real: '', alias: '' });
+        renderAliasRows(); onCanvasChanged();
+      });
+      box.appendChild(el('div', { cls: 'alias-row' }, [real, alias, del]));
+    });
+  }
+  $('btn-alias-add').addEventListener('click', function () {
+    if (state.alias.length >= CSL.LIMITS.aliasRows) { toast('最多 ' + CSL.LIMITS.aliasRows + ' 列'); return; }
+    state.alias.push({ real: '', alias: '' }); renderAliasRows(); save();
+    var last = $('alias-real-' + (state.alias.length - 1)); if (last) last.focus();
+  });
+  $('btn-alias-apply').addEventListener('click', function () {
+    var before = JSON.stringify(state.canvas) + state.excerpts;
+    Object.keys(CANVAS_IDS).forEach(function (k) { state.canvas[k] = CSL.replaceAliases(state.canvas[k], state.alias); });
+    state.excerpts = CSL.replaceAliases(state.excerpts, state.alias);
+    var changed = before !== JSON.stringify(state.canvas) + state.excerpts;
+    renderCanvasInputs(); onCanvasChanged();
+    toast(changed ? '已替換為化名' : '沒有找到需要替換的真名');
+  });
+
+  function renderCanvasInputs() {
+    Object.keys(CANVAS_IDS).forEach(function (k) { $(CANVAS_IDS[k]).value = state.canvas[k]; });
+    $('cv-excerpts').value = state.excerpts;
+    $('gate-q1').checked = state.gate.q1; $('gate-q2').checked = state.gate.q2; $('gate-q3').checked = state.gate.q3; $('gate-ack').checked = state.gate.ack;
+    $('card-paste').value = state.card;
+  }
+  Object.keys(CANVAS_IDS).forEach(function (k) {
+    $(CANVAS_IDS[k]).addEventListener('input', function (e) {
+      state.canvas[k] = CSL.clip(e.target.value, CSL.LIMITS.field);
+      if (state.canvas.publicCase) { state.canvas.publicCase = false; $('public-note').hidden = true; }
+      onCanvasChangedDebounced();
+    });
+  });
+  $('cv-excerpts').addEventListener('input', function (e) {
+    state.excerpts = CSL.clip(e.target.value, CSL.LIMITS.excerpts);
+    if (state.canvas.publicCase) { state.canvas.publicCase = false; $('public-note').hidden = true; }
+    onCanvasChangedDebounced();
+  });
+  ['q1', 'q2', 'q3', 'ack'].forEach(function (q) {
+    $('gate-' + q).addEventListener('change', function (e) {
+      state.gate[q] = e.target.checked;
+      if (q === 'ack') state.gate.ackSig = e.target.checked ? scanSig() : '';
+      renderGate(); save();
+    });
+  });
+
+  var lastScan = { alias: [], sens: [] };
+  function onCanvasChanged() { renderScan(); renderGate(); save(); }
+  var onCanvasChangedDebounced = debounce(onCanvasChanged, 250);
+
+  function sourceText() { return CSL.canvasText(state.canvas) + '\n' + state.excerpts; }
+  function scanSig() { return lastScan.sens.map(function (h) { return h.kind + ':' + h.match; }).sort().join('|'); }
+  function renderScan() {
+    var text = sourceText();
+    lastScan.alias = CSL.aliasHits(text, state.alias);
+    lastScan.sens = CSL.scanSensitive(text);
+    var box = $('scan-results'); clear(box);
+    lastScan.alias.forEach(function (h) {
+      box.appendChild(el('div', { cls: 'flag bad' }, [icon('alert'), el('b', { text: '真名' }), el('span', { text: '「' + h.real + '」出現 ' + h.count + ' 次' + (h.alias ? '，應改為「' + h.alias + '」。可按上方按鈕一鍵替換。' : '，請在對照表填上化名。') })]));
+    });
+    lastScan.sens.forEach(function (h) {
+      box.appendChild(el('div', { cls: 'flag warn' }, [icon('alert'), el('b', { text: '留意' }), el('span', { text: h.label + '：' + h.match })]));
+    });
+    if (!lastScan.alias.length && !lastScan.sens.length) {
+      box.appendChild(el('div', { cls: 'flag ok' }, [icon('check'), el('b', { text: '機器檢查' }), el('span', { text: '沒有發現漏改的真名或可疑格式。機器只抓得到明顯的格式，內行人測試仍要靠你們自己判斷。' })]));
+    }
+    $('gate-ack-row').hidden = lastScan.sens.length === 0;
+    // a new phone number or ID after the acknowledgement must be acknowledged again
+    if (state.gate.ack && state.gate.ackSig !== scanSig()) { state.gate.ack = false; state.gate.ackSig = ''; $('gate-ack').checked = false; }
+    var n = CSL.countChars(state.excerpts);
+    var cnt = $('cnt-excerpts');
+    cnt.textContent = fmt(n) + ' 字' + (n && n < 1500 ? '（建議至少 1,500 字）' : n > 3000 ? '（超過 3,000 字，可以再精簡）' : '');
+  }
+  function gateState() {
+    var missing = [];
+    if (!state.canvas.oneliner.trim()) missing.push('這件事');
+    if (!state.canvas.g1.trim()) missing.push('第 1 格');
+    if (!state.canvas.g3.trim()) missing.push('第 3 格');
+    var reasons = [];
+    if (missing.length) reasons.push('先填好' + missing.join('、'));
+    if (lastScan.alias.length) reasons.push('還有真名沒換掉');
+    if (lastScan.sens.length && !state.gate.ack) reasons.push('黃色提醒尚未確認');
+    if (!(state.gate.q1 && state.gate.q2 && state.gate.q3)) reasons.push('三問尚未全部打勾');
+    return { ok: reasons.length === 0, reasons: reasons };
+  }
+  function renderGate() {
+    var g = gateState();
+    var st = $('gate-status');
+    st.className = 'gate-status ' + (g.ok ? 'ok' : 'no');
+    st.textContent = g.ok ? '三問通過，可以產生 prompt。' : '還不能貼給 AI：' + g.reasons.join('；') + '。';
+    var pr = $('pr-a');
+    pr.value = g.ok ? CSL.buildStageA(C, state.canvas, state.excerpts) : '完成上方「貼上 AI 前三問」後，這裡才會出現 prompt。';
+    $('btn-copy-a').disabled = !g.ok;
+  }
+  $('btn-copy-a').addEventListener('click', function () {
+    renderScan(); renderGate();          // re-check now: the debounced scan may be up to 250 ms stale
+    var g = gateState(); if (!g.ok) return;
+    guardedCopy(CSL.buildStageA(C, state.canvas, state.excerpts), '已複製 Stage A′ prompt。請在 AI 開新對話貼上。');
+  });
+  $('card-paste').addEventListener('input', function (e) { state.card = CSL.clip(e.target.value, CSL.LIMITS.text * 3); renderCardCheck('card-check'); save(); });
+  function renderCardCheck(boxId) {
+    var box = $(boxId); clear(box);
+    var info = cardInfo();
+    info.errors.forEach(function (e) { box.appendChild(el('div', { cls: 'flag bad' }, [icon('alert'), el('span', { text: e + '（素材卡分成多段時，請把每一段都貼進來）' })])); });
+    var text = info.text;
+    if (!text.trim()) return;
+    var r = CSL.parseCard(text);
+    CSL.CARD_FIELDS.forEach(function (f) {
+      var ok = !(r.missing.indexOf(f) !== -1);
+      box.appendChild(el('span', { cls: 'chip ' + (ok ? 'ok' : 'no') }, [icon(ok ? 'check' : 'x'), document.createTextNode(f)]));
+    });
+    if (r.missing.length) box.appendChild(el('span', { cls: 'hint', text: '缺少的欄位可以請 AI 補上：「請補上素材卡的〈欄位名〉欄位，並重新輸出整張卡」。' }));
+  }
+  $('btn-share-card').addEventListener('click', function () {
+    var text = cardText();
+    if (!text.trim()) { toast('還沒有貼上素材卡'); return; }
+    var packs = CSL.makePacks({ t: 'card', g: state.setup.group, m: state.setup.me }, text);
+    var holder = $('card-pack-buttons');
+    if (!holder) { holder = el('div', { id: 'card-pack-buttons', cls: 'btn-row' }); $('btn-share-card').parentNode.parentNode.insertBefore(holder, $('btn-share-card').parentNode.nextSibling); }
+    clear(holder);
+    if (packs.length === 1) { guardedCopy(packs[0], '已複製素材卡。請貼到小組 LINE。'); return; }
+    packs.forEach(function (p, i) {
+      holder.appendChild(el('button', { type: 'button', cls: 'btn', text: '複製第 ' + (i + 1) + '/' + packs.length + ' 段', on: { click: function () { guardedCopy(p, '已複製第 ' + (i + 1) + ' 段'); } } }));
+    });
+    toast('素材卡較長，已拆成 ' + packs.length + ' 段，請依序複製傳送');
+  });
+
+  function renderP1() { $('public-note').hidden = !state.canvas.publicCase; renderAliasRows(); renderCanvasInputs(); renderScan(); renderGate(); renderCardCheck('card-check'); }
+
+  /* ---------------- ② 鏡頭寫作 ---------------- */
+  function renderLensSelects() {
+    var opts = [{ value: 'auto', label: '依編號自動（' + lensName(CSL.lensForMember(C, state.setup.me).lensId) + '）' }];
+    C.lenses.forEach(function (L) { opts.push({ value: String(L.id), label: '鏡頭 ' + L.id + '｜' + L.name + '（' + L.tag + '）' }); });
+    fillSelect($('in-lens'), opts, state.setup.lensOverride ? String(state.setup.lensOverride) : 'auto');
+    var tOpts = [{ value: '', label: '請先選一組（避開素材卡原有的張力）' }].concat(C.tensions.map(function (T) { return { value: T.id, label: T.id + '　' + T.name }; }));
+    fillSelect($('in-tension'), tOpts, myLens().tensionId || '');
+  }
+  function renderLensCard() {
+    var ml = myLens();
+    var L = CSL.findLens(C, ml.lensId);
+    var T = CSL.findTension(C, ml.tensionId);
+    var card = $('lens-card'); clear(card);
+    card.appendChild(el('div', { cls: 'lens-top' }, [
+      el('span', { cls: 'lens-no', text: String(L.id) }),
+      el('div', { cls: 'lens-name' }, [el('strong', { text: L.name }), el('span', { text: L.tag })])
+    ]));
+    var tensionText = CSL.fill(L.tension, { TENSION: ml.tensionId && T ? T.name : '（請在右側選一組）' });
+    var dl = el('dl', null, [
+      el('dt', { text: '觀點' }), el('dd', { text: L.pov }),
+      el('dt', { text: '結構' }), el('dd', { text: L.structure }),
+      el('dt', { text: '理論張力' }), el('dd', { text: tensionText }),
+      el('dt', { text: '轉折事件' }), el('dd', { text: L.turning })
+    ]);
+    if (L.rule) { dl.appendChild(el('dt', { text: '規則' })); dl.appendChild(el('dd', { text: L.rule })); }
+    card.appendChild(dl);
+    card.appendChild(el('p', { cls: 'lens-check' }, [el('b', { text: '這張卡在測試：' }), document.createTextNode(L.check)]));
+    $('lens-assigned').textContent = '依你的編號（' + state.setup.me + ' 號）分配到 ' + lensName(ml.auto.lensId) + '。除非組內另有約定，請不要更換。';
+    $('tension-row').hidden = L.id !== 6;
+    $('tension-info').textContent = ml.tensionId && T ? ('A 端：' + T.a + '　B 端：' + T.b + '　可對應：' + T.theory + '。' + (C.tensionNote || '')) : (C.tensionNote || '');
+  }
+  $('in-lens').addEventListener('change', function (e) {
+    state.setup.lensOverride = e.target.value === 'auto' ? null : Math.min(6, Math.max(1, parseInt(e.target.value, 10) || 1));
+    renderLensCard(); renderPromptB(); renderWho(); renderStory(); save();
+  });
+  $('in-tension').addEventListener('change', function (e) {
+    state.setup.tension = /^T[1-9]$/.test(e.target.value) ? e.target.value : null;
+    renderLensCard(); renderPromptB(); save();
+  });
+  $('card-in').addEventListener('input', function (e) {
+    if (e.target.value.length > CSL.LIMITS.text * 3) toast('貼上的內容太長，只保留前 ' + fmt(CSL.LIMITS.text * 3) + ' 字。');
+    state.card = CSL.clip(e.target.value, CSL.LIMITS.text * 3);
+    renderCardCheck('card-in-check'); renderPromptB(); renderStoryDebounced(); save();
+  });
+  function promptB() { var ml = myLens(); return CSL.buildStageB(C, cardText(), ml.lensId, ml.tensionId); }
+  function needsTension() { var ml = myLens(); return ml.lensId === 6 && !ml.tensionId; }
+  function renderPromptB() {
+    var hasCard = cardText().trim().length > 0;
+    var ready = hasCard && !needsTension();
+    $('pr-b').value = !hasCard ? '先在上方貼上全組共用的素材卡，這裡才會出現 prompt。' : needsTension() ? '鏡頭 6 要先在右側選一組理論張力（避開素材卡原有的張力），這裡才會出現 prompt。' : promptB();
+    $('btn-copy-b').disabled = !ready;
+  }
+  $('btn-copy-b').addEventListener('click', function () {
+    if (!cardText().trim() || needsTension()) return;
+    guardedCopy(promptB(), '已複製 Stage B prompt。請在 AI 開新對話貼上。');
+  });
+  $('btn-copy-continue').addEventListener('click', function () { copyText(C.prompts.B_CONTINUE, '已複製接續指令，請貼在同一個對話。'); });
+
+  var lastAnalysis = null;
+  $('story').addEventListener('input', function (e) { state.story = CSL.clip(e.target.value, CSL.LIMITS.text); renderStoryDebounced(); save(); });
+  function analyze(text) {
+    var ml = myLens();
+    return CSL.analyzeStory(text, { card: cardText(), lensText: CSL.lensBlock(C, ml.lensId, ml.tensionId), alias: state.alias });
+  }
+  function ratioBlock(a) {
+    var wrap = el('div', { cls: 'ratio' });
+    var bar = el('div', { cls: 'ratio-bar', role: 'img', 'aria-label': '結構比例：起承 ' + CSL.pct(a.ratio.setup) + '，轉 ' + CSL.pct(a.ratio.problem) + '，合 ' + CSL.pct(a.ratio.decision) });
+    [['seg-setup', a.ratio.setup, '起承'], ['seg-problem', a.ratio.problem, '轉'], ['seg-decision', a.ratio.decision, '合']].forEach(function (s) {
+      var seg = el('span', { cls: s[0], text: s[1] >= 0.08 ? s[2] + ' ' + CSL.pct(s[1]) : '' });
+      seg.style.width = (s[1] * 100).toFixed(2) + '%';
+      bar.appendChild(seg);
+    });
+    var target = el('div', { cls: 'ratio-target', 'aria-hidden': 'true' });
+    [30, 80].forEach(function (p) { var i = el('i'); i.style.left = 'calc(' + p + '% - 1px)'; target.appendChild(i); });
+    wrap.appendChild(bar); wrap.appendChild(target);
+    wrap.appendChild(el('p', { cls: 'ratio-legend', text: '起 ' + fmt(a.counts['起']) + '　承 ' + fmt(a.counts['承']) + '　轉 ' + fmt(a.counts['轉']) + '　合 ' + fmt(a.counts['合']) + ' 字　｜　黑線是目標分界（30% / 80%）' }));
+    return wrap;
+  }
+  var PILL = { ok: '通過', warn: '留意', bad: '要處理', info: '參考' };
+  function hasAliasTable() { return state.alias.some(function (r) { return r.real && r.real.trim(); }); }
+  function pill(level) { return el('span', { cls: 'pill ' + level }, [icon(level === 'ok' ? 'check' : level === 'info' ? 'info' : 'alert'), document.createTextNode(PILL[level])]); }
+  function renderReport(box, a, opts) {
+    clear(box);
+    opts = opts || {};
+    var lenLevel = a.total >= 4500 && a.total <= 5500 ? 'ok' : 'warn';
+    var ratioLevel = !a.ratio ? 'bad' : (Math.abs(a.ratio.setup - 0.3) <= 0.05 && Math.abs(a.ratio.problem - 0.5) <= 0.05 && Math.abs(a.ratio.decision - 0.2) <= 0.05 ? 'ok' : 'warn');
+    var rows = [
+      ['全文字數', fmt(a.total) + ' 字', lenLevel, '約 4,800–5,000 字（不含空白）'],
+      ['四幕小標', a.actsFound + '/4', a.actsFound === 4 ? 'ok' : 'bad', '起、承、轉、合各一行'],
+      ['結構比例', a.ratio ? '起承 ' + CSL.pct(a.ratio.setup) + '｜轉 ' + CSL.pct(a.ratio.problem) + '｜合 ' + CSL.pct(a.ratio.decision) : '無法計算', ratioLevel, '30／50／20，各 ±5'],
+      ['可疑數字', String(a.flaggedNumbers), a.flaggedNumbers ? 'bad' : 'ok', '素材卡沒有、也沒標 [待查證]'],
+      ['理論術語', String((a.theory || []).length), (a.theory || []).length ? 'warn' : 'ok', '正文不寫理論名稱'],
+      hasAliasTable() ? ['真名殘留', String(a.alias.length), a.alias.length ? 'bad' : 'ok', '化名對照表中的真名'] : ['真名殘留', '未設定', 'info', '這台電腦沒有化名對照表（在 ① 填寫）'],
+      ['鏡頭註記', a.hasNote ? '有' : '沒有', a.hasNote ? 'ok' : 'warn', '全文最後的三行註記'],
+      ['對話', a.dialogues + ' 段', a.dialogues >= 3 ? 'info' : 'warn', '臨場感的參考'],
+      ['[待查證]', a.verifyTags + ' 處', 'info', '要回去查的數據']
+    ];
+    var bad = rows.filter(function (r) { return r[2] === 'bad'; }).length;
+    var warn = rows.filter(function (r) { return r[2] === 'warn'; }).length;
+    var vLevel = bad ? 'bad' : warn ? 'warn' : 'ok';
+    var vText = bad ? bad + ' 項要先處理' + (warn ? '，另有 ' + warn + ' 項留意' : '') : warn ? warn + ' 項留意，可以開始細讀' : '體檢通過，接下來請細讀內容';
+    box.appendChild(el('p', { cls: 'verdict ' + vLevel }, [icon(vLevel === 'ok' ? 'check' : 'alert'), document.createTextNode(vText)]));
+    a.issues.filter(function (i) { return i.code === 'trunc'; }).forEach(function (i) { box.appendChild(el('div', { cls: 'flag bad' }, [icon('alert'), el('span', { text: i.text })])); });
+    var table = el('table', { cls: 'checklist' });
+    table.appendChild(el('thead', null, [el('tr', null, [el('th', { scope: 'col', text: '項目' }), el('th', { scope: 'col', text: '實測' }), el('th', { scope: 'col', text: '狀態' }), el('th', { scope: 'col', cls: 'goal', text: '目標' })])]));
+    var tb = el('tbody');
+    rows.forEach(function (r) {
+      if (opts.compact && (r[0] === '對話' || r[0] === '[待查證]')) return;
+      tb.appendChild(el('tr', null, [el('td', { text: r[0] }), el('td', { cls: 'val', text: r[1] }), el('td', null, [pill(r[2])]), el('td', { cls: 'goal', text: r[3] })]));
+    });
+    table.appendChild(tb);
+    box.appendChild(el('div', { cls: 'table-scroll plain' }, [table]));
+    if (a.ratio) box.appendChild(ratioBlock(a));
+    if (a.theory && a.theory.length) box.appendChild(el('div', { cls: 'flag warn' }, [icon('alert'), el('span', { text: '正文出現：' + a.theory.join('、') + '。理論留給教學指引，故事裡請改用日常商業語言。' })]));
+    if (a.alias.length) box.appendChild(el('div', { cls: 'flag bad' }, [icon('alert'), el('span', { text: '出現真名：' + a.alias.map(function (h) { return h.real; }).join('、') + '。' })]));
+    var flagged = a.numbers.filter(function (n) { return n.status === 'flag'; });
+    if (flagged.length && !opts.compact) {
+      box.appendChild(el('p', { cls: 'hint', text: '下列數字不在素材卡裡，也沒有標 [待查證]。若是 AI 編的，請它改成 [待查證：所需數據] 或刪除：' }));
+      var list = el('div', { cls: 'numlist' });
+      flagged.slice(0, 60).forEach(function (n) {
+        var idx = n.context.indexOf(n.token);
+        var row = el('div');
+        if (idx >= 0) {
+          row.appendChild(document.createTextNode('…' + n.context.slice(0, idx)));
+          row.appendChild(el('mark', { text: n.token }));
+          row.appendChild(document.createTextNode(n.context.slice(idx + n.token.length) + '…'));
+        } else row.textContent = n.context;
+        list.appendChild(row);
+      });
+      box.appendChild(list);
+    }
+    if (a.hasNote) {
+      box.appendChild(el('div', { cls: 'note-box' }, [
+        el('b', { text: '鏡頭註記' + (a.note.lens ? '：' + a.note.lens : '') }),
+        el('span', { text: '觀點人物：' + (a.note.pov || '（未寫）') }),
+        el('span', { text: '轉折事件：' + (a.note.turning || '（未寫）') }),
+        el('span', { text: '張力：' + (a.note.tension || '（未寫）') })
+      ]));
+    }
+  }
+  function renderStory() {
+    var box = $('story-report');
+    if (!state.story.trim()) { clear(box); box.appendChild(el('p', { cls: 'hint', text: '貼上全文後，這裡會顯示字數、結構比例、可疑數字與真名殘留。' })); lastAnalysis = null; renderRevise(); renderPackButtons(); return; }
+    lastAnalysis = analyze(state.story);
+    renderReport(box, lastAnalysis);
+    renderRevise(); renderPackButtons();
+  }
+  var renderStoryDebounced = debounce(renderStory, 250);
+  function renderRevise() {
+    var box = $('revise-list'); clear(box);
+    var issues = lastAnalysis ? lastAnalysis.issues.filter(function (i) { return i.code !== 'trunc'; }) : [];
+    if (!issues.length) { box.appendChild(el('p', { cls: 'hint', text: lastAnalysis ? '體檢沒有自動找到問題。可以在下方寫下你讀完後想改的地方。' : '先貼上全文。' })); return; }
+    issues.forEach(function (i, n) {
+      var cb = el('input', { type: 'checkbox', id: 'rev-' + n, value: i.text });
+      if (i.level === 'bad') cb.checked = true;
+      box.appendChild(el('label', { for: 'rev-' + n }, [cb, el('span', { text: i.text })]));
+    });
+  }
+  $('btn-copy-revise').addEventListener('click', function () {
+    var picked = [];
+    document.querySelectorAll('#revise-list input[type=checkbox]').forEach(function (cb) { if (cb.checked) picked.push(issueToInstruction(cb.value)); });
+    var extra = $('revise-extra').value.trim();
+    if (extra) picked.push(CSL.clip(extra, 400));
+    if (!picked.length) { toast('請至少勾選或填寫一項'); return; }
+    guardedCopy(CSL.buildRevise(C, picked), '已複製修改指令，請貼在同一個對話。');
+  });
+  function issueToInstruction(t) {
+    if (/可能是 AI 捏造/.test(t)) return t + ' 請把素材卡沒有的數字改為 [待查證]，或刪除。';
+    if (/真名/.test(t)) return '文中出現了不該出現的真實名稱，請全部改用素材卡中的化名。';
+    if (/幕標/.test(t)) return '請用單獨一行的「起」「承」「轉」「合」作為四幕小標。';
+    if (/鏡頭註記/.test(t)) return '請在全文最後補上【鏡頭註記】（觀點人物／轉折事件／本版兩難所承載的張力）。';
+    if (/起＋承/.test(t)) return t + ' 請調整起、承的篇幅，讓情境鋪陳約佔全文 30%。';
+    if (/轉佔/.test(t)) return t + ' 請調整「轉」的篇幅，讓問題呈現約佔全文 50%。';
+    if (/合佔/.test(t)) return t + ' 請調整「合」的篇幅，讓決策點約佔全文 20%，並停在臨界點。';
+    if (/只有 \d+ 字/.test(t)) return t + ' 請擴寫，優先加厚「轉」的場景與衝突。';
+    if (/超過/.test(t)) return t + ' 請精簡到約 5,000 字，優先刪減「起」的背景說明。';
+    if (/對話/.test(t)) return t + ' 請在關鍵場景加入角色之間的對話，提升臨場感。';
+    if (/理論或學術術語/.test(t)) return t;
+    return t;
+  }
+  $('btn-splice').addEventListener('click', function () {
+    var msg = $('splice-msg'); msg.className = 'msg';
+    var rev = $('revise-in').value;
+    if (!rev.trim()) { msg.textContent = '請先貼上 AI 修改後的那一幕。'; return; }
+    var r = CSL.spliceActs(state.story, rev);
+    if (!r.ok) {
+      msg.className = 'msg err';
+      msg.textContent = r.reason === 'original' ? '原本的全文辨識不到完整四幕，無法自動合併。請直接在上方全文欄位手動替換。'
+        : r.reason === 'note' ? '貼上的內容格式有誤：小標出現在【鏡頭註記】之後。請只貼 AI 修改的那一幕（以「起」「承」「轉」或「合」單獨一行開頭），鏡頭註記放最後。'
+        : '貼上的內容找不到「起」「承」「轉」「合」小標，沒有合併任何內容。請確認被修改的那一幕以單獨一行的小標開頭。';
+      return;
+    }
+    state.story = CSL.clip(r.text, CSL.LIMITS.text);
+    $('story').value = state.story; $('revise-in').value = '';
+    msg.textContent = '已替換「' + r.replaced.join('、') + '」' + (r.noteUpdated ? '並更新鏡頭註記' : '') + '。體檢已重新計算。';
+    renderStory(); save();
+  });
+  function renderPackButtons() {
+    var box = $('pack-buttons'); clear(box);
+    if (!state.story.trim()) { box.appendChild(el('p', { cls: 'hint', text: '貼上全文後才能匯出。' })); return; }
+    var ml = myLens();
+    var packs = CSL.makePacks({ t: 'version', g: state.setup.group, m: state.setup.me, lens: ml.lensId, tension: ml.tensionId }, state.story);
+    packs.forEach(function (p, i) {
+      var label = packs.length === 1 ? '複製我的版本包' : '複製第 ' + (i + 1) + '/' + packs.length + ' 段';
+      box.appendChild(el('button', { type: 'button', cls: 'btn primary', text: label, on: { click: function () { guardedCopy(p, packs.length === 1 ? '已複製版本包，請貼到小組 LINE。' : '已複製第 ' + (i + 1) + ' 段'); } } }));
+    });
+    if (packs.length > 1) box.appendChild(el('span', { cls: 'hint', text: '全文超過 LINE 單則上限，已拆成 ' + packs.length + ' 段。' }));
+  }
+  function renderP2() {
+    renderLensSelects(); renderLensCard();
+    $('card-in').value = state.card; renderCardCheck('card-in-check');
+    renderPromptB();
+    $('story').value = state.story; renderStory();
+  }
+
+  /* ---------------- ③ 交叉審查 ---------------- */
+  var FAIL_LABELS = ['情境真實', '兩難成立', '角色立體', '敘事張力', '結構比例', '開放結尾', '資料誠信', '理論載體'];
+  function targetInfo() {
+    var t = CSL.reviewTarget(state.setup.me, state.setup.size);
+    return { m: t, lens: CSL.lensForMember(C, t).lensId };
+  }
+  function targetText() {
+    var raw = state.review.targetText || '';
+    if (raw.indexOf(CSL.PACK_BEGIN) !== -1) {
+      var r = CSL.parsePacks(raw);
+      for (var i = 0; i < r.packs.length; i++) if (r.packs[i].h.t === 'version') return { text: r.packs[i].text, h: r.packs[i].h, errors: r.errors };
+      return { text: '', h: null, errors: r.errors.length ? r.errors : ['貼上的內容裡沒有版本包。'] };
+    }
+    return { text: raw, h: null, errors: [] };
+  }
+  function renderP3() {
+    var ti = targetInfo();
+    $('review-who').textContent = '你是 ' + state.setup.me + ' 號，請審第 ' + ti.m + ' 號組員的版本（依編號應為' + lensName(ti.lens) + '）。不審自己的版本，是為了避免「自己下 prompt、自己打分」。';
+    $('rv-target').value = state.review.targetText;
+    $('rv-ai').value = state.review.aiText;
+    $('rv-borrow').value = state.review.borrow;
+    $('rv-three').value = state.review.three;
+    var fs = $('rv-failed');
+    while (fs.children.length > 1) fs.removeChild(fs.lastChild);
+    FAIL_LABELS.forEach(function (lab, i) {
+      var cb = el('input', { type: 'checkbox', id: 'fail-' + (i + 1) });
+      cb.checked = state.review.failed.indexOf(i + 1) !== -1;
+      cb.addEventListener('change', function () {
+        var set = state.review.failed.filter(function (x) { return x !== i + 1; });
+        if (cb.checked) set.push(i + 1);
+        state.review.failed = set.sort(function (a, b) { return a - b; }); save();
+      });
+      fs.appendChild(el('label', { for: 'fail-' + (i + 1) }, [cb, el('span', { text: (i + 1) + ' ' + lab })]));
+    });
+    renderTarget();
+  }
+  function renderTarget() {
+    var box = $('rv-target-info'); clear(box);
+    var t = targetText();
+    var ti = targetInfo();
+    var stats = null;
+    if (t.text.trim()) {
+      stats = CSL.analyzeStory(t.text, { card: cardText(), lensText: t.h ? CSL.lensBlock(C, t.h.lens, t.h.tension) : '', alias: state.alias });
+      renderReport(box, stats, { compact: true });
+    } else if (!t.errors.length) {
+      box.appendChild(el('p', { cls: 'hint', text: '貼上後會顯示這份版本的實測數據，並自動放進 Stage C′ prompt。' }));
+    }
+    // warnings go on top, after the report has been drawn (renderReport clears the box)
+    if (t.h && t.h.m !== ti.m) box.insertBefore(el('div', { cls: 'flag warn' }, [el('span', { text: '這份是 ' + t.h.m + ' 號的版本（' + lensName(t.h.lens) + '），不是你要審的 ' + ti.m + ' 號。若組內另有安排可以忽略。' })]), box.firstChild);
+    t.errors.slice().reverse().forEach(function (e) { box.insertBefore(el('div', { cls: 'flag bad' }, [el('span', { text: e })]), box.firstChild); });
+ $('pr-c').value = t.text.trim() ? CSL.buildStageC(C, stats, t.text, cardText()) : '先在上方貼上要審的版本，這裡才會出現 prompt。';
+    $('btn-copy-c').disabled = !t.text.trim();
+  }
+  var renderTargetDebounced = debounce(renderTarget, 250);
+  $('rv-target').addEventListener('input', function (e) { if (e.target.value.length > CSL.LIMITS.text * 3) toast('貼上的內容太長，只保留前 ' + fmt(CSL.LIMITS.text * 3) + ' 字。'); state.review.targetText = CSL.clip(e.target.value, CSL.LIMITS.text * 3); renderTargetDebounced(); save(); });
+  $('btn-copy-c').addEventListener('click', function () {
+    var t = targetText(); if (!t.text.trim()) return;
+    var stats = CSL.analyzeStory(t.text, { card: cardText(), lensText: t.h ? CSL.lensBlock(C, t.h.lens, t.h.tension) : '', alias: state.alias });
+    guardedCopy(CSL.buildStageC(C, stats, t.text, cardText()), '已複製 Stage C′ prompt。請在 AI 開新對話貼上。');
+  });
+  $('rv-ai').addEventListener('input', function (e) { state.review.aiText = CSL.clip(e.target.value, CSL.LIMITS.text); save(); });
+  $('rv-borrow').addEventListener('input', function (e) { state.review.borrow = CSL.clip(e.target.value, 1500); save(); });
+  $('rv-three').addEventListener('input', function (e) { state.review.three = CSL.clip(e.target.value, 1500); save(); });
+  $('btn-copy-review').addEventListener('click', function () {
+    var ti = targetInfo();
+    var t = targetText();
+    var target = t.h ? t.h.m : ti.m;
+    var packs = CSL.makePacks({ t: 'review', g: state.setup.group, m: state.setup.me, target: target, failed: state.review.failed, borrow: state.review.borrow, three: state.review.three }, state.review.aiText);
+    if (packs.length === 1) { guardedCopy(packs[0], '已複製審查包，請貼到小組 LINE。'); return; }
+    var holder = $('review-pack-buttons');
+    if (!holder) { holder = el('div', { id: 'review-pack-buttons', cls: 'btn-row' }); $('btn-copy-review').parentNode.parentNode.insertBefore(holder, $('btn-copy-review').parentNode.nextSibling); }
+    clear(holder);
+    packs.forEach(function (p, i) {
+      holder.appendChild(el('button', { type: 'button', cls: 'btn', text: '複製第 ' + (i + 1) + '/' + packs.length + ' 段', on: { click: function () { guardedCopy(p, '已複製審查包第 ' + (i + 1) + ' 段'); } } }));
+    });
+    toast('審查包超過 LINE 單則上限，已拆成 ' + packs.length + ' 段，請依序複製傳送', 5000);
+  });
+
+  /* ---------------- ④ 比稿收斂 ---------------- */
+  // returns 'added' | 'updated' (same member re-sent a revised version) | 'dup' (identical content)
+  function addVersion(h, text) {
+    var key = h.id;
+    if (state.compare.versions.some(function (v) { return v.key === key; })) return 'dup';
+    var v = { key: key, m: h.m, lens: h.lens, tension: h.tension, text: CSL.clip(text, CSL.LIMITS.text) };
+    for (var i = 0; i < state.compare.versions.length; i++) {
+      var old = state.compare.versions[i];
+      if (old.m === h.m) {
+        ['open', 'turn', 'end', 'tension'].forEach(function (k) { if (state.compare.votes[k] === old.key) state.compare.votes[k] = key; });
+        state.compare.versions[i] = v;
+        return 'updated';
+      }
+    }
+    state.compare.versions.push(v);
+    if (state.compare.versions.length > CSL.LIMITS.packs) state.compare.versions = state.compare.versions.slice(-CSL.LIMITS.packs);
+    return 'added';
+  }
+  function compareCard() { return state.compare.isDemo && C.demoCard ? C.demoCard : cardText(); }
+  function addReview(h) {
+    state.compare.reviews = state.compare.reviews.filter(function (r) { return !(r.m === h.m && r.target === h.target); });
+    state.compare.reviews.push({ m: h.m, target: h.target, failed: h.failed || [], borrow: h.borrow || '', three: h.three || '' });
+    if (state.compare.reviews.length > CSL.LIMITS.packs) state.compare.reviews = state.compare.reviews.slice(-CSL.LIMITS.packs);
+  }
+  $('btn-import').addEventListener('click', function () {
+    var raw = $('cmp-import').value;
+    var msg = $('import-msg');
+    msg.className = 'msg';
+    if (!raw.trim()) { msg.textContent = '請先貼上版本包或審查包。'; return; }
+    var r = CSL.parsePacks(raw);
+    var nv = 0, nu = 0, nr = 0, nc = 0, clearedDemo = false;
+    if (state.compare.isDemo && r.packs.some(function (p) { return p.h.t === 'version'; })) {
+      state.compare.versions = []; state.compare.reviews = []; state.compare.isDemo = false; clearedDemo = true;
+      state.compare.votes = { open: null, turn: null, end: null, tension: null };
+    }
+    r.packs.forEach(function (p) {
+      if (p.h.t === 'version') { var res = addVersion(p.h, p.text); if (res === 'added') nv++; else if (res === 'updated') nu++; }
+      else if (p.h.t === 'review') { addReview(p.h); nr++; }
+      else nc++;
+    });
+    var parts = [];
+    if (nv) parts.push('版本 ' + nv + ' 份');
+    if (nu) parts.push('更新版本 ' + nu + ' 份（同一位組員重傳，已取代舊版）');
+    if (nr) parts.push('審查 ' + nr + ' 份');
+    var text = parts.length ? '已匯入' + parts.join('、') + '。' : '沒有匯入任何新的版本或審查。';
+    if (nc) text += '（素材卡不需要在這裡匯入，已略過。）';
+    if (clearedDemo) text += '（已清除示範版本。）';
+    if (!r.packs.length && r.rest.length > 200) text += '貼上的內容不是版本包。請對方在 ② 按「複製我的版本包」再傳一次。';
+    if (r.errors.length) { text += ' ' + r.errors.join(' '); msg.className = 'msg err'; }
+    msg.textContent = text;
+    if (nv || nu || nr) { $('cmp-import').value = ''; }
+    save(); renderCompare();
+  });
+  $('btn-import-mine').addEventListener('click', function () {
+    if (!state.story.trim()) { toast('你在 ② 還沒有貼上自己的版本'); return; }
+    var ml = myLens();
+    var p = CSL.parsePacks(CSL.makePacks({ t: 'version', g: state.setup.group, m: state.setup.me, lens: ml.lensId, tension: ml.tensionId }, state.story).join('\n'));
+    var mineExists = state.compare.versions.some(function (v) { return v.m === state.setup.me && v.lens === ml.lensId && v.text === state.story; });
+    if (mineExists) { toast('你的版本已經在清單裡'); return; }
+    if (p.packs[0]) addVersion(p.packs[0].h, p.packs[0].text);
+    save(); renderCompare(); toast('已加入你的版本');
+  });
+  $('btn-import-myreview').addEventListener('click', function () {
+    var ti = targetInfo(); var t = targetText();
+    addReview({ m: state.setup.me, target: t.h ? t.h.m : ti.m, failed: state.review.failed, borrow: state.review.borrow, three: state.review.three });
+    save(); renderCompare(); toast('已加入你的審查');
+  });
+  function sortedVersions() { return state.compare.versions.slice().sort(function (a, b) { return a.m - b.m || a.lens - b.lens; }); }
+  function vLabel(v) { var L = CSL.findLens(C, v.lens); return v.m + ' 號｜鏡頭 ' + v.lens + ' ' + (L ? L.name : ''); }
+  var ROWS = [
+    { key: 'open', label: '開場', vote: true },
+    { key: 'turn', label: '轉折', vote: true },
+    { key: 'end', label: '結尾', vote: true },
+    { key: 'tension', label: '理論張力（選一版當草稿的起點）', vote: true },
+    { key: 'stats', label: '體檢' },
+    { key: 'review', label: '審查重點' },
+    { key: 'full', label: '全文' }
+  ];
+  function renderCompare() {
+    var chips = $('version-chips'); clear(chips);
+    var vs = sortedVersions();
+    vs.forEach(function (v) {
+      chips.appendChild(el('span', { cls: 'chip' }, [
+        document.createTextNode(vLabel(v)),
+        el('button', { type: 'button', 'aria-label': '移除 ' + vLabel(v), title: '移除', on: { click: function () {
+          state.compare.versions = state.compare.versions.filter(function (x) { return x.key !== v.key; });
+          ['open', 'turn', 'end', 'tension'].forEach(function (k) { if (state.compare.votes[k] === v.key) state.compare.votes[k] = null; });
+          save(); renderCompare();
+        } } }, [icon('x')])
+      ]));
+    });
+    state.compare.reviews.forEach(function (r) { chips.appendChild(el('span', { cls: 'chip', text: '審查：' + r.m + ' 號 → ' + r.target + ' 號' })); });
+    var table = $('compare-table'); clear(table);
+    $('compare-empty').hidden = vs.length >= 2;
+    if (!vs.length) { renderStageD(); return; }
+    var thead = el('thead'), hr = el('tr', null, [el('th', { cls: 'rowh', scope: 'col', text: '比較項目' })]);
+    vs.forEach(function (v) {
+      var T = CSL.findTension(C, v.tension);
+      hr.appendChild(el('th', { scope: 'col' }, [el('div', { cls: 'vhead' }, [el('strong', { text: vLabel(v) }), el('span', { text: v.lens === 6 && T ? '張力：' + T.name : (CSL.findLens(C, v.lens) || {}).tag || '' })])]));
+    });
+    thead.appendChild(hr); table.appendChild(thead);
+    var tbody = el('tbody');
+    var ex = {}, an = {};
+    vs.forEach(function (v) { ex[v.key] = CSL.excerpts(v.text); an[v.key] = CSL.analyzeStory(v.text, { card: compareCard(), alias: state.alias }); });
+    ROWS.forEach(function (row) {
+      var tr = el('tr', null, [el('th', { cls: 'rowh', scope: 'row', text: row.label })]);
+      vs.forEach(function (v) {
+        var td = el('td');
+        var e = ex[v.key], a = an[v.key];
+        if (row.key === 'open') td.appendChild(el('div', { cls: 'excerpt', text: e.open || '（辨識不到「起」）' }));
+        if (row.key === 'turn') td.appendChild(el('div', { cls: 'excerpt', text: e.turn || '（辨識不到「轉」）' }));
+        if (row.key === 'end') td.appendChild(el('div', { cls: 'excerpt', text: e.end || '（辨識不到「合」，可能被截斷）' }));
+        if (row.key === 'tension') td.appendChild(el('div', { cls: 'excerpt', text: e.note.tension ? e.note.tension + (e.note.pov ? '\n觀點人物：' + e.note.pov : '') : '（沒有鏡頭註記）' }));
+        if (row.key === 'stats') {
+          td.appendChild(el('div', { cls: 'excerpt', text: fmt(a.total) + ' 字；' + (a.ratio ? '起承 ' + CSL.pct(a.ratio.setup) + '／轉 ' + CSL.pct(a.ratio.problem) + '／合 ' + CSL.pct(a.ratio.decision) : '比例無法計算') + '\n可疑數字 ' + a.flaggedNumbers + '；[待查證] ' + a.verifyTags + '；對話 ' + a.dialogues }));
+        }
+        if (row.key === 'review') {
+          var rs = state.compare.reviews.filter(function (r) { return r.target === v.m; });
+          if (!rs.length) td.appendChild(el('span', { cls: 'hint', text: '尚無審查' }));
+          rs.forEach(function (r) {
+            var txt = r.m + ' 號審：' + (r.failed.length ? '未通過 ' + r.failed.map(function (f) { return f + FAIL_LABELS[f - 1]; }).join('、') : '八項皆通過');
+            if (r.borrow) txt += '\n最值得借用：' + r.borrow;
+            if (r.three) txt += '\n三句話：' + r.three;
+            td.appendChild(el('div', { cls: 'excerpt', text: txt }));
+          });
+        }
+        if (row.key === 'full') td.appendChild(el('details', null, [el('summary', { text: '展開全文（' + fmt(a.total) + ' 字）' }), el('div', { text: v.text })]));
+        if (row.vote) {
+          var id = 'vote-' + row.key + '-' + v.key;
+          var rb = el('input', { type: 'radio', name: 'vote-' + row.key, id: id, value: v.key });
+          rb.checked = state.compare.votes[row.key] === v.key;
+          if (rb.checked) td.classList.add('win');
+          rb.addEventListener('change', function () {
+            state.compare.votes[row.key] = v.key; save();
+            // update highlight in place: a full re-render would reset the table's scroll and focus
+            document.querySelectorAll('input[name="vote-' + row.key + '"]').forEach(function (r) {
+              var cell = r.closest('td'); if (cell) cell.classList.toggle('win', r.checked);
+            });
+            renderStageD();
+          });
+          td.appendChild(el('label', { cls: 'pick', for: id }, [rb, el('span', { text: '選這版' })]));
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    renderStageD();
+  }
+  ['open', 'turn', 'end', 'tension'].forEach(function (k) {
+    $('rs-' + k).addEventListener('input', function (e) { state.compare.reasons[k] = CSL.clip(e.target.value, 1000); renderStageDDebounced(); save(); });
+  });
+  $('cmp-outline').addEventListener('input', function (e) { state.compare.outline = CSL.clip(e.target.value, 4000); renderStageDDebounced(); save(); });
+  $('sd-out').addEventListener('input', function (e) { state.compare.sd = CSL.clip(e.target.value, 60000); renderSheetDebounced(); save(); });
+
+  function versionByKey(k) { for (var i = 0; i < state.compare.versions.length; i++) if (state.compare.versions[i].key === k) return state.compare.versions[i]; return null; }
+  function compareResultText() {
+    var lines = [];
+    var labels = { open: '開場', turn: '轉折', end: '結尾', tension: '最撐得起討論的理論張力' };
+    ['open', 'turn', 'end', 'tension'].forEach(function (k) {
+      var v = versionByKey(state.compare.votes[k]);
+      var line = labels[k] + '：' + (v ? '選 ' + vLabel(v) : '尚未選定');
+      if (k === 'tension' && v) { var e = CSL.excerpts(v.text); if (e.note.tension) line += '（該版鏡頭註記：' + e.note.tension + '）'; }
+      if (k !== 'tension' && state.compare.reasons[k].trim()) line += '。理由：' + state.compare.reasons[k].trim();
+      lines.push(line);
+    });
+    lines.push('理論一句話草稿（我們自己寫的）：' + (state.compare.reasons.tension.trim() || '（尚未寫）'));
+    lines.push('');
+    lines.push('各版本概況：');
+    sortedVersions().forEach(function (v) {
+      var a = CSL.analyzeStory(v.text, { card: compareCard(), alias: state.alias });
+      var e = CSL.excerpts(v.text);
+      lines.push('・' + vLabel(v) + '：' + fmt(a.total) + ' 字' + (e.note.tension ? '；張力：' + e.note.tension : ''));
+    });
+    return lines.join('\n');
+  }
+  function reviewNotesText() {
+    if (!state.compare.reviews.length) return '';
+    return state.compare.reviews.map(function (r) {
+      var s = r.m + ' 號審 ' + r.target + ' 號：' + (r.failed.length ? '未通過 ' + r.failed.map(function (f) { return f + FAIL_LABELS[f - 1]; }).join('、') : '八項皆通過');
+      if (r.borrow) s += '；最值得借用：' + r.borrow;
+      if (r.three) s += '；三句話：' + r.three;
+      return s;
+    }).join('\n');
+  }
+  function stageD() { return CSL.buildStageD(C, state.compare.versions.length, compareResultText(), reviewNotesText(), state.compare.outline); }
+  function renderStageD() {
+    var ok = state.compare.versions.length >= 2;
+    $('pr-d').value = ok ? stageD() : '至少匯入兩份版本並完成比稿後，這裡才會出現 prompt。';
+    $('btn-copy-d').disabled = !ok;
+    renderSheet();
+  }
+  var renderStageDDebounced = debounce(renderStageD, 250);
+  $('btn-copy-d').addEventListener('click', function () {
+    if (state.compare.versions.length < 2) return;
+    guardedCopy(stageD(), '已複製 Stage D prompt。請在 AI 開新對話貼上。');
+  });
+  function sheetPairs() {
+    var pairs = [];
+    pairs.push(['課程', C.session.course + '　' + C.session.date]);
+    pairs.push(['組別', state.setup.group || '（未填）']);
+    pairs.push(['這件事', state.canvas.oneliner || '（未填）']);
+    pairs.push(['版本數', String(state.compare.versions.length) + '（' + sortedVersions().map(vLabel).join('、') + '）']);
+    var labels = { open: '最佳開場', turn: '最佳轉折', end: '最佳結尾', tension: '理論一句話草稿' };
+    ['open', 'turn', 'end', 'tension'].forEach(function (k) {
+      var v = versionByKey(state.compare.votes[k]);
+      pairs.push([labels[k], (v ? vLabel(v) : '尚未選定') + (state.compare.reasons[k].trim() ? '\n理由：' + state.compare.reasons[k].trim() : '')]);
+    });
+    pairs.push(['審查摘要', reviewNotesText() || '（無）']);
+    pairs.push(['Stage D 輸出', state.compare.sd.trim() || '（尚未貼上）']);
+    return pairs;
+  }
+  function renderSheet() {
+    var box = $('sheet-body'); clear(box);
+    var dl = el('dl');
+    sheetPairs().forEach(function (p) { dl.appendChild(el('dt', { text: p[0] })); dl.appendChild(el('dd', { text: p[1] })); });
+    box.appendChild(dl);
+  }
+  var renderSheetDebounced = debounce(renderSheet, 300);
+  $('btn-copy-sheet').addEventListener('click', function () {
+    guardedCopy(sheetPairs().map(function (p) { return '【' + p[0] + '】\n' + p[1]; }).join('\n\n'), '已複製成果單文字');
+  });
+  $('btn-print').addEventListener('click', function () { try { window.print(); } catch (e) { toast('這個環境不能列印，請改用「複製成果單文字」。'); } });
+  function renderP4() {
+    ['open', 'turn', 'end', 'tension'].forEach(function (k) { $('rs-' + k).value = state.compare.reasons[k]; });
+    $('cmp-outline').value = state.compare.outline;
+    $('sd-out').value = state.compare.sd;
+    renderCompare();
+  }
+
+  /* ---------------- 教師模式 ---------------- */
+  var RUN = C.runsheet;
+  var tickTimer = null;
+  function phaseMs(i) { return RUN[Math.max(0, Math.min(RUN.length - 1, i))].min * 60000; }
+  function remainingMs() {
+    var t = state.teacher;
+    if (t.endsAt) return t.endsAt - Date.now();
+    if (t.remaining != null) return t.remaining;
+    return phaseMs(t.idx);
+  }
+  function mmss(ms) {
+    var neg = ms < 0; ms = Math.abs(ms);
+    var s = Math.round(ms / 1000), m = Math.floor(s / 60); s = s % 60;
+    return (neg ? '+' : '') + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function renderClock() {
+    var t = state.teacher, i = Math.min(t.idx, RUN.length - 1), p = RUN[i];
+    var rem = remainingMs();
+    $('t-phase').textContent = p.start + '　' + p.title;
+    var tm = $('t-time'); tm.textContent = mmss(rem); tm.classList.toggle('over', rem < 0);
+    $('t-bar').style.width = Math.max(0, Math.min(100, (1 - rem / phaseMs(i)) * 100)).toFixed(1) + '%';
+    $('t-screen').textContent = p.screen;
+    $('t-next').textContent = i + 1 < RUN.length ? '下一段：' + RUN[i + 1].start + ' ' + RUN[i + 1].title : '最後一段';
+    $('t-toggle').textContent = t.endsAt ? '暫停' : '開始';
+    var items = $('t-agenda').children;
+    for (var k = 0; k < items.length; k++) { items[k].classList.toggle('now', k === i); items[k].classList.toggle('done', k < i); }
+  }
+  function renderTeacher() {
+    var ag = $('t-agenda');
+    if (!ag.children.length) RUN.forEach(function (p) { ag.appendChild(el('li', { text: p.start + '　' + p.title + '（' + p.min + ' 分）' })); });
+    var cuts = $('t-cuts');
+    if (!cuts.children.length) C.cutOrder.forEach(function (c) { cuts.appendChild(el('li', { text: c })); });
+    $('t-url').textContent = C.session.site_url;
+    var qr = $('t-qr');
+    if (!qr.firstChild && C.qr && C.qr.d) {
+      var ns = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + C.qr.size + ' ' + C.qr.size);
+      svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', '平台網址 QR code');
+      var path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', C.qr.d); path.setAttribute('fill', '#000000');
+      svg.appendChild(path); qr.appendChild(svg);
+    }
+    renderClock();
+    clearInterval(tickTimer);
+    tickTimer = setInterval(function () { if (!$('view-teacher').hidden) renderClock(); else clearInterval(tickTimer); }, 500);
+  }
+  function setPhase(i) {
+    state.teacher.idx = Math.max(0, Math.min(RUN.length - 1, i));
+    var running = !!state.teacher.endsAt;
+    state.teacher.remaining = null;
+    state.teacher.endsAt = running ? Date.now() + phaseMs(state.teacher.idx) : null;
+    saveNow(); renderClock();
+  }
+  function toggleClock() {
+    var t = state.teacher;
+    if (t.endsAt) { t.remaining = t.endsAt - Date.now(); t.endsAt = null; }
+    else { t.endsAt = Date.now() + (t.remaining != null ? t.remaining : phaseMs(t.idx)); t.remaining = null; }
+    saveNow(); renderClock();
+  }
+  function adjust(ms) {
+    var t = state.teacher;
+    if (t.endsAt) t.endsAt += ms; else t.remaining = (t.remaining != null ? t.remaining : phaseMs(t.idx)) + ms;
+    saveNow(); renderClock();
+  }
+  function syncToWallClock() {
+    var now = new Date(), mins = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+    for (var i = 0; i < RUN.length; i++) {
+      var hm = RUN[i].start.split(':'), st = parseInt(hm[0], 10) * 60 + parseInt(hm[1], 10);
+      if (mins >= st && mins < st + RUN[i].min) {
+        state.teacher.idx = i;
+        state.teacher.endsAt = Date.now() + (st + RUN[i].min - mins) * 60000;
+        state.teacher.remaining = null; saveNow(); renderClock();
+        toast('已對齊到「' + RUN[i].title + '」'); return;
+      }
+    }
+    toast('現在不在 14:00–18:00 的課程時段內');
+  }
+  $('t-toggle').addEventListener('click', toggleClock);
+  $('t-prev').addEventListener('click', function () { setPhase(state.teacher.idx - 1); });
+  $('t-next-btn').addEventListener('click', function () { setPhase(state.teacher.idx + 1); });
+  $('t-minus').addEventListener('click', function () { adjust(-60000); });
+  $('t-plus').addEventListener('click', function () { adjust(60000); });
+  $('t-sync').addEventListener('click', syncToWallClock);
+  $('t-full').addEventListener('click', function () {
+    var v = $('view-teacher');
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (v.requestFullscreen) { var pr = v.requestFullscreen(); if (pr && pr.catch) pr.catch(function () { toast('這個環境不支援全螢幕'); }); }
+      else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+      else toast('這個環境不支援全螢幕');
+    } catch (e) { toast('這個環境不支援全螢幕'); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if ($('view-teacher').hidden) return;
+    var tag = (e.target && e.target.tagName) || '';
+    if (/INPUT|TEXTAREA|SELECT/.test(tag)) return;
+    if (e.key === ' ') { if (tag === 'BUTTON') return; e.preventDefault(); toggleClock(); }
+    else if (e.key === 'ArrowRight') setPhase(state.teacher.idx + 1);
+    else if (e.key === 'ArrowLeft') setPhase(state.teacher.idx - 1);
+    else if (e.key === 'f' || e.key === 'F') $('t-full').click();
+  });
+  $('t-demo').addEventListener('click', function () {
+    var dv = C.demoVersions || [];
+    if (dv.length < 2) { $('t-demo-msg').textContent = '這個版本沒有內建示範稿。'; return; }
+    if (state.compare.versions.length && !state.compare.isDemo) { confirmTwice(this, '會取代 ④ 裡的版本，再按一次確認', loadDemoCompare); return; }
+    loadDemoCompare();
+  });
+  // Demo versions go into the compare view only: the student's canvas and material card are never touched.
+  function loadDemoCompare() {
+    var dv = C.demoVersions || [];
+    state.compare.isDemo = true;
+    state.compare.versions = [];
+    state.compare.reviews = [];
+    state.compare.votes = { open: null, turn: null, end: null, tension: null };
+    dv.forEach(function (v, i) {
+      var p = CSL.parsePacks(CSL.makePacks({ t: 'version', g: '示範', m: i + 1, lens: v.lens, tension: v.tension }, v.text).join('\n'));
+      if (p.packs[0]) addVersion(p.packs[0].h, p.packs[0].text);
+    });
+    saveNow();
+    $('t-demo-msg').textContent = '已載入 ' + dv.length + ' 份示範版本。切到 ④ 比稿收斂即可投影。學生匯入自己的版本時，示範版本會自動清除。';
+    toast('示範比稿已載入');
+  }
+
+  /* ---------------- 隱私 ---------------- */
+  $('btn-export-all').addEventListener('click', function () {
+    copyText('CSL-BACKUP v1\n' + JSON.stringify(state), '已複製全部資料。請貼到安全的地方保存。');
+  });
+  $('btn-restore').addEventListener('click', function () {
+    var raw = $('restore-in').value.trim();
+    var msg = $('about-msg');
+    if (raw.length > 2000000) { msg.textContent = '備份內容太大（超過 200 萬字），無法還原。'; return; }
+    if (raw.indexOf('CSL-BACKUP v1') !== 0) { msg.textContent = '這不是本平台的備份格式（應以 CSL-BACKUP v1 開頭）。'; return; }
+    try {
+      var parsed = JSON.parse(raw.slice('CSL-BACKUP v1'.length));
+      var curRev = Math.max(state.rev, storedRev());
+      state = CSL.sanitizeState(parsed, BASE);
+      state.compare.sd = CSL.clip(parsed && parsed.compare && typeof parsed.compare.sd === 'string' ? parsed.compare.sd : '', 60000);
+      state.rev = curRev;
+      saveNow(); renderSetup();
+      $('restore-in').value = '';
+      msg.textContent = '已還原。';
+    } catch (e) { msg.textContent = '備份內容損壞，無法還原。'; }
+  });
+  $('btn-clear').addEventListener('click', function () {
+    $('btn-clear').hidden = true; $('btn-clear-confirm').hidden = false; $('btn-clear-cancel').hidden = false;
+    $('btn-clear-confirm').focus();
+  });
+  $('btn-clear-cancel').addEventListener('click', function () {
+    $('btn-clear').hidden = false; $('btn-clear-confirm').hidden = true; $('btn-clear-cancel').hidden = true;
+  });
+  $('btn-clear-confirm').addEventListener('click', function () {
+    clearTimeout(saveTimer); saveTimer = null;
+    try { window.localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+    try { window.sessionStorage.removeItem(ALIAS_KEY); } catch (e) { /* ignore */ }
+    state = fresh();
+    ['restore-in', 'cmp-import', 'revise-in', 'revise-extra', 'copy-modal-text'].forEach(function (id) { var n = $(id); if (n) n.value = ''; });
+    $('btn-clear').hidden = false; $('btn-clear-confirm').hidden = true; $('btn-clear-cancel').hidden = true;
+    renderSetup();
+    $('about-msg').textContent = '本機資料已清除。';
+    toast('本機資料已清除');
+  });
+
+  /* ---------------- boot ---------------- */
+  var fb = $('js-fallback'); if (fb) fb.hidden = true;
+  if (C.build && C.build.target === 'artifact') {
+    document.querySelectorAll('[data-print-only]').forEach(function (n) { n.hidden = true; });
+  }
+  load();
+  renderSetup();
+  route();
+  renderSteps();
+  if (!storageOk) toast('這個瀏覽器不允許存檔（例如私密視窗）。重新整理會遺失內容。');
+})();
+</script>
+</body>
+</html>
