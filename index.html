@@ -3,146 +3,214 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;; img-src data:; connect-src &#x27;none&#x27;; style-src &#x27;sha256-lb/qV+PIAtwHNqMOupff01g0NyxPh39C6shdOpGieok=&#x27;; script-src &#x27;sha256-3sA4TMm75WUPXncmvJw2Y/wsEJCiOaxeIfTGe7s6o80=&#x27;">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;; img-src data:; connect-src &#x27;none&#x27;; style-src &#x27;sha256-ySStGdNjMCAl7ye7CcqTO4t2tzmFKXSEnWfu9jJmg24=&#x27;; script-src &#x27;sha256-CrvRgEhAVgMFaQxYO3juYW/rciizR5WuZPG+TQXpmdw=&#x27;">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
 <title>AI 說故事工作坊｜提示詞</title>
 <style>
 :root{
-  --bg:#f5f7fa;--surface:#fff;--surface-2:#eef2f7;--ink:#14243a;--muted:#566577;--line:#d6dde6;
-  --blue:#004f91;--on-blue:#fff;--blue-soft:#e5eef7;
-  --w1:#004f91;--w1-soft:#e5eef7;--w2:#8a5d00;--w2-soft:#fbf0d2;--w3:#1d7347;--w3-soft:#e3f2ea;
-  --red:#b5222a;--red-soft:#fbe8e9;--focus:#2b7de9;
-  --shadow:0 1px 2px rgba(20,36,58,.06),0 6px 20px rgba(20,36,58,.05);
-  --font:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --paper:#f6f8f7;--sheet:#fff;
+  --ink:#15181c;--ink-2:#414a53;--ink-3:#69737d;--rule:#b9c2c9;--rule-2:#dde3e6;
+  --red:#d2232a;--red-deep:#a3161d;--red-wash:#fdeeee;
+  --blue:#1f6fb2;--blue-deep:#17558a;--blue-rule:#a9c9e6;--blue-wash:#dcebf7;
+  --ming:"Songti TC","Noto Serif TC","Source Han Serif TC","PMingLiU","MingLiU",serif;
+  --hei:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --kai:"Kaiti TC","BiauKai","DFKai-SB","KaiTi",cursive;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{
-  --bg:#0d1520;--surface:#142030;--surface-2:#1a2a3d;--ink:#e5ebf2;--muted:#9babbd;--line:#2a3b50;
-  --blue:#79b0e3;--on-blue:#0d1520;--blue-soft:#18304a;
-  --w1:#79b0e3;--w1-soft:#18304a;--w2:#e6b94d;--w2-soft:#32290f;--w3:#67c995;--w3-soft:#14302a;
-  --red:#f08a8f;--red-soft:#3a1d22;--focus:#7fb4ff;--shadow:none;color-scheme:dark;
-}}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:64px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:var(--top,90px);scrollbar-color:var(--blue) var(--paper)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.7}
-a{color:var(--blue);text-underline-offset:.2em}
-:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
-.wrap{max-width:860px;margin:0 auto;padding:0 16px}
-header.top{background:var(--surface);border-bottom:1px solid var(--line);padding:28px 0 22px}
-.eyebrow{margin:0;color:var(--muted);font-size:14px;letter-spacing:.02em}
-h1{margin:6px 0 4px;font-size:clamp(26px,5vw,36px);line-height:1.25;letter-spacing:.01em;text-wrap:balance}
-.sub{margin:0;font-size:clamp(18px,3.2vw,22px);color:var(--blue);font-weight:600}
-.lede{margin:14px 0 0;color:var(--muted);max-width:40em}
-nav.steps{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
-nav.steps ol{display:flex;gap:6px;list-style:none;margin:0 auto;padding:8px 16px;max-width:860px;overflow-x:auto}
-nav.steps a{display:flex;align-items:center;gap:6px;white-space:nowrap;padding:6px 12px;border-radius:999px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:600;border:1px solid var(--line);background:var(--bg)}
-nav.steps a:hover{border-color:var(--blue)}
-nav.steps .dot{width:9px;height:9px;border-radius:50%;flex:none}
-main{padding:22px 0 56px}
-section{margin:0 0 22px}
-h2{font-size:22px;margin:0 0 10px;line-height:1.35}
-h3{font-size:17px;margin:18px 0 6px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px 20px 22px}
-.before ul,.tips{margin:0;padding-left:1.2em}
-.before li,.tips li{margin:4px 0}
-.map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 0;padding:0;list-style:none}
-.map li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);border-top:4px solid var(--c)}
-.map b{display:block;font-size:17px}
-.map span{display:block;font-size:14px;color:var(--muted)}
-@media (max-width:640px){.map{grid-template-columns:repeat(2,1fr)}}
-.stage{border-left:6px solid var(--c)}
-.stage-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:6px}
-.stage-head h2{margin:0;font-size:24px}
-.num{color:var(--c);font-size:28px;font-weight:700;line-height:1}
-.badge{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--cs);color:var(--c);border:1px solid var(--c)}
-.mins{font-size:14px;color:var(--muted);margin-left:auto}
-.goal{font-size:18px;margin:4px 0 12px}
-dl.how{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0 0 6px}
-dl.how dt{font-weight:700;color:var(--muted);white-space:nowrap}
-dl.how dd{margin:0}
-.write{margin:14px 0 0;padding:10px 14px;border-radius:10px;background:var(--surface-2);border:1px dashed var(--muted)}
-.write b{color:var(--red)}
-.prompt{margin:16px 0 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
-.prompt.minor{opacity:.95}
-.prompt-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 12px;background:var(--surface-2)}
-.prompt-bar strong{font-size:16px;margin-right:auto}
-button{font:inherit;cursor:pointer}
-.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:44px;padding:8px 18px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:var(--on-blue);font-weight:700}
-.btn:hover{filter:brightness(1.08)}
-.btn.ghost{background:transparent;color:var(--blue)}
-.btn.done{background:var(--w3);border-color:var(--w3)}
-details>summary{cursor:pointer;padding:8px 12px;color:var(--muted);font-size:15px;list-style-position:inside}
-pre{margin:0;padding:12px 14px 16px;white-space:pre-wrap;word-break:break-word;font-family:var(--font);font-size:15px;line-height:1.65;border-top:1px solid var(--line);max-height:60vh;overflow:auto}
-.three ol{margin:6px 0 8px;padding-left:1.3em}
-.three li{margin:6px 0}
-.hw-line{font-size:18px;font-weight:700;margin:0 0 8px}
-.dl{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-.note{color:var(--muted);font-size:15px}
-footer{color:var(--muted);font-size:14px;padding:0 0 40px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--hei);font-size:17px;line-height:1.75;font-variant-numeric:tabular-nums}
+::selection{background:var(--red);color:#fff}
+a{color:var(--blue-deep);text-decoration-thickness:1.5px;text-underline-offset:.22em}
+a:hover{color:var(--red-deep)}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+h1,h2,h3,p,ol,ul,dl,dd{margin:0}
+ol,ul{padding:0;list-style:none}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* ---------- 頁首 ---------- */
+.mast{position:sticky;top:0;z-index:10;background:var(--sheet);border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:8px 22px;padding:12px clamp(16px,3vw,32px);flex-wrap:wrap}
+.mast h1{font-family:var(--ming);font-weight:900;font-size:22px;letter-spacing:.04em;line-height:1.3}
+.mast p{font-size:16px;color:var(--ink-2);line-height:1.4}
+.mast .folio{font-size:16px;font-weight:700;color:var(--blue-deep);white-space:nowrap}
+.mast .tool{margin-left:auto}
+@media (max-width:760px){.mast h1{font-size:20px}.mast .btn{min-height:44px;padding:7px 14px;font-size:16px}}
+.subline span{display:inline-block}
+.subline{display:none;margin:0;padding:8px clamp(16px,3vw,32px);font-size:16px;line-height:1.5;color:var(--ink-2);background:var(--paper);border-bottom:1px solid var(--rule)}
+@media (max-width:980px){.mast p{display:none}.subline{display:block}}
+@media (max-width:560px){.mast .folio{display:none}}
+
+/* ---------- 按鈕 ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:9px 22px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;font-weight:700;font-size:17px;text-decoration:none;transition:background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease)}
+.btn:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.btn:active{background:var(--ink-2);border-color:var(--ink-2)}
+.btn.line{background:var(--sheet);color:var(--ink)}
+.btn.line:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.btn.done,.btn.done:hover{background:var(--sheet);border-color:var(--ink);color:var(--ink)}
+
+/* ---------- 版面：目錄欄＋稿面 ---------- */
+.frame{display:grid;grid-template-columns:minmax(0,1fr)}
+.toc{position:sticky;top:var(--mast-h,62px);z-index:9;background:var(--blue-wash);border-bottom:1.5px solid var(--blue);display:flex;overflow-x:auto;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc .lab{display:none}
+.toc ol{display:flex;flex:none}
+.toc a{display:flex;align-items:baseline;gap:8px;padding:11px 16px;white-space:nowrap;color:var(--ink);text-decoration:none;border-right:1px solid var(--blue-rule)}
+.toc a i{font-style:normal;font-weight:700;font-size:19px;color:var(--blue-deep)}
+.toc a b{font-family:var(--ming);font-weight:900;font-size:18px}
+.toc a small{display:none;font-size:16px;color:var(--ink-2)}
+.toc a:hover{background:#c9e0f3}
+.toc a[aria-current]{background:var(--sheet)}
+.toc a[aria-current] i{color:var(--ink)}
+.toc a[aria-current] b{text-decoration:underline 2px var(--ink);text-underline-offset:.3em}
+.toc .extra a b{font-family:var(--hei);font-weight:600;font-size:16px}
+main{background:var(--sheet);min-width:0}
+
+@media (min-width:1180px){
+  .frame{grid-template-columns:300px minmax(0,1fr)}
+  .toc{display:block;top:var(--mast-h,62px);align-self:start;height:calc(100vh - var(--mast-h,62px));border-bottom:0;border-right:1.5px solid var(--blue);padding:26px 0;overflow-y:auto}
+  .toc .lab{display:block;margin:0;font-size:16px;font-weight:700;color:var(--blue-deep);padding:0 26px 8px}
+  .toc ol{display:block}
+  .toc ol+.lab{margin-top:30px}
+  .toc a{display:grid;grid-template-columns:38px 1fr;row-gap:0;padding:13px 26px;white-space:normal;border-right:0;border-top:1px solid var(--blue-rule)}
+  .toc a i{font-size:26px}.toc a b{font-size:21px}
+  .toc a small{display:block;grid-column:2;line-height:1.4}
+  .toc a[aria-current] b{text-decoration:none}
+  .toc .extra a{display:block}
+}
+
+/* ---------- 區段（一張校樣） ---------- */
+.sheetpage{padding:clamp(28px,5vw,48px) clamp(16px,4vw,44px) clamp(30px,5vw,52px);border-bottom:1px dashed var(--blue)}
+.sheetpage:last-of-type{border-bottom:0}
+.sheetpage>*{max-width:46rem}
+.head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
+.head .n{font-family:var(--ming);font-weight:900;font-size:clamp(44px,7vw,60px);line-height:1;color:var(--blue)}
+.head h2{font-family:var(--ming);font-weight:900;font-size:clamp(36px,6vw,52px);line-height:1.15;letter-spacing:.02em;text-wrap:balance}
+.where{font-size:18px;color:var(--blue-deep);font-weight:700;margin-top:4px}
+.where b{color:var(--ink);font-weight:900}
+.lede{font-family:var(--ming);font-size:clamp(19px,2.6vw,22px);line-height:1.7;margin-top:14px;max-width:30em}
+.how{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:18px;font-size:16px;line-height:1.65}
+.how dt{font-weight:700;color:var(--ink-3);white-space:nowrap}
+
+/* ---------- 頁邊批註 ---------- */
+.marg{margin-top:26px;color:var(--red-deep)}
+.marg h3{font-size:18px;font-weight:700;color:var(--red-deep);border-bottom:1.5px solid var(--red);padding-bottom:5px;margin-bottom:6px}
+.marg li{border-bottom:1px solid #f1c9cb}
+.marg button,.marg .say{display:block;width:100%;text-align:left;background:none;border:0;padding:11px 0 10px;min-height:46px;font-family:var(--kai);font-size:clamp(22px,3vw,25px);line-height:1.45;color:var(--red)}
+.marg button small{display:block;font-family:var(--hei);font-size:16px;line-height:1.5;color:var(--red-deep)}
+.marg button:hover{background:var(--red-wash)}
+.marg button[aria-pressed=true]{background:var(--red-wash);box-shadow:0 0 0 6px var(--red-wash)}
+.marg .pen{font-family:var(--kai);font-size:clamp(22px,3vw,25px);line-height:1.45;color:var(--blue-deep);padding:11px 0 0}
+.marg .pen small{display:block;font-family:var(--hei);font-size:16px;color:var(--blue-deep)}
+
+/* ---------- 稿面（提示詞） ---------- */
+.galley{margin-top:26px;border:1.5px solid var(--ink)}
+.galley+.galley{margin-top:18px}
+.gbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;padding:10px 14px;border-bottom:1.5px solid var(--ink);background:var(--paper)}
+.gbar .pid{font-weight:700;color:var(--blue-deep);font-size:16px}
+.gbar strong{font-size:18px;margin-right:auto}
+.rows{position:relative;max-height:13.4em;overflow:hidden;font-size:16px;line-height:1.9;scrollbar-color:var(--blue) var(--sheet)}
+.rows[data-open]{max-height:none}
+.rows:not([data-open])::after{content:"";position:absolute;inset:auto 0 0 0;height:4.2em;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.row{display:grid;grid-template-columns:46px minmax(0,1fr);scroll-margin-top:150px}
+.row i{font-style:normal;font-size:13px;line-height:2.35;color:var(--blue-deep);text-align:right;padding-right:10px;border-right:1px solid var(--blue-rule);user-select:none}
+.row p{padding:0 14px 0 14px;white-space:pre-wrap;overflow-wrap:anywhere;min-height:1.9em}
+.row:first-child p,.row:first-child i{padding-top:10px}
+.row:last-child p,.row:last-child i{padding-bottom:14px}
+.row mark{color:inherit;background:none;text-decoration:underline 1px var(--red);text-underline-offset:.3em}
+.row.hit mark{text-decoration:none;background-image:linear-gradient(var(--red),var(--red));background-repeat:no-repeat;background-position:0 100%;background-size:100% 2.5px;padding-bottom:2px;animation:stroke .75s var(--ease) both}
+.row.hit i{color:var(--red);font-weight:700}
+@keyframes stroke{from{background-size:0 2.5px}to{background-size:100% 2.5px}}
+@media (prefers-reduced-motion:reduce){.row.hit mark{animation:none}}
+.inter{grid-column:2;font-family:var(--kai);font-size:22px;line-height:1.45;color:var(--red);padding:2px 14px 8px;user-select:none}
+.inter::before{content:"";display:inline-block;width:22px;border-top:1.5px solid var(--red);vertical-align:.3em;margin-right:8px}
+.more{display:flex;width:100%;align-items:center;justify-content:center;min-height:46px;border:0;border-top:1px solid var(--rule);background:var(--sheet);color:var(--blue-deep);font-size:16px;font-weight:600}
+.more:hover{background:var(--blue-wash)}
+
+@media (min-width:1380px){
+  .sheetpage{padding:48px 44px 52px}
+  .sheetpage.cols{display:grid;grid-template-columns:minmax(0,42rem) minmax(260px,1fr);column-gap:44px;align-items:start}
+  .sheetpage.cols>*{grid-column:1;max-width:none}
+  .sheetpage.cols>.marg{grid-column:2;grid-row:1/span 40;align-self:stretch;margin:-48px -44px -52px 0;padding:0 30px;background:var(--paper);border-left:1px dashed var(--blue)}
+  .marg .stick{position:sticky;top:calc(var(--mast-h,62px) + 28px);padding:150px 0 40px;max-width:21rem}
+  .intro .marg .stick{padding-top:120px}
+  .marg li{position:relative}
+  .marg li::before{content:"";position:absolute;left:-30px;top:29px;width:14px;border-top:1.5px solid var(--red)}
+  .inter{display:none}
+}
+
+/* ---------- 動工之前、帶回家 ---------- */
+.intro .lede{max-width:32em}
+.rules{margin-top:20px;counter-reset:r}
+.rules li{display:grid;grid-template-columns:38px 1fr;padding:12px 0;border-top:1px solid var(--rule-2);font-size:17px}
+.rules li::before{counter-increment:r;content:counter(r);font-family:var(--ming);font-weight:900;font-size:24px;line-height:1.3;color:var(--blue)}
+.rules b{font-family:var(--ming);font-weight:900;font-size:19px}
+.sub{font-family:var(--ming);font-weight:900;font-size:26px;margin-top:34px;line-height:1.3}
+.ask li{display:grid;grid-template-columns:7.5em 1fr;gap:4px 14px;padding:11px 0;border-top:1px solid var(--rule-2)}
+.ask{margin-top:10px;border-bottom:1px solid var(--rule-2)}
+.ask b{font-weight:700}
+.take{margin-top:18px;counter-reset:t}
+.take li{display:grid;grid-template-columns:38px 1fr;padding:12px 0;border-top:1px solid var(--rule-2)}
+.take li::before{counter-increment:t;content:counter(t);font-family:var(--ming);font-weight:900;font-size:24px;line-height:1.3;color:var(--blue)}
+.files{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+@media (max-width:520px){.ask li{grid-template-columns:1fr}.how{grid-template-columns:1fr}.how dt{margin-top:6px}}
+.colophon{padding:22px clamp(16px,4vw,44px) 40px;font-size:16px;line-height:1.7;color:var(--ink-3);background:var(--paper);border-top:2px solid var(--ink)}
+
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-#manual{position:fixed;inset:0;z-index:20;background:rgba(10,18,30,.6);display:none;align-items:center;justify-content:center;padding:16px}
+#manual{position:fixed;inset:0;z-index:30;background:rgba(21,24,28,.62);display:none;align-items:center;justify-content:center;padding:16px}
 #manual.on{display:flex}
-#manual .box{background:var(--surface);border-radius:14px;padding:18px;max-width:720px;width:100%}
-#manual textarea{width:100%;height:50vh;font:15px/1.6 var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
-.c1{--c:var(--w1);--cs:var(--w1-soft)}.c2{--c:var(--w2);--cs:var(--w2-soft)}.c3{--c:var(--w3);--cs:var(--w3-soft)}
-.dot.c1,.dot.c2,.dot.c3{background:var(--c)}
+#manual .box{background:var(--sheet);border:2px solid var(--ink);padding:20px;max-width:720px;width:100%}
+#manual h2{font-family:var(--ming);font-weight:900;font-size:26px}
+#manual p{font-size:16px;color:var(--ink-2);margin:4px 0 12px}
+#manual textarea{display:block;width:100%;height:46vh;font:16px/1.7 var(--hei);color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);padding:10px;caret-color:var(--red)}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-  <p class="eyebrow">商業個案分析與寫作（成大 EMBA，115-1）｜2026-11-22（日）</p>
+<header class="mast">
   <h1>AI 說故事工作坊</h1>
-  <p class="sub">用 AI 協作，寫出你的個案初稿</p>
-  <p class="lede">四個階段、三個對話視窗。每一段提示詞整段複製，貼進你自己的 AI。這個網頁不連線、不儲存你的任何內容。</p>
-</div></header>
-<nav class="steps" aria-label="階段"><ol><li><a href="#card"><span class="dot c1"></span>① 素材卡</a></li><li><a href="#blueprint"><span class="dot c2"></span>② 藍圖</a></li><li><a href="#draft"><span class="dot c2"></span>③ 初稿</a></li><li><a href="#read"><span class="dot c3"></span>④ 試讀與修訂</a></li><li><a href="#after">帶回家</a></li></ol></nav>
-<main><div class="wrap">
-  <section class="card before" aria-labelledby="h-before">
-    <h2 id="h-before">開工前，先讀這三行</h2>
-    <ul>
-      <li><b>寫你自己最熟的那件事。</b>你親身經歷、最想放進論文的一個決策。</li>
-      <li><b>先匿名，再開工。</b>化名對照表寫在紙上，不要貼給 AI；通過下面的「貼上 AI 前三問」才貼任何內容。</li>
-      <li><b>AI 是副駕，不是主筆。</b>故事怎麼走由你決定；它標的 [待查證] 是要你回去查的，不是事實。</li>
-    </ul>
-    <ol class="map" aria-label="四階段路線圖"><li class="c1"><b>① 素材卡</b><span>視窗一・約 25 分</span></li><li class="c2"><b>② 藍圖</b><span>視窗二・約 15 分</span></li><li class="c2"><b>③ 初稿</b><span>視窗二・約 15 分</span></li><li class="c3"><b>④ 試讀與修訂</b><span>視窗三・約 20 分</span></li></ol>
-    <div class="dl">
-      <button class="btn" type="button" id="dl-all" data-label="下載全部提示詞（.txt）">下載全部提示詞（.txt）</button>
-      <button class="btn ghost" type="button" id="copy-all" data-label="複製全部提示詞">複製全部提示詞</button>
-      <a class="btn ghost" href="worksheet.pdf" download>工作單（PDF）</a>
-      <a class="btn ghost" href="handbook.docx" download>學生手冊（Word）</a>
-    </div>
-  </section>
-
-  <section class="card three" id="three" aria-labelledby="h-three">
-    <h2 id="h-three">貼上 AI 前三問</h2>
-    <ol><li><b>報紙測試：</b>這段文字若原封不動出現在報紙上，公司會不會提告或受損？</li><li><b>內行人測試：</b>就算換掉名字，同業內行人是否仍能一眼認出是哪家公司或當事人？</li><li><b>機密測試：</b>這些數據是否屬於未公開財務、營業秘密或個人資料？</li></ol>
-    <p class="note">任一題有疑慮，先模糊化再貼：改化名、改區間、改相對比例、改產業泛稱。</p>
+  <p>用 AI 協作，寫出你的個案初稿　成大 EMBA 商業個案分析與寫作</p>
+  <span class="folio" id="folio" aria-live="off"></span>
+  <button class="btn line tool" type="button" id="dl-all" data-label="下載全部提示詞">下載全部提示詞</button>
+</header>
+<p class="subline"><span>用 AI 協作，寫出你的個案初稿</span>　<span>成大 EMBA 商業個案分析與寫作</span></p>
+<div class="frame">
+<nav class="toc" aria-label="目錄">
+  <p class="lab">動工之前</p>
+  <ol class="extra"><li><a href="#before"><b>三條規則與前三問</b></a></li></ol>
+  <p class="lab">四個階段</p>
+  <ol><li><a href="#card" data-n="1"><i>1</i><b>素材卡</b><small>視窗一・AI 訪談你</small></a></li><li><a href="#blueprint" data-n="2"><i>2</i><b>藍圖</b><small>視窗二・你決定故事怎麼走</small></a></li><li><a href="#draft" data-n="3"><i>3</i><b>初稿</b><small>視窗二・AI 依藍圖寫</small></a></li><li><a href="#read" data-n="4"><i>4</i><b>試讀與修訂</b><small>視窗三・三位同學選邊</small></a></li></ol>
+  <p class="lab">下課以後</p>
+  <ol class="extra"><li><a href="#after"><b>帶回家</b></a></li></ol>
+</nav>
+<main>
+  <section class="sheetpage intro cols" id="before" aria-labelledby="h-before">
+    <div class="head"><h2 id="h-before">動工之前</h2></div>
+    <p class="lede">四個階段、三個對話視窗。稿面上的提示詞整段複製，貼進你自己的 AI；紅字是輪到你做決定的地方，點一下，稿面會翻到那一行。這個網頁不連線，也不儲存你的任何內容。</p>
+    <ol class="rules">
+      <li><span><b>寫你自己最熟的那件事。</b>你親身經歷、最想放進論文的一個決策。</span></li>
+      <li><span><b>先匿名，再開工。</b>化名對照表寫在紙上，不要貼給 AI；先過下面三問，才貼任何內容。</span></li>
+      <li><span><b>你是總編輯。</b>故事怎麼走由你決定。AI 標的 [待查證] 是留給你回去查的，不是事實。</span></li>
+    </ol>
+    <h3 class="sub" id="three">貼上 AI 前三問</h3>
+    <ol class="ask"><li><b>報紙測試</b><span>這段文字若原封不動出現在報紙上，公司會不會提告或受損？</span></li><li><b>內行人測試</b><span>就算換掉名字，同業內行人是否仍能一眼認出是哪家公司或當事人？</span></li><li><b>機密測試</b><span>這些數據是否屬於未公開財務、營業秘密或個人資料？</span></li></ol>
+    <aside class="marg" aria-labelledby="m-before"><div class="stick"><h3 id="m-before">由你決定</h3><ul><li><p class="say">任一題有疑慮，先模糊化再貼：改化名、改區間、改相對比例、改產業泛稱。</p></li></ul></div></aside>
   </section>
   
-    <section class="card stage c1" id="card" aria-labelledby="h-card">
-      <div class="stage-head">
-        <span class="num" aria-hidden="true">①</span>
-        <h2 id="h-card">素材卡</h2>
-        <span class="badge">視窗一｜開一個新對話</span>
-        <span class="mins">約 25 分鐘</span>
-      </div>
-      <p class="goal">AI 當編輯訪談你，把「你最熟的那件事」整理成一張個案素材卡。</p>
-      <dl class="how">
-        <dt>怎麼貼</dt><dd>直接貼上，照它的問題回答。手上有畫布或本文片段，在它請你說明時一起貼。</dd>
-        <dt>做到哪</dt><dd>拿到素材卡，複製存檔。</dd>
-      </dl>
-      <ul class="tips"><li>寫你自己最熟、最想放進論文的那件事。</li><li>先寫好化名對照表（寫在紙上，不要貼給 AI）。</li><li>最多 10 題。時間到了就回「直接出卡」。</li><li>不確定的數字就說不確定，不要讓 AI 猜。</li></ul>
+    <section class="sheetpage stage cols" id="card" aria-labelledby="h-card">
+      <div class="head"><span class="n" aria-hidden="true">1</span><h2 id="h-card">素材卡</h2></div>
+      <p class="where">第一階段　<b>視窗一</b>　開一個新對話</p>
+      <p class="lede">AI 當編輯訪談你，把「你最熟的那件事」整理成一張個案素材卡。</p>
+      <dl class="how"><dt>怎麼貼</dt><dd>直接貼上，照它的問題回答。手上有畫布或本文片段，在它請你說明時一起貼。</dd><dt>做到哪</dt><dd>拿到素材卡，複製存檔。</dd></dl>
       
-      <div class="prompt">
-        <div class="prompt-bar">
-          <strong>① 素材卡提示詞</strong>
-          <button class="btn" type="button" data-copy="p1" data-label="複製這一段">複製這一段</button>
-        </div>
-        <details>
-          <summary>展開看全文（約 1,356 字）</summary>
-          <pre id="p1">你是一位資深的《哈佛商業評論》(HBR) 個案開發編輯，正在協助我把一段我親身經歷或非常熟悉的真實商業經驗，整理成一張可以用來寫情境式短個案的「個案素材卡」。全程使用繁體中文，語氣專業、友善、精準。進入追問之後，一次只問我一個問題。
+      <div class="galley">
+        <div class="gbar"><span class="pid">P1</span><strong>素材卡提示詞</strong>
+          <button class="btn" type="button" data-copy="p1" data-label="複製這一段">複製這一段</button></div>
+        <div class="rows" id="p1-rows"><div class="row" id="p1-l1" data-n="1"><i>1</i><p>你是一位資深的《哈佛商業評論》(HBR) 個案開發編輯，正在協助我把一段我親身經歷或非常熟悉的真實商業經驗，整理成一張可以用來寫情境式短個案的「個案素材卡」。全程使用繁體中文，語氣專業、友善、精準。進入追問之後，一次只問我一個問題。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p1-l2" data-n="2"><i>2</i><p>【第一步：匿名化守門（完成前不得進入素材收集）】</p></div><div class="row" id="p1-l3" data-n="3"><i>3</i><p>你的第一則訊息只做這件事，一次說完：</p></div><div class="row" id="p1-l4" data-n="4"><i>4</i><p>1. 請我為公司、關鍵人物、可識別的產品或地點各取一個化名（例如公司改為「甲科技」、執行長改為「陳總」），並把「化名對照表」寫在自己的紙本上，<mark>不要貼給你</mark>。</p></div><div class="row" id="p1-l5" data-n="5"><i>5</i><p>2. 請我一次回答「貼上 AI 前三問」：</p></div><div class="row" id="p1-l6" data-n="6"><i>6</i><p>   (一) 這段內容若原封不動出現在報紙上，公司會不會提告或受損？</p></div><div class="row" id="p1-l7" data-n="7"><i>7</i><p>   (二) 就算換掉名字，同業內行人是否仍能一眼認出是哪家公司或當事人？</p></div><div class="row" id="p1-l8" data-n="8"><i>8</i><p>   (三) 我要提供的數據，是否屬於未公開財務、營業秘密或個資？</p></div><div class="row" id="p1-l9" data-n="9"><i>9</i><p>若我的回答有任何疑慮，請具體建議我怎麼模糊化（改用區間、相對比例、產業泛稱），等我回覆「可以」之後才進入第二步；三問都沒有疑慮，就直接進入第二步。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p1-l10" data-n="10"><i>10</i><p>【第二步：先聽我說，再只問缺口】</p></div><div class="row" id="p1-l11" data-n="11"><i>11</i><p>請我用三到五句話說出「<mark>我想寫的那件事</mark>」，再用一句話說「我希望同學讀完會爭論什麼」；如果我手上有現成的材料（個案畫布、本文片段、會議筆記），請我一併貼上。提醒我：不需要告訴你後來怎麼決定的，個案會停在做決定之前。</p></div><div class="row" id="p1-l12" data-n="12"><i>12</i><p>讀完之後，請你自己把能填的先填進下列八大要素，然後告訴我「哪幾項已經夠用、哪幾項還缺」，再從最影響故事的缺口開始，一次一題追問我：</p></div><div class="row" id="p1-l13" data-n="13"><i>13</i><p>1. 公司／組織背景：產業、規模、地區、市場現況。</p></div><div class="row" id="p1-l14" data-n="14"><i>14</i><p>2. 情境導火線：發生了什麼困難、變局或危機？何時發生？</p></div><div class="row" id="p1-l15" data-n="15"><i>15</i><p>3. 主要決策點：當時必須做出什麼重大抉擇？</p></div><div class="row" id="p1-l16" data-n="16"><i>16</i><p>4. 涉及角色（6 位以內）：各自的職位、立場、個人目標或顧慮。</p></div><div class="row" id="p1-l17" data-n="17"><i>17</i><p>5. 主角（主要決策者）：化名、職稱、責任與內在動機。</p></div><div class="row" id="p1-l18" data-n="18"><i>18</i><p>6. 決策兩難的兩個選項：各自的吸引力，以及暗藏的風險。</p></div><div class="row" id="p1-l19" data-n="19"><i>19</i><p>7. 決策時間壓力：是什麼造成了期限？錯過會付出什麼代價？</p></div><div class="row" id="p1-l20" data-n="20"><i>20</i><p>8. 管理議題：我希望這個個案帶出什麼討論。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p1-l21" data-n="21"><i>21</i><p>【追問規則】</p></div><div class="row" id="p1-l22" data-n="22"><i>22</i><p>- 追問總數以 10 題為上限（第一步的三問與第二步請我說故事的那一則不算）。每次提問開頭標明「第 N 題／上限 10 題」，並先用一句話覆述上一題你聽到的重點。</p></div><div class="row" id="p1-l23" data-n="23"><i>23</i><p>- 優先追問三件事：(a) 兩個選項是否都真的有人支持、都有站得住腳的理由；(b) 至少一個我在場或很清楚經過的具體場景（哪一場會議、哪一通電話、誰說了什麼）；(c) 期限從哪裡來。</p></div><div class="row" id="p1-l24" data-n="24"><i>24</i><p>- 我的回答太籠統時，請追問到有具體的人、事、時、地為止；但不要替我補細節。</p></div><div class="row" id="p1-l25" data-n="25"><i>25</i><p>- 我說「不確定」或「不記得」的數字與事實，<mark>一律記為「[待查證]」</mark>，不要猜，也不要為了同一件事再追問第二次。</p></div><div class="row" id="p1-l26" data-n="26"><i>26</i><p>- <mark>我隨時可以回覆「直接出卡」</mark>。這時請立刻停止追問，還沒問到的欄位標記「〔待補〕」。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p1-l27" data-n="27"><i>27</i><p>【第三步：輸出「個案素材卡」】</p></div><div class="row" id="p1-l28" data-n="28"><i>28</i><p>用清楚的標題分列上述八個欄位，內容只寫我說過或我貼過的資訊。最後加兩欄：</p></div><div class="row" id="p1-l29" data-n="29"><i>29</i><p>- 「敘事張力備註」：你認為最有戲劇張力、最適合當轉折的一個事件，以及一個可以當開場的場景。</p></div><div class="row" id="p1-l30" data-n="30"><i>30</i><p>- 「待補與待查證」：條列所有〔待補〕與 [待查證] 的項目。</p></div><div class="row" id="p1-l31" data-n="31"><i>31</i><p>輸出後提醒我：把整張素材卡複製存檔，然後「開一個新的對話視窗」進行下一步。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p1-l32" data-n="32"><i>32</i><p>現在，請從第一步開始。</p></div></div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="p1-rows" data-label="展開全文（共 32 行）">展開全文（共 32 行）</button>
+        <pre id="p1" hidden>你是一位資深的《哈佛商業評論》(HBR) 個案開發編輯，正在協助我把一段我親身經歷或非常熟悉的真實商業經驗，整理成一張可以用來寫情境式短個案的「個案素材卡」。全程使用繁體中文，語氣專業、友善、精準。進入追問之後，一次只問我一個問題。
 
 【第一步：匿名化守門（完成前不得進入素材收集）】
 你的第一則訊息只做這件事，一次說完：
@@ -179,31 +247,21 @@ footer{color:var(--muted);font-size:14px;padding:0 0 40px}
 輸出後提醒我：把整張素材卡複製存檔，然後「開一個新的對話視窗」進行下一步。
 
 現在，請從第一步開始。</pre>
-        </details>
       </div>
+      <aside class="marg" aria-labelledby="m-card"><div class="stick"><h3 id="m-card">由你決定</h3><ul><li><button type="button" aria-pressed="false" data-line="p1-l11">寫你自己最熟、最想放進論文的那件事。<small>P1　第 11 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p1-l4">化名對照表寫在紙上，不要貼給它。<small>P1　第 4 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p1-l25">不確定的數字，就說不確定。<small>P1　第 25 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p1-l26">時間到了，就回「直接出卡」。<small>P1　第 26 行</small></button></li></ul></div></aside>
     </section>
-    <section class="card stage c2" id="blueprint" aria-labelledby="h-blueprint">
-      <div class="stage-head">
-        <span class="num" aria-hidden="true">②</span>
-        <h2 id="h-blueprint">藍圖</h2>
-        <span class="badge">視窗二｜開一個新對話</span>
-        <span class="mins">約 15 分鐘</span>
-      </div>
-      <p class="goal">先不寫正文。讓 AI 提出一頁藍圖，由你決定故事怎麼走。</p>
-      <dl class="how">
-        <dt>怎麼貼</dt><dd>貼上提示詞，並把結尾的括號換成你的素材卡。</dd>
-        <dt>做到哪</dt><dd>藍圖改到你滿意。</dd>
-      </dl>
-      <ul class="tips"><li>先看第一項：決策問題那一句話，是不是你真正想讓同學吵的問題？</li><li>再看第二項：天平有沒有偏一邊？偏了就補事實，或換一個選項的寫法。</li><li>至少改一個地方。照單全收，就等於讓 AI 替你決定。</li></ul>
-      <p class="write"><b>✎ 寫在工作單或筆記本上：</b>我的決策問題（一句話）＋兩個選項</p>
-      <div class="prompt">
-        <div class="prompt-bar">
-          <strong>② 藍圖提示詞</strong>
-          <button class="btn" type="button" data-copy="p2" data-label="複製這一段">複製這一段</button>
-        </div>
-        <details>
-          <summary>展開看全文（約 721 字）</summary>
-          <pre id="p2">你是一位專業的《哈佛商業評論》(HBR) 個案作者，擅長把真實商業情境寫成結構緊湊、讓高階管理者在課堂上爭論不休的情境式短個案。全程使用繁體中文。
+    <section class="sheetpage stage cols" id="blueprint" aria-labelledby="h-blueprint">
+      <div class="head"><span class="n" aria-hidden="true">2</span><h2 id="h-blueprint">藍圖</h2></div>
+      <p class="where">第二階段　<b>視窗二</b>　開一個新對話</p>
+      <p class="lede">先不寫正文。讓 AI 提出一頁藍圖，由你決定故事怎麼走。</p>
+      <dl class="how"><dt>怎麼貼</dt><dd>貼上提示詞，並把結尾的括號換成你的素材卡。</dd><dt>做到哪</dt><dd>藍圖改到你滿意。</dd></dl>
+      
+      <div class="galley">
+        <div class="gbar"><span class="pid">P2</span><strong>藍圖提示詞</strong>
+          <button class="btn" type="button" data-copy="p2" data-label="複製這一段">複製這一段</button></div>
+        <div class="rows" id="p2-rows"><div class="row" id="p2-l1" data-n="1"><i>1</i><p>你是一位專業的《哈佛商業評論》(HBR) 個案作者，擅長把真實商業情境寫成結構緊湊、讓高階管理者在課堂上爭論不休的情境式短個案。全程使用繁體中文。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p2-l2" data-n="2"><i>2</i><p>我會在下方貼上一張「個案素材卡」。這一步請你【先不要寫個案正文】，只提出一頁「個案藍圖」讓我確認。你只能使用素材卡裡的資訊，不得自行補充事實、人物或數字。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p2-l3" data-n="3"><i>3</i><p>【個案藍圖：依下列六項輸出，全部加起來約 800 字，不要超過一頁】</p></div><div class="row" id="p2-l4" data-n="4"><i>4</i><p>一、<mark>決策問題（一句話）</mark>：用這個句型寫——「（主角）必須在（期限）之前決定：（選項 A），還是（選項 B）？」</p></div><div class="row" id="p2-l5" data-n="5"><i>5</i><p>二、兩個選項的天平：A 與 B 各寫三行——吸引力、暗藏的風險、故事裡誰支持它。接著誠實評估：依目前的素材，<mark>天平有沒有明顯偏向一邊</mark>？如果有，指出原因，並告訴我需要補哪一類事實才能讓兩邊都站得住腳。</p></div><div class="row" id="p2-l6" data-n="6"><i>6</i><p>三、開場場景：個案的第一個畫面要落在主角面對這個決定的那一刻。寫出時間、地點、在場的人，以及主角當下面對的東西（一份報表、一通電話、一封信）。素材卡沒有寫到的部分，標 [待查證] 並列入第六項，不要自行設定。</p></div><div class="row" id="p2-l7" data-n="7"><i>7</i><p>四、四幕各要發生什麼：起、承、轉、合，每幕兩到三行，寫出該幕的關鍵場景與用到素材卡的哪些內容。在「轉」標出關鍵轉折事件。結尾必須停在做決定之前。</p></div><div class="row" id="p2-l8" data-n="8"><i>8</i><p>五、角色表：每位角色一行——化名、職稱、立場、他最在意的一件事。反對主角的人也要有站得住腳的理由。</p></div><div class="row" id="p2-l9" data-n="9"><i>9</i><p>六、缺口：寫正文時還缺哪些事實。每一項標明「可以先寫成 [待查證]」或「需要你現在補一句」。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p2-l10" data-n="10"><i>10</i><p>最後請問我：「<mark>要改哪裡？</mark>如果都可以，請回到提示詞頁面，貼上第 ③ 段提示詞。」</p></div><div class="row" id="p2-l11" data-n="11"><i>11</i><p>在我確認之前，不要開始寫正文。我提出修改時，請輸出修改後的完整藍圖。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p2-l12" data-n="12"><i>12</i><p>以下是我的個案素材卡：</p></div><div class="row"><i></i><p></p></div><div class="row" id="p2-l13" data-n="13"><i>13</i><p>（在此貼上你的個案素材卡）</p></div></div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="p2-rows" data-label="展開全文（共 13 行）">展開全文（共 13 行）</button>
+        <pre id="p2" hidden>你是一位專業的《哈佛商業評論》(HBR) 個案作者，擅長把真實商業情境寫成結構緊湊、讓高階管理者在課堂上爭論不休的情境式短個案。全程使用繁體中文。
 
 我會在下方貼上一張「個案素材卡」。這一步請你【先不要寫個案正文】，只提出一頁「個案藍圖」讓我確認。你只能使用素材卡裡的資訊，不得自行補充事實、人物或數字。
 
@@ -221,31 +279,21 @@ footer{color:var(--muted);font-size:14px;padding:0 0 40px}
 以下是我的個案素材卡：
 
 （在此貼上你的個案素材卡）</pre>
-        </details>
       </div>
+      <aside class="marg" aria-labelledby="m-blueprint"><div class="stick"><h3 id="m-blueprint">由你決定</h3><ul><li><button type="button" aria-pressed="false" data-line="p2-l4">這一句，是你想讓同學吵的問題嗎？<small>P2　第 4 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p2-l5">天平偏了就補事實，別讓它替你編。<small>P2　第 5 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p2-l10">至少改一處，再往下走。<small>P2　第 10 行</small></button></li></ul><p class="pen">我的決策問題（一句話）＋兩個選項<small>寫在工作單或筆記本上</small></p></div></aside>
     </section>
-    <section class="card stage c2" id="draft" aria-labelledby="h-draft">
-      <div class="stage-head">
-        <span class="num" aria-hidden="true">③</span>
-        <h2 id="h-draft">初稿</h2>
-        <span class="badge">視窗二｜接著同一個對話</span>
-        <span class="mins">約 15 分鐘</span>
-      </div>
-      <p class="goal">AI 依藍圖一次寫完約 4,000 字的四幕初稿，你把它讀完。</p>
-      <dl class="how">
-        <dt>怎麼貼</dt><dd>在同一個對話裡直接貼上。</dd>
-        <dt>做到哪</dt><dd>讀完全文，複製存檔。</dd>
-      </dl>
-      <ul class="tips"><li>生成需要幾分鐘；中途被截斷就貼「請接續」。</li><li>邊讀邊找：哪個數字、哪句話不是你說的？那就是它編的。</li><li>[待查證] 是留給你回去查的，不是既成事實。</li><li>AI 常寫得比要求短。把全文貼進 Word 看字數，不足就請它「把『轉』寫足」。</li></ul>
+    <section class="sheetpage stage cols" id="draft" aria-labelledby="h-draft">
+      <div class="head"><span class="n" aria-hidden="true">3</span><h2 id="h-draft">初稿</h2></div>
+      <p class="where">第三階段　<b>視窗二</b>　接著同一個對話</p>
+      <p class="lede">AI 依藍圖一次寫完約 4,000 字的四幕初稿，你把它讀完。</p>
+      <dl class="how"><dt>怎麼貼</dt><dd>在同一個對話裡直接貼上。</dd><dt>做到哪</dt><dd>讀完全文，複製存檔。</dd></dl>
       
-      <div class="prompt">
-        <div class="prompt-bar">
-          <strong>③ 初稿提示詞</strong>
-          <button class="btn" type="button" data-copy="p3" data-label="複製這一段">複製這一段</button>
-        </div>
-        <details>
-          <summary>展開看全文（約 1,365 字）</summary>
-          <pre id="p3">藍圖確認，請依我們剛才定案的「個案藍圖」寫出個案初稿全文。全程使用繁體中文。如果這個對話裡找不到素材卡與藍圖，請先停下來請我貼上，不要開始寫。
+      <div class="galley">
+        <div class="gbar"><span class="pid">P3</span><strong>初稿提示詞</strong>
+          <button class="btn" type="button" data-copy="p3" data-label="複製這一段">複製這一段</button></div>
+        <div class="rows" id="p3-rows"><div class="row" id="p3-l1" data-n="1"><i>1</i><p>藍圖確認，請依我們剛才定案的「個案藍圖」寫出個案初稿全文。全程使用繁體中文。如果這個對話裡找不到素材卡與藍圖，請先停下來請我貼上，不要開始寫。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l2" data-n="2"><i>2</i><p>【唯一素材來源】</p></div><div class="row" id="p3-l3" data-n="3"><i>3</i><p>只能使用素材卡、藍圖，以及我在這個對話中補充的資訊。敘事需要具體的產業數據、市場規模、財務數字、日期或引述，而上述來源沒有提供時，一律就地寫成「[待查證：需要的資料]」，<mark>絕對不可自行編造</mark>。</p></div><div class="row" id="p3-l4" data-n="4"><i>4</i><p>可以補不影響決策的場景細節（光線、動作、停頓），但不得新增素材卡沒有的事件、誰做過或沒做過什麼、角色的新主張；素材卡沒有的原話，只能依該角色已知的立場改述。素材卡沒有載明的性別、年資、會議長度不要寫。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l5" data-n="5"><i>5</i><p>【結構：四幕，一次連續寫完，全文約 4,000 字（<mark>不得少於 3,600 字</mark>）】</p></div><div class="row" id="p3-l6" data-n="6"><i>6</i><p>四幕之間以單獨一行的小標「起」「承」「轉」「合」分隔，中途不需停下等我確認。下列各幕字數是下限，寧可寫足，不要寫短；篇幅要靠場景、對話與角色的考量撐起來，不可以靠新增事實。</p></div><div class="row" id="p3-l7" data-n="7"><i>7</i><p>- 「起」（約 750 字）：第一段就是藍圖的開場場景，讓讀者直接看到主角面對決定的那一刻（約 250 字），這裡只點到「有一個決定要做」，細節留給下一幕；接著回頭交代公司背景與主角是誰。</p></div><div class="row" id="p3-l8" data-n="8"><i>8</i><p>- 「承」（約 450 字）：導火線的來龍去脈在這一幕才完整交代，不要重複「起」已經寫過的內容；張力開始累積。起與承合計約佔全文 30%。</p></div><div class="row" id="p3-l9" data-n="9"><i>9</i><p>- 「轉」（約 2,000 字，全文最重）：問題全面展開，關鍵轉折事件在這一幕發生，兩個選項各自的支持者在場景與對話中交鋒。約佔全文 50%。</p></div><div class="row" id="p3-l10" data-n="10"><i>10</i><p>- 「合」（約 800 字）：回到開場的那一刻，兩個選項清楚攤開，停在主角做決定之前。約佔全文 20%。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l11" data-n="11"><i>11</i><p>【筆法要求】</p></div><div class="row" id="p3-l12" data-n="12"><i>12</i><p>- 商業紀實小說筆法：用場景、對話、角色心境與時間壓力推進，讓讀者彷彿置身現場。</p></div><div class="row" id="p3-l13" data-n="13"><i>13</i><p>- 每位角色的立場與動機前後一致；職稱、數字、時間順序必須與素材卡完全相同。</p></div><div class="row" id="p3-l14" data-n="14"><i>14</i><p>- 兩個選項都要有吸引力，也都要有代價。讀者讀完應該會猶豫。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l15" data-n="15"><i>15</i><p>【禁止條款（違反請自行修正後再輸出）】</p></div><div class="row" id="p3-l16" data-n="16"><i>16</i><p>1. 禁純技術議題：不寫沒有管理決策張力的技術實作細節。</p></div><div class="row" id="p3-l17" data-n="17"><i>17</i><p>2. 禁無衝突敘事：不寫沒有利害衝突或兩難的平鋪直敘。</p></div><div class="row" id="p3-l18" data-n="18"><i>18</i><p>3. 禁教條式結局：不給答案、不暗示哪個選項比較好、不以說教或金句收尾。</p></div><div class="row" id="p3-l19" data-n="19"><i>19</i><p>4. 禁可識別敏感資訊：只用素材卡裡的化名，不還原、不臆測任何真實公司名、人名或未公開數據。</p></div><div class="row" id="p3-l20" data-n="20"><i>20</i><p>5. 禁瑣碎情境：不寫格局過小、撐不起高階討論的日常瑣事。</p></div><div class="row" id="p3-l21" data-n="21"><i>21</i><p>6. 禁臉譜化：不把反對主角的人寫成反派；每個人的立場都要有站得住腳的理由。</p></div><div class="row" id="p3-l22" data-n="22"><i>22</i><p>7. 禁術語出場：正文不出現學術理論名稱或管理學術語，角色只說日常的商業語言。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l23" data-n="23"><i>23</i><p>【風格錨點（僅供語氣參考，不得套用其情節與人物）】</p></div><div class="row" id="p3-l24" data-n="24"><i>24</i><p>會議室的落地窗外，城市的燈火像一張攤開的財報，明亮卻看不出盈虧。林維萱把平板推到桌子中央，螢幕上的曲線在過去四個月裡第一次拐了頭向下。「這不是季節性，」她說，聲音比她想像的更平靜，「這是我們自己造成的。」桌子另一端，行銷長沒有抬頭，財務長的筆停在半空。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l25" data-n="25"><i>25</i><p>【全文之後，請附上】</p></div><div class="row" id="p3-l26" data-n="26"><i>26</i><p>- 【待查證清單】：條列正文中所有 [待查證] 的項目。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p3-l27" data-n="27"><i>27</i><p>若因單次輸出長度限制而被截斷，請在斷點自然停下；<mark>我回覆「請接續」時</mark>，從斷點往下寫完，不要重頭來過。寫完後提醒我：把全文複製存檔，然後「開一個新的對話視窗」進行試讀。</p></div></div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="p3-rows" data-label="展開全文（共 27 行）">展開全文（共 27 行）</button>
+        <pre id="p3" hidden>藍圖確認，請依我們剛才定案的「個案藍圖」寫出個案初稿全文。全程使用繁體中文。如果這個對話裡找不到素材卡與藍圖，請先停下來請我貼上，不要開始寫。
 
 【唯一素材來源】
 只能使用素材卡、藍圖，以及我在這個對話中補充的資訊。敘事需要具體的產業數據、市場規模、財務數字、日期或引述，而上述來源沒有提供時，一律就地寫成「[待查證：需要的資料]」，絕對不可自行編造。
@@ -279,41 +327,28 @@ footer{color:var(--muted);font-size:14px;padding:0 0 40px}
 - 【待查證清單】：條列正文中所有 [待查證] 的項目。
 
 若因單次輸出長度限制而被截斷，請在斷點自然停下；我回覆「請接續」時，從斷點往下寫完，不要重頭來過。寫完後提醒我：把全文複製存檔，然後「開一個新的對話視窗」進行試讀。</pre>
-        </details>
       </div>
-      <div class="prompt minor">
-        <div class="prompt-bar">
-          <strong>備用：請接續</strong>
-          <button class="btn" type="button" data-copy="p3c" data-label="複製這一段">複製這一段</button>
-        </div>
-        <details>
-          <summary>展開看全文（約 85 字）</summary>
-          <pre id="p3c">請接續。從剛才被截斷的地方直接往下寫，維持相同的角色設定、筆法與字數配比，一路寫到四幕全文完成，最後附上【待查證清單】。需要素材卡以外的具體資料時，一律寫成 [待查證]。</pre>
-        </details>
+      <div class="galley">
+        <div class="gbar"><span class="pid">P4</span><strong>備用：請接續</strong>
+          <button class="btn" type="button" data-copy="p3c" data-label="複製這一段">複製這一段</button></div>
+        <div class="rows" id="p3c-rows"><div class="row" id="p3c-l1" data-n="1"><i>1</i><p>請接續。從剛才被截斷的地方直接往下寫，維持相同的角色設定、筆法與字數配比，一路寫到四幕全文完成，最後附上【待查證清單】。需要素材卡以外的具體資料時，一律寫成 [待查證]。</p></div></div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="p3c-rows" data-label="展開全文（共 1 行）">展開全文（共 1 行）</button>
+        <pre id="p3c" hidden>請接續。從剛才被截斷的地方直接往下寫，維持相同的角色設定、筆法與字數配比，一路寫到四幕全文完成，最後附上【待查證清單】。需要素材卡以外的具體資料時，一律寫成 [待查證]。</pre>
       </div>
+      <aside class="marg" aria-labelledby="m-draft"><div class="stick"><h3 id="m-draft">由你決定</h3><ul><li><button type="button" aria-pressed="false" data-line="p3-l3">哪個數字不是你說的？那就是它編的。<small>P3　第 3 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p3-l5">寫得太短，就請它把「轉」寫足。<small>P3　第 5 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p3-l27">中途被截斷，就貼「請接續」。<small>P3　第 27 行</small></button></li></ul></div></aside>
     </section>
-    <section class="card stage c3" id="read" aria-labelledby="h-read">
-      <div class="stage-head">
-        <span class="num" aria-hidden="true">④</span>
-        <h2 id="h-read">試讀與修訂</h2>
-        <span class="badge">視窗三｜開一個新對話；修訂回到視窗二</span>
-        <span class="mins">約 20 分鐘</span>
-      </div>
-      <p class="goal">讓三位沒看過幕後的 AI 同學讀完後選邊，再挑兩處修訂。</p>
-      <dl class="how">
-        <dt>怎麼貼</dt><dd>在新對話貼上提示詞，並把結尾的括號換成你的個案全文。</dd>
-        <dt>做到哪</dt><dd>記下三位同學的選擇，回視窗二修好兩處。</dd>
-      </dl>
-      <ul class="tips"><li>一定要開新對話：看過訪談的 AI，會猜到你想要的答案。</li><li>三位都選同一邊，代表兩難不成立，這是最該先修的。</li><li>修訂指令由你挑、由你改，不必全盤接受。</li></ul>
-      <p class="write"><b>✎ 寫在工作單或筆記本上：</b>三位同學各選哪一邊＋我決定修的兩處</p>
-      <div class="prompt">
-        <div class="prompt-bar">
-          <strong>④ 試讀提示詞</strong>
-          <button class="btn" type="button" data-copy="p4" data-label="複製這一段">複製這一段</button>
-        </div>
-        <details>
-          <summary>展開看全文（約 961 字）</summary>
-          <pre id="p4">下方是一篇準備用在 EMBA 課堂討論的情境式短個案。請你分兩段回應，全程使用繁體中文。你沒有看過作者的任何說明，只能根據個案本文作答。
+    <section class="sheetpage stage cols" id="read" aria-labelledby="h-read">
+      <div class="head"><span class="n" aria-hidden="true">4</span><h2 id="h-read">試讀與修訂</h2></div>
+      <p class="where">第四階段　<b>視窗三</b>　開一個新對話；修訂回到視窗二</p>
+      <p class="lede">讓三位沒看過幕後的 AI 同學讀完後選邊，再挑兩處修訂。</p>
+      <dl class="how"><dt>怎麼貼</dt><dd>在新對話貼上提示詞，並把結尾的括號換成你的個案全文。</dd><dt>做到哪</dt><dd>記下三位同學的選擇，回視窗二修好兩處。</dd></dl>
+      
+      <div class="galley">
+        <div class="gbar"><span class="pid">P5</span><strong>試讀提示詞</strong>
+          <button class="btn" type="button" data-copy="p4" data-label="複製這一段">複製這一段</button></div>
+        <div class="rows" id="p4-rows"><div class="row" id="p4-l1" data-n="1"><i>1</i><p>下方是一篇準備用在 EMBA 課堂討論的情境式短個案。請你分兩段回應，全程使用繁體中文。<mark>你沒有看過作者的任何說明</mark>，只能根據個案本文作答。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p4-l2" data-n="2"><i>2</i><p>【第一段：三位同學試讀】</p></div><div class="row" id="p4-l3" data-n="3"><i>3</i><p>請依序扮演三位彼此獨立、背景不同的 EMBA 同學。他們都在課前讀完了這篇個案：</p></div><div class="row" id="p4-l4" data-n="4"><i>4</i><p>- 同學甲：財務長背景，最在意現金流與風險。</p></div><div class="row" id="p4-l5" data-n="5"><i>5</i><p>- 同學乙：創業者，業務出身，最在意成長與時機。</p></div><div class="row" id="p4-l6" data-n="6"><i>6</i><p>- 同學丙：人資與營運主管，最在意團隊、信任與執行。</p></div><div class="row" id="p4-l7" data-n="7"><i>7</i><p>每一位都要回答以下四題，而且必須選邊，不可以回答「都可以」或「要看情況」：</p></div><div class="row" id="p4-l8" data-n="8"><i>8</i><p>1. 如果我是主角，我會選哪一個選項？</p></div><div class="row" id="p4-l9" data-n="9"><i>9</i><p>2. 兩句理由，並引用個案中讓我這樣判斷的句子或情節。</p></div><div class="row" id="p4-l10" data-n="10"><i>10</i><p>3. 上課時我最想問主角或作者的一個問題。</p></div><div class="row" id="p4-l11" data-n="11"><i>11</i><p>4. 讀到哪裡我覺得不可信、出戲，或看不懂？（沒有就說沒有）</p></div><div class="row"><i></i><p></p></div><div class="row" id="p4-l12" data-n="12"><i>12</i><p>【第二段：審稿人總評】</p></div><div class="row" id="p4-l13" data-n="13"><i>13</i><p>接著請你改以嚴格的 HBR 個案審稿人身分，回答：</p></div><div class="row" id="p4-l14" data-n="14"><i>14</i><p>一、表態統計：三位同學各選了哪一邊？如果三人選同一邊，直接判定「<mark>兩難不成立</mark>」，並指出是文中哪些寫法讓天平傾斜。</p></div><div class="row" id="p4-l15" data-n="15"><i>15</i><p>二、七項標準：逐項給「通過／待加強」與一句文中依據——</p></div><div class="row" id="p4-l16" data-n="16"><i>16</i><p>   1. 情境真實且具代表性　2. 決策兩難成立　3. 角色立體且立場清楚　4. 敘事張力與節奏</p></div><div class="row" id="p4-l17" data-n="17"><i>17</i><p>   5. 結構比例得當（起承約 30%／轉約 50%／合約 20%；請依正文實際篇幅估算比例與全文總字數，全文若明顯少於 3,600 字請指出）</p></div><div class="row" id="p4-l18" data-n="18"><i>18</i><p>   6. 開放式結尾（停在決定之前，不給答案、不說教）</p></div><div class="row" id="p4-l19" data-n="19"><i>19</i><p>   7. 資料誠信（列出正文有幾處 [待查證]；另外最多挑出五個「如果有誤，課堂上會被內行人質疑」的具體數字或說法，請作者自行核對）</p></div><div class="row" id="p4-l20" data-n="20"><i>20</i><p>三、<mark>最該修的兩處</mark>：只挑兩處對課堂討論影響最大的問題。每一處分兩行寫——</p></div><div class="row" id="p4-l21" data-n="21"><i>21</i><p>   (a) 修訂指令：一句可以直接貼給寫作 AI 的指令，具體說明改哪一幕、改什麼、往哪個方向改。這句指令只能要求調整寫法（場景安排、篇幅輕重、誰說了什麼、刪去重複），不可以要求寫作 AI 新增任何事實或數字。</p></div><div class="row" id="p4-l22" data-n="22"><i>22</i><p>   (b) 需要作者補的事實：如果這個問題要有新的事實才修得好，在這裡列出「請作者先回答」的問題；不需要就寫「無」。</p></div><div class="row" id="p4-l23" data-n="23"><i>23</i><p>四、一句話總結：這份初稿是否已達「可以拿到課堂討論」的水準。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p4-l24" data-n="24"><i>24</i><p>以下是個案全文：</p></div><div class="row"><i></i><p></p></div><div class="row" id="p4-l25" data-n="25"><i>25</i><p>（在此貼上你的個案全文，只貼「起」到「合」的正文，不必貼待查證清單）</p></div></div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="p4-rows" data-label="展開全文（共 25 行）">展開全文（共 25 行）</button>
+        <pre id="p4" hidden>下方是一篇準備用在 EMBA 課堂討論的情境式短個案。請你分兩段回應，全程使用繁體中文。你沒有看過作者的任何說明，只能根據個案本文作答。
 
 【第一段：三位同學試讀】
 請依序扮演三位彼此獨立、背景不同的 EMBA 同學。他們都在課前讀完了這篇個案：
@@ -342,33 +377,35 @@ footer{color:var(--muted);font-size:14px;padding:0 0 40px}
 以下是個案全文：
 
 （在此貼上你的個案全文，只貼「起」到「合」的正文，不必貼待查證清單）</pre>
-        </details>
       </div>
-      <div class="prompt">
-        <div class="prompt-bar">
-          <strong>修訂指令（貼回視窗二）</strong>
-          <button class="btn" type="button" data-copy="p4r" data-label="複製這一段">複製這一段</button>
-        </div>
-        <details>
-          <summary>展開看全文（約 232 字）</summary>
-          <pre id="p4r">請只修改下列問題，其餘段落保持原樣。只輸出被修改的那一幕全文（以單獨一行的小標「起」「承」「轉」或「合」開頭）；改了不只一幕就依序輸出。只能使用素材卡、藍圖，以及我在下方補充的事實；缺的資料寫成 [待查證]，不要替我補。輸出後請另外告訴我：這次修改有沒有和其他沒改的段落互相牴觸。
+      <div class="galley">
+        <div class="gbar"><span class="pid">P6</span><strong>修訂指令（貼回視窗二）</strong>
+          <button class="btn" type="button" data-copy="p4r" data-label="複製這一段">複製這一段</button></div>
+        <div class="rows" id="p4r-rows"><div class="row" id="p4r-l1" data-n="1"><i>1</i><p>請只修改下列問題，其餘段落保持原樣。只輸出被修改的那一幕全文（以單獨一行的小標「起」「承」「轉」或「合」開頭）；改了不只一幕就依序輸出。只能使用素材卡、藍圖，以及我在下方補充的事實；缺的資料寫成 [待查證]，不要替我補。輸出後請另外告訴我：這次修改有沒有和其他沒改的段落互相牴觸。</p></div><div class="row"><i></i><p></p></div><div class="row" id="p4r-l2" data-n="2"><i>2</i><p>要修改的問題（一行一項）：</p></div><div class="row" id="p4r-l3" data-n="3"><i>3</i><p>（在此貼上你決定採用的修訂指令；也可以改寫成自己的話）</p></div><div class="row"><i></i><p></p></div><div class="row" id="p4r-l4" data-n="4"><i>4</i><p>我補充的事實（沒有就寫「無」；不要為了修稿而編造）：</p></div><div class="row" id="p4r-l5" data-n="5"><i>5</i><p>（在此寫下你確實知道、先前沒提到的事實）</p></div></div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="p4r-rows" data-label="展開全文（共 5 行）">展開全文（共 5 行）</button>
+        <pre id="p4r" hidden>請只修改下列問題，其餘段落保持原樣。只輸出被修改的那一幕全文（以單獨一行的小標「起」「承」「轉」或「合」開頭）；改了不只一幕就依序輸出。只能使用素材卡、藍圖，以及我在下方補充的事實；缺的資料寫成 [待查證]，不要替我補。輸出後請另外告訴我：這次修改有沒有和其他沒改的段落互相牴觸。
 
 要修改的問題（一行一項）：
 （在此貼上你決定採用的修訂指令；也可以改寫成自己的話）
 
 我補充的事實（沒有就寫「無」；不要為了修稿而編造）：
 （在此寫下你確實知道、先前沒提到的事實）</pre>
-        </details>
       </div>
+      <aside class="marg" aria-labelledby="m-read"><div class="stick"><h3 id="m-read">由你決定</h3><ul><li><button type="button" aria-pressed="false" data-line="p4-l1">一定要開新對話：看過訪談的 AI，會猜到你想要的答案。<small>P5　第 1 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p4-l14">三位都選同一邊，兩難就不成立。<small>P5　第 14 行</small></button></li><li><button type="button" aria-pressed="false" data-line="p4-l20">修訂指令由你挑、由你改，不必全收。<small>P5　第 20 行</small></button></li></ul><p class="pen">三位同學各選哪一邊＋我決定修的兩處<small>寫在工作單或筆記本上</small></p></div></aside>
     </section>
-  <section class="card" id="after" aria-labelledby="h-after">
-    <h2 id="h-after">帶回家</h2>
-    <p class="hw-line">今天的初稿是你的。不必繳交，帶回去繼續寫成你論文裡的個案。</p>
-    <h3>回家怎麼繼續</h3>
-    <ul class="tips"><li>補齊 [待查證]：回去查資料或問當事人，查不到就刪掉那句。</li><li>想擴寫到 5,000 字：回到視窗二，請 AI 一幕一幕擴寫，每幕讀完再寫下一幕。</li><li>改完後再開一個新對話，重跑一次 ④ 試讀。</li></ul>
+  <section class="sheetpage" id="after" aria-labelledby="h-after">
+    <div class="head"><h2 id="h-after">帶回家</h2></div>
+    <p class="lede">今天的初稿是你的。不必繳交，帶回去繼續寫成你論文裡的個案。</p>
+    <ol class="take"><li><span>補齊 [待查證]：回去查資料或問當事人，查不到就刪掉那句。</span></li><li><span>想擴寫到 5,000 字：回到視窗二，請 AI 一幕一幕擴寫，每幕讀完再寫下一幕。</span></li><li><span>改完後再開一個新對話，重跑一次第四階段的試讀。</span></li></ol>
+    <div class="files">
+      <button class="btn" type="button" id="copy-all" data-label="複製全部提示詞">複製全部提示詞</button>
+      <a class="btn line" href="worksheet.pdf" download>工作單（PDF）</a>
+      <a class="btn line" href="handbook.docx" download>學生手冊（Word）</a>
+    </div>
   </section>
-  <footer><p>商業個案分析與寫作（成大 EMBA，115-1）｜張佑宇 教授｜提示詞 v3.0。改寫自《情境式短個案 × 生成式 AI 協作 操作手冊》v1.2。</p></footer>
-</div></main>
+  <footer class="colophon">商業個案分析與寫作（成大 EMBA）｜張佑宇 教授｜提示詞 v3.0。改寫自《情境式短個案 × 生成式 AI 協作 操作手冊》v1.2。</footer>
+</main>
+</div>
 <pre id="all-prompts" hidden>AI 說故事工作坊：用 AI 協作，寫出你的個案初稿
 商業個案分析與寫作（成大 EMBA，115-1）｜2026-11-22（日）｜提示詞 v3.0
 網頁版：https://yycncku.github.io/story-lab/
@@ -551,26 +588,31 @@ AI 依藍圖一次寫完約 4,000 字的四幕初稿，你把它讀完。
 今天的初稿是你的。不必繳交，帶回去繼續寫成你論文裡的個案。
   1. 補齊 [待查證]：回去查資料或問當事人，查不到就刪掉那句。
   2. 想擴寫到 5,000 字：回到視窗二，請 AI 一幕一幕擴寫，每幕讀完再寫下一幕。
-  3. 改完後再開一個新對話，重跑一次 ④ 試讀。
+  3. 改完後再開一個新對話，重跑一次第四階段的試讀。
 </pre>
 <div id="manual" role="dialog" aria-modal="true" aria-labelledby="manual-h"><div class="box">
   <h2 id="manual-h">請手動複製</h2>
-  <p class="note">瀏覽器不允許自動複製。文字已全選，請按 Ctrl/⌘＋C。</p>
+  <p>瀏覽器不允許自動複製。文字已全選，請按 Ctrl 或 ⌘ 加 C。</p>
   <textarea id="manual-text" readonly></textarea>
-  <div class="dl"><button class="btn" type="button" id="manual-close">關閉</button></div>
+  <div class="files"><button class="btn" type="button" id="manual-close">關閉</button></div>
 </div></div>
 <div id="live" class="sr" role="status" aria-live="polite"></div>
 <script>
 (function(){
   'use strict';
-  var live=document.getElementById('live');
+  var live=document.getElementById('live'),mast=document.querySelector('.mast');
+  var tocEl=document.querySelector('.toc');
+  function setMast(){var r=document.documentElement.style,m=mast.offsetHeight,bar=tocEl.offsetHeight<120?tocEl.offsetHeight:0;
+    r.setProperty('--mast-h',m+'px');r.setProperty('--top',(m+bar+14)+'px');}
+  setMast();window.addEventListener('resize',setMast);
+  if(window.ResizeObserver){new ResizeObserver(setMast).observe(mast);new ResizeObserver(setMast).observe(tocEl);}
   function say(t){live.textContent='';setTimeout(function(){live.textContent=t;},30);}
   function flash(btn,label){var old=btn.getAttribute('data-label');btn.textContent=label;btn.classList.add('done');
     clearTimeout(btn._t);btn._t=setTimeout(function(){btn.textContent=old;btn.classList.remove('done');},2200);}
   function manual(text){var m=document.getElementById('manual'),ta=document.getElementById('manual-text');
     ta.value=text;m.classList.add('on');ta.focus();ta.select();}
   function copy(text,btn){
-    function ok(){flash(btn,'已複製 ✓');say('已複製到剪貼簿');}
+    function ok(){flash(btn,'已複製');say('已複製到剪貼簿');}
     function fallback(){
       var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');
       ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);ta.select();
@@ -581,19 +623,53 @@ AI 依藍圖一次寫完約 4,000 字的四幕初稿，你把它讀完。
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,fallback);}
     else{fallback();}
   }
+  function open(rows,on){
+    var btn=rows.parentNode.querySelector('.more');
+    if(on){rows.setAttribute('data-open','');}else{rows.removeAttribute('data-open');}
+    btn.setAttribute('aria-expanded',on?'true':'false');
+    btn.textContent=on?'收合':btn.getAttribute('data-label');
+  }
+  function clearNote(){
+    [].forEach.call(document.querySelectorAll('.inter'),function(n){n.parentNode.removeChild(n);});
+    [].forEach.call(document.querySelectorAll('.row.hit'),function(n){n.classList.remove('hit');});
+    [].forEach.call(document.querySelectorAll('.marg button[aria-pressed=true]'),function(n){n.setAttribute('aria-pressed','false');});
+  }
   document.addEventListener('click',function(ev){
     var b=ev.target.closest('button');if(!b)return;
     if(b.hasAttribute('data-copy')){copy(document.getElementById(b.getAttribute('data-copy')).textContent,b);}
+    else if(b.classList.contains('more')){var r=b.parentNode.querySelector('.rows');if(r.hasAttribute('data-open')&&r.querySelector('.hit'))clearNote();open(r,!r.hasAttribute('data-open'));}
+    else if(b.hasAttribute('data-line')){
+      var row=document.getElementById(b.getAttribute('data-line'));if(!row)return;
+      open(row.parentNode,true);
+      var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      row.scrollIntoView({block:'center',behavior:calm?'auto':'smooth'});
+      clearNote();b.setAttribute('aria-pressed','true');
+      row.classList.add('hit');
+      var il=document.createElement('div');il.className='inter';il.setAttribute('aria-hidden','true');il.textContent=b.firstChild.textContent;row.appendChild(il);
+      say('稿面已展開到第 '+row.getAttribute('data-n')+' 行');
+    }
     else if(b.id==='dl-all'){
       var blob=new Blob(['﻿'+document.getElementById('all-prompts').textContent],{type:'text/plain;charset=utf-8'});
       var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AI說故事工作坊_提示詞.txt';
       document.body.appendChild(a);a.click();document.body.removeChild(a);
-      setTimeout(function(){URL.revokeObjectURL(a.href);},2000);flash(b,'已下載 ✓');
+      setTimeout(function(){URL.revokeObjectURL(a.href);},2000);flash(b,'已下載');
     }
     else if(b.id==='copy-all'){copy(document.getElementById('all-prompts').textContent,b);}
     else if(b.id==='manual-close'){document.getElementById('manual').classList.remove('on');}
   });
   document.addEventListener('keydown',function(ev){if(ev.key==='Escape')document.getElementById('manual').classList.remove('on');});
+  var links=[].slice.call(document.querySelectorAll('.toc a')),secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function spy(){
+    var y=mast.offsetHeight+(tocEl.offsetHeight<120?tocEl.offsetHeight:0)+60,cur=0;
+    secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=y)cur=i;});
+    links.forEach(function(a,i){if(i===cur){if(!a.hasAttribute('aria-current')){a.setAttribute('aria-current','true');
+      if(a.parentNode.parentNode.scrollWidth>a.parentNode.parentNode.clientWidth)a.parentNode.parentNode.scrollLeft=a.offsetLeft-16;}}
+      else a.removeAttribute('aria-current');});
+  }
+  var folio=document.getElementById('folio');
+  var spy0=spy;spy=function(){spy0();var c=document.querySelector('.toc a[aria-current]'),n=c&&c.getAttribute('data-n');
+    folio.textContent=n?('校樣 第 '+n+' 張／共 4 張'):'';};
+  spy();window.addEventListener('scroll',function(){spy();},{passive:true});
 })();
 </script>
 </body>
